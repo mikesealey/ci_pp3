@@ -6,9 +6,9 @@ class Vehicle(models.Model):
     vrn = models.CharField(max_length=10, unique=True)
     make = models.CharField(max_length=25, unique=False)
     model = models.CharField(max_length=25, unique=False)
-    engineCapacity = models.CharField(max_length=25, unique=False)
-    fuelType = models.CharField(max_length=25, unique=False)
-    yearOfManufacture = models.CharField(max_length=4, unique=False)
+    engine_capacity = models.CharField(max_length=25, unique=False)
+    fuel_type = models.CharField(max_length=25, unique=False)
+    year_of_manufacture = models.CharField(max_length=4, unique=False)
     colour = models.CharField(max_length=15, unique=False)
     owner = models.ForeignKey(
         User,
