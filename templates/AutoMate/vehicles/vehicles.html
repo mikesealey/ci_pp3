@@ -1,0 +1,10 @@
+{% extends "AutoMate/base.html" %}
+
+{% block content %}
+<h1>My Vehicles</h1>
+{% for vehicle in vehicles %}
+    <p>{{ vehicle.make }} {{ vehicle.model }} ({{ vehicle.vrn }})</p>
+{% empty %}
+    <p>You have no registered vehicles.</p>
+{% endfor %}
+{% endblock %}
