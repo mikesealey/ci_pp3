@@ -1,0 +1,10 @@
+{% extends "AutoMate/base.html" %}
+
+{% block content %}
+<h1>My Bookings</h1>
+{% for booking in bookings %}
+    <p>{{ booking.booking_type }} on {{ booking.date_time }}</p>
+{% empty %}
+    <p>No bookings yet.</p>
+{% endfor %}
+{% endblock %}

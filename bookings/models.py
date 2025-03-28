@@ -28,3 +28,11 @@ class Booking(models.Model):
         on_delete=models.CASCADE,
         related_name="bookings"
     )
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name="bookings",
+        null=True,
+        blank=True
+
+    )
