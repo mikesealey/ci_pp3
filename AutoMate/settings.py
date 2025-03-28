@@ -63,7 +63,7 @@ ROOT_URLCONF = 'AutoMate.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ["AutoMate/templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
