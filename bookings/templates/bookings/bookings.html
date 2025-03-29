@@ -2,7 +2,7 @@
 
 {% block content %}
 <h1>My Bookings</h1>
-{% for booking in bookings %}
+{% for booking in Bookings %}
     <p>{{ booking.booking_type }} on {{ booking.date_time }}</p>
 {% empty %}
     <p>No bookings yet.</p>
