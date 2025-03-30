@@ -1,7 +1,55 @@
-nav {
-    border: 3px solid red;
+/* colours 
+E0FBFC - Light Cyan - Highlight
+C2DFE3 - Light Blue - Positive Button
+9DB4C0 - Cadet Gray - Negative Button
+5c6B73 - Payne's Gray - Lowlight
+011502 - NIght - Background
+
+*/
+* {
+    color: #E0FBFC;
 }
 
-.one{
-    border: 3px solid red;
+body {
+    background-color: #011502;
+    width: 100vw;
+    height: 100vh;
+    padding: 0%;
+    margin: 0;
+}
+
+#nav-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: #5C6B73;
+    padding: 12px;
+    border: 2px solid #9DB4C0;
+    align-items: center;
+}
+
+nav {
+    max-height: fit-content;
+}
+
+nav ul {
+    display: flex;
+    flex-direction: row;
+
+
+}
+
+nav ul li {
+    list-style-type: none;
+
+}
+
+#title-spanner {
+    font-size: 100px;
+}
+
+#title-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }

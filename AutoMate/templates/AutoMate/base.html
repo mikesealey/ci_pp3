@@ -7,11 +7,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="../../../static/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
-    <nav>
-        <h1 class="one">nav</h1>
-    </nav>
+    <div id="nav-container">
+        <div id="title-container">
+            <i class="fa-solid fa-wrench" id="title-spanner"></i>
+            <h1>AutoMate</h1>
+        </div>
+        <nav>
+            <ul>
+                {% if user.is_authenticated %}
+                <li><a href="{% url 'vehicles' %}">My Vehicles</a></li>
+                <li><a href="{% url 'bookings' %}">My Bookings</a></li>
+                <li><a href="">My Profile</a></li>
+            {% else %}
+                <li><a href="">Login</a></li>
+                <li><a href="">Sign Up</a></li>
+            {% endif %}
+            </ul>
+            
+        </nav>
+    </div>
+    
     {% block content %}
 
     {% endblock %}
