@@ -10,6 +10,10 @@ C2DFE3 - Light Blue - Positive Button
     color: #E0FBFC;
 }
 
+a {
+    text-decoration: none;
+}
+
 body {
     background-color: #011502;
     width: 100vw;

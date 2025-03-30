@@ -19,6 +19,7 @@ from django.urls import path, include
 from vehicles.views import vehicles
 from bookings.views import bookings
 from AutoMate.views import homepage
+from .views import profile
 
 
 urlpatterns = [
@@ -26,5 +27,6 @@ urlpatterns = [
     path('vehicles/', include("vehicles.urls")),
     path('bookings/', include("bookings.urls")),
     path("", homepage, name="homepage"),
+    path("profile/", profile, name="profile")
 
 ]
