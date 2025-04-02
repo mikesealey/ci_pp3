@@ -1,7 +1,32 @@
 {% extends "AutoMate/base.html" %}
 
 {% block content %}
-    <h1>Welcome to AutoMate</h1>
-    <p><a href="{% url 'vehicles' %}">My Vehicles</a></p>
-    <p><a href="{% url 'bookings' %}">My Bookings</a></p>
+    <div class="block">
+        <h1>Welcome to AutoMate – Your Trusted Car Service & Repair Booking Platform</h1>
+        <p>At AutoMate, we make car servicing and repairs simple, fast, and hassle-free. Whether your vehicle needs a routine service, an urgent repair, or a complete check-up, our platform allows you to book an appointment with one of our trusted mechanics in just a few clicks.</p>
+        <h2>How It Works</h2>
+        <ol>
+            <li>Register for an account and provide your contact details</li>
+            <li>Enter Your Vehicle Details – Provide your car’s registration number so we can tailor our services to your needs.</li>
+            <li>Choose Your Service – Select from MOTs, general servicing, repair, diagnostics, and more. Need a repair? No problem—let us know the issue.</li>
+            <li>Pick a Date & Time – Choose a convenient appointment slot that fits your schedule.</li>
+            <li>Confirm Your Booking – Our mechanics will send you confirmation, along with details of your booking and service location.</li>
+        </ol>
+        <h2>Why choose AutoMate?</h2>
+        <ul>
+            <li>Easy Online Booking – No need for phone calls or long wait times. Book at your convenience.</li>
+            <li>Trusted Local Mechanics – We recruit and develop the finest automotive engineers to ensure top-quality service.</li>
+            <li>Reminders & Updates – Stay informed with appointment reminders and real-time updates.</li>
+
+        </ul>
+        {% if user.is_authenticated %}
+            <p><a href="{% url 'vehicles' %}">My Vehicles</a></p>
+            <p><a href="{% url 'bookings' %}">My Bookings</a></p>
+        {% else %}
+            <li><a href="">Login</a></li>
+            <li><a href="">Sign Up</a></li>
+        {% endif %}
+
+    </div>
+    
 {% endblock %}

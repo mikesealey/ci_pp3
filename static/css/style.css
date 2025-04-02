@@ -20,6 +20,10 @@ body {
     height: 100vh;
     padding: 0%;
     margin: 0;
+    background-image: url("../images/pexels-maltelu-2244746.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 #nav-container {
@@ -45,7 +49,6 @@ nav ul {
 nav ul li {
     list-style-type: none;
     padding: 12px;
-
 }
 
 #title-spanner {
@@ -61,4 +64,24 @@ nav ul li {
 #title-container a h1 {
     margin: 0 0 0 -30px;
     padding: 0;
+}
+
+.block {
+    margin: 32px;
+    padding: 0 24px 24px 24px;
+    border: 2px solid #9DB4C0;
+    background-color: #5c6b73bb;
+    height: 80vh;
+}
+
+.single-block {
+    
+}
+
+.left-block {
+
+}
+
+.right-block {
+
 }
