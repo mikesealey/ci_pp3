@@ -111,3 +111,7 @@ nav ul li {
     letter-spacing: 2px;
     font-weight: bold;
 }
+
+.electric {
+    border-left: 15px solid green;
+}
