@@ -4,8 +4,14 @@ C2DFE3 - Light Blue - Positive Button
 9DB4C0 - Cadet Gray - Negative Button
 5c6B73 - Payne's Gray - Lowlight
 011502 - NIght - Background
-
 */
+@font-face {
+    font-family: 'Mandatory';
+    src: url('/fonts/Mandatory.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
 * {
     color: #E0FBFC;
 }
@@ -96,9 +102,12 @@ nav ul li {
     aspect-ratio: 520 / 111;
     border: 1px solid black;
     border-radius: 5%;
-    font-family: sans-serif monospace;
     color: black;
     padding: 2px 12px;
     letter-spacing: 1px;
     font-size: 32px;
+    font-family: 'Mandatory', sans-serif;
+    font-size: 2rem;
+    letter-spacing: 2px;
+    font-weight: bold;
 }
