@@ -1,22 +1,39 @@
 {% extends "AutoMate/base.html" %}
+{% load static %}
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="{% static 'js/vehicles.js' %}"></script>
+
 
 {% block content %}
     <div class="double-block">
+        <!-- LEFT BLOCK -->
         <div class="block">
-            <h1>Left Block</h1>
-
+            <div id="vehicle-details">
+                <div id="vrn" class="vrn"></div>
+                <div id="make-model"></div>
+                <div id="fuel-type"></div>
+            </div>
         </div>
+        <!-- END OF LEFT BLOCK -->
+
+        <!-- RIGHT BLOCK -->
         <div class="block">
             <h1>My Vehicles</h1>
             {% for vehicle in vehicles %}
-                <div class="vehicle-list-item">
-                    <div class="vrn">{{ vehicle.vrn}}</div>
+                <div class="vehicle-list-item" style="border: 5px solid lime;">
+                    {% if vehicle.fuel_type == "electric" %}
+                        <div class="vrn electric">{{ vehicle.vrn}}</div>
+                    {% else %}
+                        <div class="vrn">{{ vehicle.vrn}}</div>
+                    {% endif%}
                     <h2>{{ vehicle.make }} {{ vehicle.model }}</h2>
                 </div>
                 
             {% endfor %}
             
         </div>
+        <!-- END OF RIGHT BLOCK -->
     </div>
 
     
