@@ -11,23 +11,11 @@
 {% block content %}
     <div class="double-block">
         <!-- LEFT BLOCK -->
-        <div class="block">
-            <!-- Displays an existing vehicle -->
-            <div id="existing-vehicle">
-                <div id="vrn-view" class="vrn">TE57CAR</div>
-                <div id="make-view"></div>
-                <div id="model-view"></div>
-                <div id="engine-capacity-view"></div>
-                <div id="fuel-type-view"></div>
-                <div id="year-of-manufacture-view"></div>
-                <div id="colour-view"></div>
-            </div>
-            <div id="new-vehicle">
-                <h1>new vehicle here</h1>
-            </div>
+        <div class="block" id="left-block">
+                Click on a registration number on the right, or create save a new vehicle
+            
         </div>
         <!-- END OF LEFT BLOCK -->
-
         <!-- RIGHT BLOCK -->
         <div class="block">
             <h1>My Vehicles</h1>
@@ -49,7 +37,7 @@
                     <h2>{{ vehicle.make }} {{ vehicle.model }}</h2>
                 </div>
             {% endfor %}
-            <div id="add-new-vehicle" class="vehicle-list-item-last"> Add new vehicle...</div>
+            <div id="add-new-vehicle" class="vehicle-list-item-last"> <h2>Add new vehicle...</h2></div>
             
         </div>
         <!-- END OF RIGHT BLOCK -->
