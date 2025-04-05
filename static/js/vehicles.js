@@ -59,9 +59,38 @@ $(document).ready(function () {
             $("<label>", { for: "colour", text: "Colour:" }),
             $("<input>", { type: "text", id: "colour", name: "colour" }),
             $("<br>"),
+            $("<button>", { type: "submit", text: "Save Vehicle" })
           );
         console.log($("#new-vehicle-form").children())
         
+        // Handle form submission
+$("#new-vehicle-form").on("submit", function(e) {
+    e.preventDefault(); // prevent page reload
 
+    // Get data from the form
+    const formData = {
+        vrn: $("#vrn").val(),
+        make: $("#make").val(),
+        model: $("#model").val(),
+        engine_capacity: $("#engine_capacity").val(),
+        fuel_type: $("#fuel_type").val(),
+        year: $("#year").val(),
+        colour: $("#colour").val()
+    };
+    // Pass it in to the request
+    $.ajax({
+        url: "/vehicles/api/add-vehicle/",
+        type: "POST",
+        contentType: "application/json",
+        data: JSON.stringify(formData),
+        success: function(response) {
+            console.log(success)
+        },
+        error: function(xhr) {
+            alert("Error: " + xhr.responseText);
+            console.log(error)
+        }
+    });
+});
     })
 });
