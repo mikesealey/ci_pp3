@@ -17,29 +17,29 @@ $(document).ready(function () {
         // Check vehicle data
         console.log(vehicleData);
         // Display vehicle data
-        $("#left-block").text("") // Empyt out the placeholder text
-        $("#left-block").append($("<div>", { id: "vrn-view", class: "vrn", text: vehicleData.vrn }))
+        $("#left-block-inner").text("") // Empyt out the placeholder anything already populated there
+        $("#left-block-inner").append($("<div>", { id: "vrn-view", class: "vrn vrn-med", text: vehicleData.vrn }))
         if (vehicleData.fuel_type === "electric") {
             $("#vrn-view").addClass("electric")
         }
-        $("#left-block").append($("<div>", { id: "make-view", text: vehicleData.make }));
-        $("#left-block").append($("<div>", { id: "model-view", text: vehicleData.model }));
-        $("#left-block").append($("<div>", { id: "engine-capacity-view", text: vehicleData.engine_capacity }));
-        $("#left-block").append($("<div>", { id: "fuel-type-view", text: vehicleData.fuel_type }));
-        $("#left-block").append($("<div>", { id: "year-of-manufacture-view", text: vehicleData.year }));
-        $("#left-block").append($("<div>", { id: "colour-view", text: vehicleData.colour }));
+        $("#left-block-inner").append($("<div>", { id: "make-view", text: vehicleData.make }));
+        $("#left-block-inner").append($("<div>", { id: "model-view", text: vehicleData.model }));
+        $("#left-block-inner").append($("<div>", { id: "engine-capacity-view", text: vehicleData.engine_capacity }));
+        $("#left-block-inner").append($("<div>", { id: "fuel-type-view", text: vehicleData.fuel_type }));
+        $("#left-block-inner").append($("<div>", { id: "year-of-manufacture-view", text: vehicleData.year }));
+        $("#left-block-inner").append($("<div>", { id: "colour-view", text: vehicleData.colour }));
     });
 
     // User clicks "Add new vehicle"
     $("#add-new-vehicle").on("click", function() {
         console.log("Adding new vehicle!")
         // Remove displayed vehicle data
-        $("#left-block").empty()
-        $("#left-block").append($("<form>", { id: "new-vehicle-form" }));
+        $("#left-block-inner").empty()
+        $("#left-block-inner").append($("<form>", { id: "new-vehicle-form" }));
         
         $("#new-vehicle-form").append(
-            $("<label>", { for: "vrn", text: "VRN:" }),
-            $("<input>", { type: "text", id: "vrn", name: "vrn" }),
+            $("<label>", { for: "vrn", text: "Your Vehicle Registration Number" }),
+            $("<input>", { type: "text", id: "vrn", name: "vrn", class: "vrn vrn-med", value: "MY00REG"}),
             $("<button>", {
                 type: "button",
                 text: "Check VRN",
