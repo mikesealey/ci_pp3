@@ -40,6 +40,35 @@ $(document).ready(function () {
         $("#new-vehicle-form").append(
             $("<label>", { for: "vrn", text: "VRN:" }),
             $("<input>", { type: "text", id: "vrn", name: "vrn" }),
+            $("<button>", {
+                type: "button",
+                text: "Check VRN",
+                click: function () {
+                  const vrn = $("#vrn").val();
+                  console.log("Sending VRN to Django backend:", vrn);
+              
+                  $.ajax({
+                    url: "/vehicles/api/query-vehicle/",
+                    method: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify({ registrationNumber: vrn }),
+                    success: function (data) {
+                      console.log("Vehicle data from DVLA:", data);
+                      // If property exists and is truthy, populate the form field with it
+                      data.colour ? $("#colour").val(data.colour) : ""
+                      data.engineCapacity ? $("#engine_capacity").val(data.engineCapacity) : ""
+                      data.fuel_Type ? $("#fuel_type").val(data.fuel_Type) : ""
+                      data.make ? $("#make").val(data.make) : ""
+                      data.model ? $("#model").val(data.model) : ""
+                      data.yearOfManufacture ? $("#year").val(data.yearOfManufacture) : ""
+                      
+                    },
+                    error: function (err) {
+                      console.error("Something went wrong:", err);
+                    }
+                  });
+                }
+              }),
             $("<br>"),
             $("<label>", { for: "make", text: "Make:" }),
             $("<input>", { type: "text", id: "make", name: "make" }),
@@ -61,7 +90,7 @@ $(document).ready(function () {
             $("<br>"),
             $("<button>", { type: "submit", text: "Save Vehicle" })
           );
-        console.log($("#new-vehicle-form").children())
+        // console.log($("#new-vehicle-form").children())
         
         // Handle form submission
 $("#new-vehicle-form").on("submit", function(e) {
@@ -93,4 +122,7 @@ $("#new-vehicle-form").on("submit", function(e) {
     });
 });
     })
+
+
 });
+

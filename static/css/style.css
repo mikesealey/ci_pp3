@@ -121,8 +121,8 @@ nav ul li {
     padding-left: 0;
 }
 
-.hidden {
-    display: none;
+form input {
+    color: black;
 }
 
 .test-class {
