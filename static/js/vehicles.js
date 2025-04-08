@@ -30,7 +30,7 @@ $(document).ready(function () {
         $("#left-block-inner").append($("<div>", { id: "colour-view", text: vehicleData.colour }));
         $("#left-block-inner").append($("<button>", { id: "delete-vehicle", text: `Delete ${vehicleData.vrn}` }));
         
-        // User clicks "Delete Vehicle"
+        // User clicks "Delete Vehicle" - Confirmation modal opens
         $("#delete-vehicle").on("click", function () {
           console.log("Opening Modal")
           $("#multi-purpose-modal-title").text("Are you sure?")
@@ -38,6 +38,10 @@ $(document).ready(function () {
           $("#multi-purpose-modal-positive").html("I'm sure I want to delete it")
           $("#multi-purpose-modal-negative").html("No, take me back to safety...")
           $("#multi-purpose-modal").modal("show");
+          $("#multi-purpose-modal-positive").on("click", function () {
+            console.log("Deleting Vehicle!")
+            deleteVehicle(vehicleData.vrn)
+          })
 
         })
     });
@@ -134,7 +138,26 @@ $("#new-vehicle-form").on("submit", function(e) {
     });
 });
     })
-
-    
+   
 });
 
+// Deletes User from Vehicle record
+// Doesn't actually delete vehicle record, only deletes the relationship
+function deleteVehicle(vrn){
+  $.ajax({
+    url: "/vehicles/api/delete_vehicle/",
+    type: "POST",
+    contentType: "application/json",
+    data: JSON.stringify({ vrn: vrn }),
+    success: function(response) {
+      console.log("Success:", response);
+      
+    },
+    error: function(xhr) {
+      alert("Error: " + xhr.responseText);
+      console.log("Error:", xhr);
+    }
+  });
+  $("#multi-purpose-modal").modal("hide");
+  // Need to build a way to re-fetch the vehicles data once a vehicle has been "deleted"
+}

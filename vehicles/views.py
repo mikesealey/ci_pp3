@@ -61,4 +61,18 @@ def query_vehicle(request):
         return JsonResponse({'error': 'API request failed'}, status=response.status_code)
     
 
+# "Delete" a vehicle 
+# (Never actually deletes a vehicle, only removes the User relationship
+# The user percieves it to be deleted, but the mechanics can still see historic service data
+@login_required
+@csrf_exempt
+def delete_vehicle(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        vrn = data.get("vrn")
+        vehicle = Vehicle.objects.get(vrn=vrn)
+        vehicle.owner = None
+        vehicle.save()
+        return JsonResponse({"status": "success", "message": f"{vrn} owner removed"})
     
+    return JsonResponse({"error": "Invalid request"}, status=400)
