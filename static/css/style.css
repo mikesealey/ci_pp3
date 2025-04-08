@@ -104,7 +104,7 @@ nav ul li {
     border: 1px solid black;
     border-radius: 5px;
     color: black;
-    padding: 2px 12px;
+    padding: 2px 12px !important;
     letter-spacing: 1px;
     font-size: 32px;
     font-family: 'Mandatory', sans-serif;
@@ -112,11 +112,11 @@ nav ul li {
     letter-spacing: 2px;
     font-weight: bold;
     /* for use in form-input */
-    text-align: center;
+    text-align: center !important;
 }
 
 .vrn-med {
-    max-height: 40px;
+    max-height: 40px !important;
 }
 
 .electric {
@@ -132,7 +132,7 @@ form input {
     color: black;
 }
 
-form button {
+form button, button {
     color: black;
 }
 

@@ -28,6 +28,18 @@ $(document).ready(function () {
         $("#left-block-inner").append($("<div>", { id: "fuel-type-view", text: vehicleData.fuel_type }));
         $("#left-block-inner").append($("<div>", { id: "year-of-manufacture-view", text: vehicleData.year }));
         $("#left-block-inner").append($("<div>", { id: "colour-view", text: vehicleData.colour }));
+        $("#left-block-inner").append($("<button>", { id: "delete-vehicle", text: `Delete ${vehicleData.vrn}` }));
+        
+        // User clicks "Delete Vehicle"
+        $("#delete-vehicle").on("click", function () {
+          console.log("Opening Modal")
+          $("#multi-purpose-modal-title").text("Are you sure?")
+          $("#multi-purpose-modal-body").text(`You're about to delete your records for ${vehicleData.vrn}. Are you sure? This action cannot be undone`)
+          $("#multi-purpose-modal-positive").html("I'm sure I want to delete it")
+          $("#multi-purpose-modal-negative").html("No, take me back to safety...")
+          $("#multi-purpose-modal").modal("show");
+
+        })
     });
 
     // User clicks "Add new vehicle"
@@ -123,6 +135,6 @@ $("#new-vehicle-form").on("submit", function(e) {
 });
     })
 
-
+    
 });
 
