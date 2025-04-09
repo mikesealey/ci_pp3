@@ -75,7 +75,7 @@ $(document).ready(function () {
                       // If property exists and is truthy, populate the form field with it
                       data.colour ? $("#colour").val(data.colour) : ""
                       data.engineCapacity ? $("#engine_capacity").val(data.engineCapacity) : ""
-                      data.fuel_Type ? $("#fuel_type").val(data.fuel_Type) : ""
+                      data.fuelType ? $("#fuel_type").val(data.fuelType) : ""
                       data.make ? $("#make").val(data.make) : ""
                       data.model ? $("#model").val(data.model) : ""
                       data.yearOfManufacture ? $("#year").val(data.yearOfManufacture) : ""
