@@ -13,3 +13,7 @@ Adding in Bootstrap part way through this project was an awful decision and I sh
 
 https://stackoverflow.com/questions/209029/best-way-to-remove-an-event-handler-in-jquery
 Useful for removing an on(click) handler
+
+Regarding "Deleting" a vehicle from a user - 
+The vehicle is never actually deleted, only the relationship is removed. This helps to maintain a broader picture of the vehicle's history, should the car be sold from one user to another.
+In order to reflect the change (vehicle "deleted") I could re-fetch the data from the database, which would reflect the vehicle being "deleted", but it may be better to simply save the "deletion" and then just not render it on the front-end. This would make things easier for users with poor connections.
