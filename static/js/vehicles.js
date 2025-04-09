@@ -160,4 +160,13 @@ function deleteVehicle(vrn){
   });
   $("#multi-purpose-modal").modal("hide");
   // Need to build a way to re-fetch the vehicles data once a vehicle has been "deleted"
+  // Building a way to refetch
+
+  // Hide the elements belonging to the deleted vehicle from the list on the right (Optimistic)
+  $('.vehicle-list-item[data-vrn="' + vrn + '"]').remove()
+
+  // Reset the form (Optimistic)
+  $("#left-block-inner").empty()
+
+  // Should I also re-fetch?
 }
