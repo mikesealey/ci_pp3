@@ -54,7 +54,7 @@ $(document).ready(function () {
         $("#left-block-inner").append($("<form>", { id: "new-vehicle-form" }));
         
         $("#new-vehicle-form").append(
-            $("<label>", { for: "vrn", text: "Your Vehicle Registration Number" }),
+            $("<label>", { for: "vrn", text: "Please enter your Vehicle Registration Number" }),
             $("<input>", { type: "text", id: "vrn", name: "vrn", class: "vrn vrn-med", value: "MY00REG", autocomplete: "off"}),
             $("<button>", {
                 type: "button",
@@ -106,8 +106,15 @@ $(document).ready(function () {
             $("<label>", { for: "colour", text: "Colour:" }),
             $("<input>", { type: "text", id: "colour", name: "colour" }),
             $("<br>"),
-            $("<button>", { type: "submit", text: "Save Vehicle" })
+            $("<button>", { type: "submit", text: "Save Vehicle" }),
           );
+        // Removes placeholder text as soon as user clicks inside VRN field
+        $("#vrn").on("click", function(){
+          console.log("emptying")
+          if ($("#vrn").val("") === "MY00REG") {
+            $("#vrn").empty()
+          }
+        })
         // console.log($("#new-vehicle-form").children())
         
         // Handle form submission
