@@ -55,7 +55,7 @@ $(document).ready(function () {
         
         $("#new-vehicle-form").append(
             $("<label>", { for: "vrn", text: "Your Vehicle Registration Number" }),
-            $("<input>", { type: "text", id: "vrn", name: "vrn", class: "vrn vrn-med", value: "MY00REG"}),
+            $("<input>", { type: "text", id: "vrn", name: "vrn", class: "vrn vrn-med", value: "MY00REG", autocomplete: "off"}),
             $("<button>", {
                 type: "button",
                 text: "Check VRN",
