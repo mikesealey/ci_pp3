@@ -60,6 +60,8 @@ $(document).ready(function () {
                 type: "button",
                 text: "Check VRN",
                 click: function () {
+                  // Need to clear form of existing data to account for typos
+                  clearForm()
                   const vrn = $("#vrn").val();
                   console.log("Sending VRN to Django backend:", vrn);
               
@@ -169,4 +171,15 @@ function deleteVehicle(vrn){
   $("#left-block-inner").empty()
 
   // Should I also re-fetch?
+}
+
+// Clear Form Function
+function clearForm(){
+  console.log("Clearing Form")
+  $("#make").val()
+  $("#model").val()
+  $("#engine_capacity").val("")
+  $("#fuel_type").val()
+  $("#year").val()
+  $("#colour").val()
 }
