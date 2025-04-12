@@ -28,9 +28,56 @@ $(document).ready(function () {
         $("#left-block-inner").append($("<div>", { id: "fuel-type-view", text: vehicleData.fuel_type }));
         $("#left-block-inner").append($("<div>", { id: "year-of-manufacture-view", text: vehicleData.year }));
         $("#left-block-inner").append($("<div>", { id: "colour-view", text: vehicleData.colour }));
-        $("#left-block-inner").append($("<button>", { id: "delete-vehicle", text: `Delete ${vehicleData.vrn}` }));
+        $("#left-block-inner").append($("<button>", { id: "edit-vehicle", text: `Edit ${vehicleData.vrn}` })); // replace with pen icon for edit
+        $("#left-block-inner").append($("<button>", { id: "delete-vehicle", text: `Delete ${vehicleData.vrn}` })); // replace with bin icon for delete
         
-        // User clicks "Delete Vehicle" - Confirmation modal opens
+        // User clicks "Edit vehicle" - switches info display to form
+        $("#edit-vehicle").on("click", function(){
+          $("#left-block-inner").empty()
+          $("#left-block-inner").append(
+            $("<h2>", { text: "Editing details for: "}),
+            $("<div>", { class: "vrn", text: vehicleData.vrn }),
+            $("<label>", { for: "make", text: "Make:" }),
+            $("<input>", { type: "text", id: "make", name: "make", required: "true", value: vehicleData.make }),
+            $("<br>"),
+            $("<label>", { for: "model", text: "Model:" }),
+            $("<input>", { type: "text", id: "model", name: "model", required: "true", value: vehicleData.model }),
+            $("<br>"),
+            $("<label>", { for: "engine_capacity", text: "Engine Capacity:" }),
+            $("<input>", { type: "text", id: "engine_capacity", name: "engine_capacity", required: "true", value: vehicleData.engine_capacity }),
+            $("<br>"),
+            $("<label>", { for: "fuel_type", text: "Fuel Type:" }),
+            $("<input>", { type: "text", id: "fuel_type", name: "fuel_type", required: "true", value: vehicleData.fuel_type }),
+            $("<br>"),
+            $("<label>", { for: "year", text: "Year:" }),
+            $("<input>", { type: "text", id: "year", name: "year", required: "true", value: vehicleData.year }),
+            $("<br>"),
+            $("<label>", { for: "colour", text: "Colour:" }),
+            $("<input>", { type: "text", id: "colour", name: "colour", required: "true", value: vehicleData.colour }),
+            $("<br>"),
+            $("<button>", { 
+              id: "save-changes",
+              type: "submit",
+              text: "Save changes to Vehicle",
+              click: function() {
+                updatedVehicleData = {
+                  make: $("#make").val(),
+                  model: $("#model").val(),
+                  engine_capacity: $("#engine_capacity").val(),
+                  fuel_type: $("#fuel_type").val(),
+                  year: $("#year").val(),
+                  colour: $("#colour").val()
+                }
+                saveVehicleChanges(updatedVehicleData)
+              } }),
+            $("<h5>", { type: "text", id: "error" }),
+          )
+        })
+
+      
+
+
+        // User clicks "Delete Vehicle" - Confirmation modal opens, populates with vehicle data
         $("#delete-vehicle").on("click", function () {
           console.log("Opening Modal")
           $("#multi-purpose-modal-title").text("Are you sure?")
@@ -41,7 +88,7 @@ $(document).ready(function () {
           $("#multi-purpose-modal-positive").on("click", function () {
             console.log("Deleting Vehicle!")
             deleteVehicle(vehicleData.vrn)
-          })
+
 
         })
     });
@@ -158,7 +205,8 @@ $("#new-vehicle-form").on("submit", function(e) {
 });
     })
    
-});
+  });
+  });
 
 // Deletes User from Vehicle record
 // Doesn't actually delete vehicle record, only deletes the relationship
@@ -188,6 +236,13 @@ function deleteVehicle(vrn){
   $("#left-block-inner").empty()
 
   // Should I also re-fetch?
+}
+
+// Switches display to form
+function saveVehicleChanges(vehicleData){
+  console.log("Saving changes!")
+  console.log(vehicleData)
+  // Make the AJAX call to update the vehicle (but never allow VRN to be changed.)
 }
 
 // Clear Form Function
