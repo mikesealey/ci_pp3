@@ -83,36 +83,45 @@ $(document).ready(function () {
                     },
                     error: function (err) {
                       console.error("Something went wrong:", err);
+                      // Warn user that DVLA API has errored
+                      $("#error-status").append(
+                        // Add a warning ! icon
+                        "<p id='warn'>Something went wrong when fetching the vehicle data. Please try again later, or manually input your vehicle's details</p>"
+                      )
                     }
                   });
                 }
               }),
+             $("<div>", { id: "error-status" }), 
             $("<br>"),
             $("<label>", { for: "make", text: "Make:" }),
-            $("<input>", { type: "text", id: "make", name: "make" }),
+            $("<input>", { type: "text", id: "make", name: "make", required: "true"}),
             $("<br>"),
             $("<label>", { for: "model", text: "Model:" }),
-            $("<input>", { type: "text", id: "model", name: "model" }),
+            $("<input>", { type: "text", id: "model", name: "model", required: "true" }),
             $("<br>"),
             $("<label>", { for: "engine_capacity", text: "Engine Capacity:" }),
-            $("<input>", { type: "text", id: "engine_capacity", name: "engine_capacity" }),
+            $("<input>", { type: "text", id: "engine_capacity", name: "engine_capacity", required: "true" }),
             $("<br>"),
             $("<label>", { for: "fuel_type", text: "Fuel Type:" }),
-            $("<input>", { type: "text", id: "fuel_type", name: "fuel_type" }),
+            $("<input>", { type: "text", id: "fuel_type", name: "fuel_type", required: "true" }),
             $("<br>"),
             $("<label>", { for: "year", text: "Year:" }),
-            $("<input>", { type: "text", id: "year", name: "year" }),
+            $("<input>", { type: "text", id: "year", name: "year", required: "true" }),
             $("<br>"),
             $("<label>", { for: "colour", text: "Colour:" }),
-            $("<input>", { type: "text", id: "colour", name: "colour" }),
+            $("<input>", { type: "text", id: "colour", name: "colour", required: "true" }),
             $("<br>"),
             $("<button>", { type: "submit", text: "Save Vehicle" }),
           );
         // Removes placeholder text as soon as user clicks inside VRN field
         $("#vrn").on("click", function(){
-          console.log("emptying")
-          if ($("#vrn").val("") === "MY00REG") {
+          console.log("VRN FIELD CLICKED")
+          const existingVRN = $("#vrn").val()
+          console.log(existingVRN)
+          if (existingVRN === "MY00REG") {
             $("#vrn").empty()
+            console.log($("#vrn").val)
           }
         })
         // console.log($("#new-vehicle-form").children())
