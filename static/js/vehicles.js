@@ -113,6 +113,7 @@ $(document).ready(function () {
             $("<input>", { type: "text", id: "colour", name: "colour", required: "true" }),
             $("<br>"),
             $("<button>", { type: "submit", text: "Save Vehicle" }),
+            $("<h5>", { type: "text", id: "error" })
           );
         // Removes placeholder text as soon as user clicks inside VRN field
         $("#vrn").on("click", function(){
@@ -142,18 +143,18 @@ $("#new-vehicle-form").on("submit", function(e) {
     };
     // Pass it in to the request
     $.ajax({
-        url: "/vehicles/api/add-vehicle/",
-        type: "POST",
-        contentType: "application/json",
-        data: JSON.stringify(formData),
-        success: function(response) {
-            console.log(success)
-        },
-        error: function(xhr) {
-            alert("Error: " + xhr.responseText);
-            console.log(error)
-        }
-    });
+      url: "/vehicles/api/add-vehicle/",
+      type: "POST",
+      contentType: "application/json",
+      data: JSON.stringify(formData),
+      success: function(response) {
+          console.log(response);
+      },
+      error: function(xhr, status, error) {
+          console.log("Error: ", error);
+          $("#error").text("Something went wrong.") // Perhaps consider CTA ("please contact your administrator") maybe also add an ! icon
+      }
+  });
 });
     })
    

@@ -114,6 +114,7 @@ nav ul li {
     /* for use in form-input */
     text-align: center !important;
     text-transform: uppercase;
+    
 }
 
 .vrn-med {
@@ -135,6 +136,10 @@ form input {
 
 form button, button {
     color: black;
+}
+
+#error {
+    color: red;
 }
 
 #left-block-inner {
