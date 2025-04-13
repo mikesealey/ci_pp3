@@ -36,7 +36,7 @@ $(document).ready(function () {
           $("#left-block-inner").empty()
           $("#left-block-inner").append(
             $("<h2>", { text: "Editing details for: "}),
-            $("<div>", { class: "vrn", text: vehicleData.vrn }),
+            $("<div>", { id: "vrn", class: "vrn", text: vehicleData.vrn }),
             $("<label>", { for: "make", text: "Make:" }),
             $("<input>", { type: "text", id: "make", name: "make", required: "true", value: vehicleData.make }),
             $("<br>"),
@@ -61,6 +61,7 @@ $(document).ready(function () {
               text: "Save changes to Vehicle",
               click: function() {
                 updatedVehicleData = {
+                  vrn: vehicleData.vrn,
                   make: $("#make").val(),
                   model: $("#model").val(),
                   engine_capacity: $("#engine_capacity").val(),
@@ -243,6 +244,18 @@ function saveVehicleChanges(vehicleData){
   console.log("Saving changes!")
   console.log(vehicleData)
   // Make the AJAX call to update the vehicle (but never allow VRN to be changed.)
+  $.ajax({
+    url: "/vehicles/api/update_vehicle/",
+    type: "POST",
+    contentType: "application/json",
+    data: JSON.stringify(vehicleData),  // stringified payload!
+    success: function(response) {
+      console.log("Success:", response);
+    },
+    error: function(xhr) {
+      console.error("Error:", xhr.responseText);
+    }
+  });
 }
 
 // Clear Form Function

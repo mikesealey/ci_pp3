@@ -7,4 +7,5 @@ urlpatterns = [
     path('api/add-vehicle/', views.add_vehicle, name='add_vehicle'),
     path("api/query-vehicle/", views.query_vehicle, name="query_vehicle"),
     path("api/delete_vehicle/", views.delete_vehicle, name="delete_vehicle"),
+    path("api/update_vehicle/", views.update_vehicle, name="update_vehicle"),
 ]

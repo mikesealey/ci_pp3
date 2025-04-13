@@ -76,3 +76,26 @@ def delete_vehicle(request):
         return JsonResponse({"status": "success", "message": f"{vrn} owner removed"})
     
     return JsonResponse({"error": "Invalid request"}, status=400)
+
+# Update Vehicle
+# Should never allow changes to VRN or, only the other vehicle details/info
+@login_required
+@csrf_exempt
+def update_vehicle(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        vrn = data.get("vrn")
+        try:
+            vehicle = Vehicle.objects.get(vrn=vrn, owner=request.user)
+            vehicle.make = data.get("make")
+            vehicle.model = data.get("model")
+            vehicle.engine_capacity = data.get("engine_capacity")
+            vehicle.fuel_type = data.get("fuel_type")
+            vehicle.year = data.get("year")
+            vehicle.colour = data.get("colour")
+            vehicle.save()
+            return JsonResponse({"status": "success", "message": f"{vrn} updated!"})
+        except Vehicle.DoesNotExist:
+            return JsonResponse({"error": "Vehicle not found"}, status=404)
+
+    return JsonResponse({"error": "Invalid request"}, status=400)
