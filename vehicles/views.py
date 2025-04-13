@@ -99,3 +99,8 @@ def update_vehicle(request):
             return JsonResponse({"error": "Vehicle not found"}, status=404)
 
     return JsonResponse({"error": "Invalid request"}, status=400)
+
+@login_required
+def get_vehicle_list(request):
+    vehicles = Vehicle.objects.filter(owner=request.user)
+    return render(request, "AutoMate/_vehicle_list.html", {"vehicles": vehicles})
