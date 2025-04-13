@@ -110,6 +110,7 @@ $(document).ready(function () {
                 click: function () {
                   // Need to clear form of existing data to account for typos
                   clearForm()
+                  $("#error-status").empty()
                   const vrn = $("#vrn").val();
                   console.log("Sending VRN to Django backend:", vrn);
               
