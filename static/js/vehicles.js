@@ -198,6 +198,7 @@ $("#new-vehicle-form").on("submit", function(e) {
       data: JSON.stringify(formData),
       success: function(response) {
           console.log(response);
+          refreshVehicleList()
       },
       error: function(xhr, status, error) {
           console.log("Error: ", error);
