@@ -103,4 +103,4 @@ def update_vehicle(request):
 @login_required
 def get_vehicle_list(request):
     vehicles = Vehicle.objects.filter(owner=request.user)
-    return render(request, "AutoMate/_vehicle_list.html", {"vehicles": vehicles})
+    return render(request, "AutoMate/vehicle_list.html", {"vehicles": vehicles})

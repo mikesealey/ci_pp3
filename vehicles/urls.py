@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 from .views import vehicles
 from . import views
 
@@ -8,6 +8,5 @@ urlpatterns = [
     path("api/query-vehicle/", views.query_vehicle, name="query_vehicle"),
     path("api/delete_vehicle/", views.delete_vehicle, name="delete_vehicle"),
     path("api/update_vehicle/", views.update_vehicle, name="update_vehicle"),
-    path("vehicles/api/vehicle-list/", views.get_vehicle_list, name="vehicle_list_html"),
-
+    path("api/vehicle-list/", views.get_vehicle_list, name="vehicle_list"),
 ]

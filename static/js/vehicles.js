@@ -219,6 +219,7 @@ function deleteVehicle(vrn){
     data: JSON.stringify({ vrn: vrn }),
     success: function(response) {
       console.log("Success:", response);
+      refreshVehicleList()
       
     },
     error: function(xhr) {
@@ -237,6 +238,8 @@ function deleteVehicle(vrn){
   $("#left-block-inner").empty()
 
   // Should I also re-fetch?
+  // Refetch in success-response not here (async)
+  
 }
 
 // Switches display to form
@@ -251,6 +254,7 @@ function saveVehicleChanges(vehicleData){
     data: JSON.stringify(vehicleData),  // stringified payload!
     success: function(response) {
       console.log("Success:", response);
+      refreshVehicleList()
     },
     error: function(xhr) {
       console.error("Error:", xhr.responseText);
@@ -267,4 +271,11 @@ function clearForm(){
   $("#fuel_type").val()
   $("#year").val()
   $("#colour").val()
+}
+
+function refreshVehicleList() {
+  console.log("Refreshing vehicle list!")
+  $.get("/vehicles/api/vehicle-list/", function(html) {
+    $("#vehicle-list").html(html);
+  });
 }
