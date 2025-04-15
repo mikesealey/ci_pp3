@@ -1,6 +1,6 @@
 $(document).ready(function () {
   // User clicks on vehicle in list
-  $(".vehicle-list-item").on("click", function () {
+  $("#vehicle-list").on("click", ".vehicle-list-item", function () {
         const $vehicle = $(this);
 
         // Get vehicle data
@@ -36,7 +36,7 @@ $(document).ready(function () {
         
         
         // User clicks "Edit vehicle" - switches info display to form
-        $("#edit-vehicle").on("click", function(){
+        $("#left-block-inner").on("click", "#edit-vehicle", function () {
               $("#left-block-inner").empty()
               $("#left-block-inner").append(
                 $("<h2>", { text: "Editing details for: "}),
@@ -80,7 +80,7 @@ $(document).ready(function () {
         })
         
         // User clicks "Delete Vehicle" - Confirmation modal opens, populates with vehicle data
-        $("#delete-vehicle").on("click", function () {
+        $("#left-block-inner").on("click", "#delete-vehicle", function () {
           console.log("Opening Modal")
           $("#multi-purpose-modal-title").text("Are you sure?")
           $("#multi-purpose-modal-body").text(`You're about to delete your records for ${vehicleData.vrn}. Are you sure? This action cannot be undone`)
@@ -97,7 +97,7 @@ $(document).ready(function () {
   
 
   // User clicks "Add new vehicle"
-  $("#add-new-vehicle").on("click", function() {
+  $("#left-block-inner").on("click", "#add-new-vehicle", function() {
       console.log("Adding new vehicle!")
       // Remove displayed vehicle data
       $("#left-block-inner").empty()
