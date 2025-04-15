@@ -40,3 +40,7 @@ Update: This could be solved with a many-to-many relationship between vehicles a
 CREDITS:
 Boostrap
 Toast notification from docs https://getbootstrap.com/docs/4.5/components/toasts/
+
+Interesting bugs:
+Because much of the dom is being manipulated, I had to change teh way they're applied 
+Swapping $("#thing").on("click", function(){}) for $("#parent-thing").on("click", "#thing", function(){}) where the parent "thing" should always be present.
