@@ -36,3 +36,7 @@ The downside of doing it this way is that should another user buy that vehicle a
 Some frontend-validation is required to check if the car already exists in the database, and if it has no user associated with it. There are cases where someone may sell the vehicle but fail to update their account, and a different user buys that vehicle they won't be able to save the vehicle to themselves. In such cases it may worth building some sort of back-office admin panel for staff.
 
 Update: This could be solved with a many-to-many relationship between vehicles and users - providing booking details were filtered to current user, it would maintain the data integrity but allow someone to register their newly-purchased second hand vehicle even if it's previous owner has still got it registered with their account.
+
+CREDITS:
+Boostrap
+Toast notification from docs https://getbootstrap.com/docs/4.5/components/toasts/

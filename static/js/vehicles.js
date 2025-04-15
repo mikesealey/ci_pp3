@@ -1,6 +1,6 @@
 $(document).ready(function () {
-    // User clicks on vehicle in list
-    $(".vehicle-list-item").on("click", function () {
+  // User clicks on vehicle in list
+  $(".vehicle-list-item").on("click", function () {
         const $vehicle = $(this);
 
         // Get vehicle data
@@ -31,53 +31,54 @@ $(document).ready(function () {
         $("#left-block-inner").append($("<button>", { id: "edit-vehicle", text: `Edit ${vehicleData.vrn}` })); // replace with pen icon for edit
         $("#left-block-inner").append($("<button>", { id: "delete-vehicle", text: `Delete ${vehicleData.vrn}` })); // replace with bin icon for delete
         
+        
+        
+        
+        
         // User clicks "Edit vehicle" - switches info display to form
         $("#edit-vehicle").on("click", function(){
-          $("#left-block-inner").empty()
-          $("#left-block-inner").append(
-            $("<h2>", { text: "Editing details for: "}),
-            $("<div>", { id: "vrn", class: "vrn", text: vehicleData.vrn }),
-            $("<label>", { for: "make", text: "Make:" }),
-            $("<input>", { type: "text", id: "make", name: "make", required: "true", value: vehicleData.make }),
-            $("<br>"),
-            $("<label>", { for: "model", text: "Model:" }),
-            $("<input>", { type: "text", id: "model", name: "model", required: "true", value: vehicleData.model }),
-            $("<br>"),
-            $("<label>", { for: "engine_capacity", text: "Engine Capacity:" }),
-            $("<input>", { type: "text", id: "engine_capacity", name: "engine_capacity", required: "true", value: vehicleData.engine_capacity }),
-            $("<br>"),
-            $("<label>", { for: "fuel_type", text: "Fuel Type:" }),
-            $("<input>", { type: "text", id: "fuel_type", name: "fuel_type", required: "true", value: vehicleData.fuel_type }),
-            $("<br>"),
-            $("<label>", { for: "year", text: "Year:" }),
-            $("<input>", { type: "text", id: "year", name: "year", required: "true", value: vehicleData.year }),
-            $("<br>"),
-            $("<label>", { for: "colour", text: "Colour:" }),
-            $("<input>", { type: "text", id: "colour", name: "colour", required: "true", value: vehicleData.colour }),
-            $("<br>"),
-            $("<button>", { 
-              id: "save-changes",
-              type: "submit",
-              text: "Save changes to Vehicle",
-              click: function() {
-                updatedVehicleData = {
-                  vrn: vehicleData.vrn,
-                  make: $("#make").val(),
-                  model: $("#model").val(),
-                  engine_capacity: $("#engine_capacity").val(),
-                  fuel_type: $("#fuel_type").val(),
-                  year: $("#year").val(),
-                  colour: $("#colour").val()
-                }
-                saveVehicleChanges(updatedVehicleData)
-              } }),
-            $("<h5>", { type: "text", id: "error" }),
-          )
+              $("#left-block-inner").empty()
+              $("#left-block-inner").append(
+                $("<h2>", { text: "Editing details for: "}),
+                $("<div>", { id: "vrn", class: "vrn", text: vehicleData.vrn }),
+                $("<label>", { for: "make", text: "Make:" }),
+                $("<input>", { type: "text", id: "make", name: "make", required: "true", value: vehicleData.make }),
+                $("<br>"),
+                $("<label>", { for: "model", text: "Model:" }),
+                $("<input>", { type: "text", id: "model", name: "model", required: "true", value: vehicleData.model }),
+                $("<br>"),
+                $("<label>", { for: "engine_capacity", text: "Engine Capacity:" }),
+                $("<input>", { type: "text", id: "engine_capacity", name: "engine_capacity", required: "true", value: vehicleData.engine_capacity }),
+                $("<br>"),
+                $("<label>", { for: "fuel_type", text: "Fuel Type:" }),
+                $("<input>", { type: "text", id: "fuel_type", name: "fuel_type", required: "true", value: vehicleData.fuel_type }),
+                $("<br>"),
+                $("<label>", { for: "year", text: "Year:" }),
+                $("<input>", { type: "text", id: "year", name: "year", required: "true", value: vehicleData.year }),
+                $("<br>"),
+                $("<label>", { for: "colour", text: "Colour:" }),
+                $("<input>", { type: "text", id: "colour", name: "colour", required: "true", value: vehicleData.colour }),
+                $("<br>"),
+                $("<button>", { 
+                  id: "save-changes",
+                  type: "submit",
+                  text: "Save changes to Vehicle",
+                  click: function() {
+                    updatedVehicleData = {
+                      vrn: vehicleData.vrn,
+                      make: $("#make").val(),
+                      model: $("#model").val(),
+                      engine_capacity: $("#engine_capacity").val(),
+                      fuel_type: $("#fuel_type").val(),
+                      year: $("#year").val(),
+                      colour: $("#colour").val()
+                    }
+                    saveVehicleChanges(updatedVehicleData)
+                  } }),
+                $("<h5>", { type: "text", id: "error" }),
+              )
         })
-
-      
-
-
+        
         // User clicks "Delete Vehicle" - Confirmation modal opens, populates with vehicle data
         $("#delete-vehicle").on("click", function () {
           console.log("Opening Modal")
@@ -89,13 +90,12 @@ $(document).ready(function () {
           $("#multi-purpose-modal-positive").on("click", function () {
             console.log("Deleting Vehicle!")
             deleteVehicle(vehicleData.vrn)
-
-
-        })
-    });
-
-    
+          })
+        });
   });
+      
+  
+
   // User clicks "Add new vehicle"
   $("#add-new-vehicle").on("click", function() {
       console.log("Adding new vehicle!")
@@ -135,10 +135,7 @@ $(document).ready(function () {
                   error: function (err) {
                     console.error("Something went wrong:", err);
                     // Warn user that DVLA API has errored
-                    $("#error-status").append(
-                      // Add a warning ! icon
-                      "<p id='warn'>Something went wrong when fetching the vehicle data. Please try again later, or manually input your vehicle's details</p>"
-                    )
+                    showToastNotification(vrn, "Something went wrong searching for this vehicle")
                   }
                 });
               }
@@ -204,7 +201,7 @@ $("#new-vehicle-form").on("submit", function(e) {
     },
     error: function(xhr, status, error) {
         console.log("Error: ", error);
-        $("#error").text("Something went wrong.") // Perhaps consider CTA ("please contact your administrator") maybe also add an ! icon
+        showToastNotification(formData.vrn, "Something went wrong when saving this vehicle")
     }
 });
 });
