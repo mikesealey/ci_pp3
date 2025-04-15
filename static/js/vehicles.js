@@ -257,6 +257,7 @@ function saveVehicleChanges(vehicleData){
     success: function(response) {
       console.log("Success:", response);
       refreshVehicleList()
+      showToastNotification(vehicleData.vrn, "Changes saved!")
     },
     error: function(xhr) {
       console.error("Error:", xhr.responseText);
@@ -280,4 +281,14 @@ function refreshVehicleList() {
   $.get("/vehicles/api/vehicle-list/", function(html) {
     $("#vehicle-list").html(html);
   });
+}
+
+function showToastNotification(vrn, message){
+  console.log("Show Toast!!" + vrn + message)
+  $('.toast .toast-header strong').text(vrn);
+  $('.toast .toast-body').text(message);
+
+    // Show the toast
+  $('.toast').toast({ delay: 15000 }); // 3 seconds
+  $('.toast').toast('show');
 }

@@ -158,3 +158,15 @@ form button, button {
 input {
     color: black;
 }
+
+.toast {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1055;
+}
+
+.toast * {
+    color: black;
+}
