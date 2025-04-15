@@ -97,7 +97,7 @@ $(document).ready(function () {
   
 
   // User clicks "Add new vehicle"
-  $("#left-block-inner").on("click", "#add-new-vehicle", function() {
+  $("#vehicle-list").on("click", "#add-new-vehicle", function() {
       console.log("Adding new vehicle!")
       // Remove displayed vehicle data
       $("#left-block-inner").empty()
@@ -169,7 +169,7 @@ $(document).ready(function () {
         const existingVRN = $("#vrn").val()
         console.log(existingVRN)
         if (existingVRN === "MY00REG") {
-          $("#vrn").empty()
+          $("#vrn").val("")
           console.log($("#vrn").val)
         }
       })
