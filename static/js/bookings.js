@@ -4,7 +4,7 @@ $(document).ready(function (){
         console.log("HERE")
         // Gather booking data
         const $booking = $(this)
-
+        
         bookingObject = {
             dateTime: $booking.data("date_time"),
             approved: $booking.data("approved"),
@@ -13,9 +13,11 @@ $(document).ready(function (){
             mechanics_notes: $booking.data("mechanics_notes"),
             vehicle_mileage_at_service:  $booking.data("vehicle_mileage_at_service"),
             completed_service: $booking.data("completed_service"),
-            vehicle: $booking.data("vehicle")
+            vehicle: $booking.data("vehicle"),
+            bookingId: $booking.data("booking-id")
         }
-
+        
+        console.log("Booking ID at click" + $booking.data("booking-id"))
         // pass it to function
         displayBooking(bookingObject)
     })
@@ -43,12 +45,33 @@ function displayBooking(bookingData){
 function showDeleteModal(bookingData){
         console.log("Opening Modal")
         $("#multi-purpose-modal-title").text("Are you sure?")
-        $("#multi-purpose-modal-body").text(`You're about to cancel your booking for for ${bookingData.bookingType} on ${bookingData.dateTime}. Are you sure? This action cannot be undone`)
+        $("#multi-purpose-modal-body").text(`You're about to cancel your booking for ${bookingData.bookingType} on ${bookingData.vehicle} on ${bookingData.dateTime}. Are you sure? This action cannot be undone`)
         $("#multi-purpose-modal-positive").html("I'm sure I want to delete it")
         $("#multi-purpose-modal-negative").html("No, take me back to safety...")
         $("#multi-purpose-modal").modal("show");
         $("#multi-purpose-modal-positive").on("click", function () {
           console.log("Deleting booking!")
             // Now delete it!
+            deleteBooking(bookingData.bookingId)
         })
+}
+
+function deleteBooking(bookingId) {
+    console.log(bookingId + "BOOKINGID")
+
+    $.ajax({
+        url: `/bookings/delete-booking/${bookingId}/`,
+        type: "POST",
+        success: function (response) {
+            if (response.status === "ok") {
+                console.log("Booking deleted:", response.deleted_booking_id)
+                
+            } else {
+                console.log("Something went wrong: " + response.error)
+            }
+        },
+        error: function (xhr, status, error) {
+            console.log("AJAX error: " + error)
+        }
+    });
 }

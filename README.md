@@ -44,3 +44,8 @@ Toast notification from docs https://getbootstrap.com/docs/4.5/components/toasts
 Interesting bugs:
 Because much of the dom is being manipulated, I had to change teh way they're applied 
 Swapping $("#thing").on("click", function(){}) for $("#parent-thing").on("click", "#thing", function(){}) where the parent "thing" should always be present.
+
+icons for service types
+
+
+stumbled aacrrs View Decorators - https://docs.djangoproject.com/en/5.1/topics/http/decorators/ - basically allows you to set/restrict/ to specific methods for views.
