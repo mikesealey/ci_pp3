@@ -35,5 +35,20 @@ function displayBooking(bookingData){
     $("#left-block-inner").append($("<div>", { id: "completed-service-view", text: bookingData.completed_service }))
     $("#left-block-inner").append($("<button>", { id: "edit-booking", text: "Edit booking" })); // replace with pen icon for edit
     $("#left-block-inner").append($("<button>", { id: "delete-booking", text: "Delete booking" })); // replace with bin icon for delete
+    $("#left-block-inner").on("click", "#delete-booking", function(){
+        showDeleteModal(bookingData)
+    })
+}
 
+function showDeleteModal(bookingData){
+        console.log("Opening Modal")
+        $("#multi-purpose-modal-title").text("Are you sure?")
+        $("#multi-purpose-modal-body").text(`You're about to cancel your booking for for ${bookingData.bookingType} on ${bookingData.dateTime}. Are you sure? This action cannot be undone`)
+        $("#multi-purpose-modal-positive").html("I'm sure I want to delete it")
+        $("#multi-purpose-modal-negative").html("No, take me back to safety...")
+        $("#multi-purpose-modal").modal("show");
+        $("#multi-purpose-modal-positive").on("click", function () {
+          console.log("Deleting booking!")
+            // Now delete it!
+        })
 }
