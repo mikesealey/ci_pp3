@@ -89,7 +89,7 @@ nav ul li {
     width: 100%;
 }
 
-.vehicle-list-item, .vehicle-list-item-last {
+.vehicle-list-item, .vehicle-list-item-last, .booking-list-item, .booking-list-item-last {
     width: 100%;
     border: 2px solid #9DB4C0;
     display: flex;
@@ -97,6 +97,13 @@ nav ul li {
     align-items: center;
     justify-content: space-between;
 }
+
+#bookings-list {
+    display: flex;
+    flex-direction: column;
+}
+
+
 
 .vrn {
     background-color: #ffd800;

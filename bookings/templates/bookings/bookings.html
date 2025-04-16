@@ -1,10 +1,22 @@
 {% extends "AutoMate/base.html" %}
 
 {% block content %}
-<h1>My Bookings</h1>
-{% for booking in Bookings %}
-    <p>{{ booking.booking_type }} on {{ booking.date_time }}</p>
-{% empty %}
-    <p>No bookings yet.</p>
-{% endfor %}
+<div class="double-block">
+    <!-- LEFT BLOCK -->
+    <div class="block" id="left-block">
+        <h1>My Bookings</h1>
+    </div>
+    <!-- END OF LEFT BLOCK -->
+        <!-- RIGHT BLOCK -->
+    <div class="block">
+        <h1>My Saved Bookings</h1>
+        <div id="vehicle-list">
+            {% include "./bookings_list.html" %}
+        </div>
+    </div>
+</div>
+
+
+
+
 {% endblock %}

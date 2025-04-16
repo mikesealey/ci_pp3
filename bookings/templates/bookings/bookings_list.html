@@ -1,0 +1,8 @@
+{% for booking in bookings %}
+    <div class="booking-list-item">
+        <div class="vrn">{{ booking.vehicle.vrn }}</div>
+        <p>{{ booking.booking_type }}</p>
+
+    </div>
+{% endfor %}
+<div id="add-new-booking" class="booking-list-item-last"> <h2>Add new booking...</h2></div>
