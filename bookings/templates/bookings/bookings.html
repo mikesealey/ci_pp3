@@ -1,22 +1,27 @@
 {% extends "AutoMate/base.html" %}
+{% load static %}
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="{% static 'js/bookings.js' %}"></script>
 
 {% block content %}
 <div class="double-block">
     <!-- LEFT BLOCK -->
     <div class="block" id="left-block">
         <h1>My Bookings</h1>
+        <p>Welcome to your saved bookings</p>
+            <div id="left-block-inner">
+                <!-- Either a saved booking or a form to save a new booking will populate here -->
+            </div>
     </div>
     <!-- END OF LEFT BLOCK -->
         <!-- RIGHT BLOCK -->
     <div class="block">
         <h1>My Saved Bookings</h1>
-        <div id="vehicle-list">
+        <div id="booking-list">
             {% include "./bookings_list.html" %}
         </div>
     </div>
 </div>
-
-
-
-
 {% endblock %}

@@ -1,8 +1,17 @@
 {% for booking in bookings %}
-    <div class="booking-list-item">
-        <div class="vrn">{{ booking.vehicle.vrn }}</div>
+    <div
+        class="booking-list-item"
+        data-date_time="{{ booking.date_time }}"
+        data-approved="{{ booking.approved }}"
+        data-booking_type="{{ booking.booking_type }}"
+        data-customer_notes="{{ booking.customer_notes }}"
+        data-mechanics_notes="{{ booking.mechanics_notes }}"
+        data-vehicle_mileage_at_service="{{ booking.vehicle_mileage_at_service }}"
+        data-completed_service="{{ booking.completed_service }}"
+        data-vehicle="{{ booking.vehicle.vrn }}"
+    >
         <p>{{ booking.booking_type }}</p>
-
+        <div class="vrn">{{ booking.vehicle.vrn }}</div>
     </div>
 {% endfor %}
 <div id="add-new-booking" class="booking-list-item-last"> <h2>Add new booking...</h2></div>
