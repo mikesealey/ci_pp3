@@ -24,3 +24,8 @@ def delete_booking(request, booking_id):
             return JsonResponse({"error": "Booking not found"}, status=404)
     
     return JsonResponse({"error": "Invalid request"}, status=400)
+
+@login_required
+def get_bookings_list(request):
+    bookings = Booking.objects.filter(user=request.user)
+    return render(request, "bookings/bookings_list.html", {"bookings": bookings})

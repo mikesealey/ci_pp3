@@ -51,8 +51,9 @@ function showDeleteModal(bookingData){
         $("#multi-purpose-modal").modal("show");
         $("#multi-purpose-modal-positive").on("click", function () {
           console.log("Deleting booking!")
-            // Now delete it!
             deleteBooking(bookingData.bookingId)
+            // Refresh the bookings list
+            // Reset left-block-inner
         })
 }
 
@@ -65,6 +66,7 @@ function deleteBooking(bookingId) {
         success: function (response) {
             if (response.status === "ok") {
                 console.log("Booking deleted:", response.deleted_booking_id)
+                refreshBookingList()
                 
             } else {
                 console.log("Something went wrong: " + response.error)
@@ -74,4 +76,11 @@ function deleteBooking(bookingId) {
             console.log("AJAX error: " + error)
         }
     });
+}
+
+function refreshBookingList(){
+    console.log("Refreshing Booking List!")
+    $.get("/bookings/api/bookings_list/", function(html) {
+        $("#booking-list").html(html)
+    })
 }
