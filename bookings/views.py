@@ -1,9 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Booking
+from .models import Booking, Vehicle
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+import json
 
 
 # Create your views here.
@@ -29,3 +30,27 @@ def delete_booking(request, booking_id):
 def get_bookings_list(request):
     bookings = Booking.objects.filter(user=request.user)
     return render(request, "bookings/bookings_list.html", {"bookings": bookings})
+
+@csrf_exempt
+@login_required
+def add_booking(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+
+        # Fetch the vehicle associated with this booking
+        vehicle_id = data.get("vehicle")
+        try:
+            vehicle = Vehicle.objects.get(pk=vehicle_id)
+        except Vehicle.DoesNotExist:
+            return JsonResponse({"error": "Vehicle not found"}, status = 404)
+        
+        booking = Booking.objects.create(
+            date_time = data.get("dateTime"),
+            booking_type = data.get("bookingType"),
+            customer_notes = data.get("customerNotes"),
+            vehicle_mileage_at_service = data.get("vehicle_mileage_at_service"),
+            vehicle = vehicle,
+            user = request.user
+        )
+        return JsonResponse({"status": "ok", "booking_id": booking.id})
+    return JsonResponse({"error": "Invalid request"}, status=400)

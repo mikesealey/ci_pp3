@@ -104,3 +104,22 @@ def update_vehicle(request):
 def get_vehicle_list(request):
     vehicles = Vehicle.objects.filter(owner=request.user)
     return render(request, "AutoMate/vehicle_list.html", {"vehicles": vehicles})
+
+@login_required
+def get_vehicle_listJSON(request):
+    vehicles = Vehicle.objects.filter(owner=request.user)
+    data = [
+        {
+            
+            "vrn": vehicle.vrn,
+            "make": vehicle.make,
+            "model": vehicle.model,
+            "engine_capacity": vehicle.engine_capacity,
+            "fuel_type": vehicle.fuel_type,
+            "year": vehicle.year_of_manufacture,
+            "colour": vehicle.colour,
+            "id": vehicle.id
+        }
+        for vehicle in vehicles
+    ]
+    return JsonResponse({"vehicles": data})

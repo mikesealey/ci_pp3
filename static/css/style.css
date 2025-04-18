@@ -98,6 +98,17 @@ nav ul li {
     justify-content: space-between;
 }
 
+#new-vehicle-form, #new-booking-form {
+    border: 3px solid red;
+    display: flex;
+    flex-direction: column;
+}
+
+#new-vehicle-form *, #new-booking-form * {
+    /* Needs work - temp fix  */
+    color: black; 
+}
+
 #bookings-list {
     display: flex;
     flex-direction: column;

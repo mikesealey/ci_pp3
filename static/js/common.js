@@ -7,3 +7,6 @@ function showToastNotification(title, message){
     $('.toast').toast({ delay: 15000 });
     $('.toast').toast('show');
   }
+
+
+// Should move Multi-Purpose Modal function here, too.
