@@ -1,10 +1,9 @@
 // Trigger toast notifications
-function showToastNotification(vrn, message){
-    console.log("Show Toast!!" + vrn + message)
-    $('.toast .toast-header strong').text(vrn);
+function showToastNotification(title, message){
+    $('.toast .toast-header strong').text(title);
     $('.toast .toast-body').text(message);
   
-      // Show the toast
+    // Show the toast
     $('.toast').toast({ delay: 15000 });
     $('.toast').toast('show');
   }

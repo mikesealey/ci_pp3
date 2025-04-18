@@ -51,31 +51,38 @@ function showDeleteModal(bookingData){
         $("#multi-purpose-modal").modal("show");
         $("#multi-purpose-modal-positive").on("click", function () {
           console.log("Deleting booking!")
-            deleteBooking(bookingData.bookingId)
-            // Refresh the bookings list
-            // Reset left-block-inner
+            deleteBooking(bookingData)
         })
 }
 
-function deleteBooking(bookingId) {
-    console.log(bookingId + "BOOKINGID")
+function deleteBooking(booking) {
+    console.log(booking + "BOOKING")
 
     $.ajax({
-        url: `/bookings/delete-booking/${bookingId}/`,
+        url: `/bookings/delete-booking/${booking.bookingId}/`,
         type: "POST",
         success: function (response) {
             if (response.status === "ok") {
                 console.log("Booking deleted:", response.deleted_booking_id)
                 refreshBookingList()
+                // Reset left-block-inner
                 
+                // Polish the Title for the toast notification
+                let title = "Other" ? "Other Booking" : booking.bookingType
+                showToastNotification(title, `Your booking for ${booking.vehicle} on ${booking.dateTime} has been cancelled.`)
+                $("#left-block-inner").empty()
             } else {
                 console.log("Something went wrong: " + response.error)
+                showToastNotification("Something went wrong", response.error)
+
             }
         },
         error: function (xhr, status, error) {
             console.log("AJAX error: " + error)
+            showToastNotification("Something went wrong", error)
         }
     });
+    $("#multi-purpose-modal").modal("hide");
 }
 
 function refreshBookingList(){
