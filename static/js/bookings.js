@@ -24,7 +24,7 @@ $(document).ready(function (){
 
     // User clicks Add New Booking in Bookings list
     $("#booking-list").on("click", "#add-new-booking", function (){
-        buildForm()
+        buildNewBookingForm()
     })
 
     // $("#left-block-inner").on("click", "save")
@@ -43,13 +43,16 @@ function displayBooking(bookingData){
     $("#left-block-inner").append($("<div>", { id: "vehicle-mileage-at-service-view", text: bookingData.vehicle_mileage_at_service }))
     $("#left-block-inner").append($("<div>", { id: "completed-service-view", text: bookingData.completed_service }))
     $("#left-block-inner").append($("<button>", { id: "edit-booking", text: "Edit booking" })); // replace with pen icon for edit
+    $("#left-block-inner").on("click", "#edit-booking", function (){
+        buildEditBookingForm(bookingData)
+    })
     $("#left-block-inner").append($("<button>", { id: "delete-booking", text: "Delete booking" })); // replace with bin icon for delete
     $("#left-block-inner").on("click", "#delete-booking", function(){
         showDeleteModal(bookingData) // showDeleteModal needs refactoring to be "showModal"
     })
 }
 
-function buildForm(){
+function buildNewBookingForm(){
     console.log("building bookings form")
     $("#left-block-inner").empty()
     $("#left-block-inner").append($("<form>", { id: "new-booking-form" }))
@@ -62,15 +65,30 @@ function buildForm(){
             $("<option>", { value: "Repair", text: "Repair" }),
             $("<option>", { value: "Other", text: "Other" })
         ),
+        $("<label>", { for: "vehicle", text: "Vehicle:" }),
+        $("<select>", { id: "vehicle", name: "vehicle", required: true }),
+        // SELECT options populated with AJAX call below
+        // Fetch vehicles associated with current user
+        $.get("/vehicles/api/vehicle-listJSON/", function(response) {
+            const vehicles = response.vehicles;
+            console.log(vehicles)
+            $("#vehicle").append(
+            $("<option>", { class: "placeholder", value: undefined, text: "Please select a vehicle for service", disabled: true, selected: true, hidden: true }),
+            )
+            // Now add vehicles as options to the form
+            vehicles.forEach((vehicle) => {
+                console.log(vehicle.id)
+            $("#vehicle").append(
+                $("<option>", { value: vehicle.id, text: vehicle.vrn })
+            )
+            })
+        }),
         $("<label>", { for: "date_time", text: "Date & Time:" }),
         $("<input>", { type: "datetime-local", id: "date_time", name: "date_time", required: true }),
         $("<label>", { for: "customer_notes", text: "Customer Notes:" }),
         $("<textarea>", { id: "customer_notes", name: "customer_notes", rows: 4, required: true }),
         $("<label>", { for: "vehicle_mileage_at_service", text: "Vehicle Mileage at Service:" }),
         $("<input>", { type: "number", id: "vehicle_mileage_at_service", name: "vehicle_mileage_at_service", min: 0, required: true }),
-        $("<label>", { for: "vehicle", text: "Vehicle:" }),
-        $("<select>", { id: "vehicle", name: "vehicle", required: true }),
-        // SELECT options populated with AJAX call below
         $("<button>", { type: "submit", text: "Save Booking" }),
         // Booking Submission
         $("#new-booking-form").on("submit", function(e) {
@@ -92,31 +110,24 @@ function buildForm(){
                 success: function(response) {
                     console.log(response);
                     refreshBookingList()
+                    $("#left-block-inner").empty()
+                    showToastNotification(`${formData.bookingType} Booking`, `Your booking has been submitted for ${formData.dateTime}.`)
                 },
                 error: function (xhr, status, error) {
                     console.log("Error: ", error);
                     showToastNotification(formData.bookingType, "Something went wrong when saving this booking")
                 }
             })
-        }) 
+        }),
     )
-    // Fetch vehicles associated with current user
-    $.get("/vehicles/api/vehicle-listJSON/", function(response) {
-        const vehicles = response.vehicles;
-        console.log(vehicles)
-        $("#vehicle").append(
-          $("<option>", { class: "placeholder", value: undefined, text: "Please select a vehicle for service", disabled: true, selected: true, hidden: true }),
-        )
-        // Now add vehicles as options to the form
-        vehicles.forEach((vehicle) => {
-            console.log(vehicle.id)
-          $("#vehicle").append(
-            $("<option>", { value: vehicle.id, text: vehicle.vrn })
-          )
-        })
-    });
+    
 }
 
+function buildEditBookingForm(formData){
+    $("#left-block-inner").empty()
+
+
+}
 
 function showDeleteModal(bookingData){
         console.log("Opening Modal")
