@@ -49,3 +49,6 @@ icons for service types
 
 
 stumbled aacrrs View Decorators - https://docs.djangoproject.com/en/5.1/topics/http/decorators/ - basically allows you to set/restrict/ to specific methods for views. Limits the DELETE BOOKING to a POST which comes with the positive confirmation of "Yes, I'm sure I want to delete this booking"
+
+issues setting the datetime-local element with the saved value in the input form
+https://stackoverflow.com/questions/30166338/setting-value-of-datetime-local-from-date

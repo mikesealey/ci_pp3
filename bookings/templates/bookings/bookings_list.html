@@ -1,7 +1,7 @@
 {% for booking in bookings %}
     <div
         class="booking-list-item"
-        data-date_time="{{ booking.date_time }}"
+        data-date_time="{{ booking.date_time|date:'Y-m-d\\TH:i' }}"
         data-approved="{{ booking.approved }}"
         data-booking_type="{{ booking.booking_type }}"
         data-customer_notes="{{ booking.customer_notes }}"
@@ -9,6 +9,7 @@
         data-vehicle_mileage_at_service="{{ booking.vehicle_mileage_at_service }}"
         data-completed_service="{{ booking.completed_service }}"
         data-vehicle="{{ booking.vehicle.vrn }}"
+        data-vehicle-id="{{ booking.vehicle.id }}"
         data-booking-id="{{ booking.id }}"
     >
         <p>{{ booking.booking_type }}</p>

@@ -14,10 +14,11 @@ $(document).ready(function (){
             vehicle_mileage_at_service:  $booking.data("vehicle_mileage_at_service"),
             completed_service: $booking.data("completed_service"),
             vehicle: $booking.data("vehicle"),
-            bookingId: $booking.data("booking-id")
+            vehicleId: $booking.data("vehicle-id"),
+            bookingId: $booking.data("booking-id"),
         }
         
-        console.log("Booking ID at click" + $booking.data("booking-id"))
+        console.log("Booking dateTime at click" + bookingObject.dateTime)
         // pass it to function
         displayBooking(bookingObject)
     })
@@ -32,7 +33,7 @@ $(document).ready(function (){
 
 // User clicks on Booking in Bookings list
 function displayBooking(bookingData){
-    console.log(bookingData)
+    console.log("bookingdata" + JSON.stringify(bookingData))
     // Display booking details
     $("#left-block-inner").text("") // Empty out the placeholder anything already populated there
     $("#left-block-inner").append($("<div>", { id: "vrn-view", class: "vrn vrn-med", text: bookingData.vehicle }))
@@ -125,8 +126,76 @@ function buildNewBookingForm(){
 
 function buildEditBookingForm(formData){
     $("#left-block-inner").empty()
-
-
+    $("#left-block-inner").append($("<form>", { id: "new-booking-form" }))
+    $("#new-booking-form").append(
+        $("<label>", { for: "booking_type", text: "Booking Type:" }),
+        $("<select>", { id: "booking_type", name: "booking_type", required: true }).append(
+            $("<option>", { value: "Service", text: "Service" }),
+            $("<option>", { value: "MOT", text: "MOT" }),
+            $("<option>", { value: "Repair", text: "Repair" }),
+            $("<option>", { value: "Other", text: "Other" })
+        ),
+        // Now set the form's bookingType as the one already chosen in this booking
+        $("booking_type").val(formData.bookingType),
+        $("<label>", { for: "vehicle", text: "Vehicle:" }),
+        $("<select>", { id: "vehicle", name: "vehicle", required: true }),
+        // SELECT options populated with AJAX call below
+        // Fetch vehicles associated with current user
+        $.get("/vehicles/api/vehicle-listJSON/", function(response) {
+            const vehicles = response.vehicles;
+            $("#vehicle").append(
+            $("<option>", { class: "placeholder", value: undefined, text: "Please select a vehicle for service", disabled: true, selected: true, hidden: true }),
+            )
+            // Now add vehicles as options to the form
+            vehicles.forEach((vehicle) => {
+            $("#vehicle").append(
+                $("<option>", { value: vehicle.id, text: vehicle.vrn })
+            )
+            })
+            // Now set the form's selected value as the vehicle already chosen in the booking
+            $("#vehicle").val(formData.vehicleId)
+        }),
+        $("<label>", { for: "date_time", text: "Date & Time:" }),
+        $("<input>", { type: "datetime-local", id: "date_time", name: "date_time", required: true, value: formData.dateTime }),
+        // Wait until the date_time element is there before tring to set it's cvalue
+        $("#new-booking-form").on("DOMNodeInserted", "#date_time", function() {
+            $("#date_time").val(formData.dateTime)
+        }),
+        $("<label>", { for: "customer_notes", text: "Customer Notes:" }),
+        $("<textarea>", { id: "customer_notes", name: "customer_notes", rows: 4, required: true, value: formData.customerNotes  }),
+        $("<label>", { for: "vehicle_mileage_at_service", text: "Vehicle Mileage at Service:" }),
+        $("<input>", { type: "number", id: "vehicle_mileage_at_service", name: "vehicle_mileage_at_service", min: 0, required: true, value: formData.vehicle_mileage_at_service}),
+        $("<button>", { type: "submit", text: "Save Booking" }),
+        // Booking Submission
+        $("#new-booking-form").on("submit", function(e) {
+            e.preventDefault()
+            // Gather data from form
+            const formData = {
+                bookingType: $("#booking_type").val(),
+                dateTime: $("#date_time").val(),
+                customerNotes: $("#customer_notes").val(),
+                vehicle_mileage_at_service: $("#vehicle_mileage_at_service").val(),
+                vehicle: $("#vehicle").val()
+            }
+            // Pass data into AJAX query
+            $.ajax({
+                url: "/bookings/api/add-booking/",
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(formData),
+                success: function(response) {
+                    console.log(response);
+                    refreshBookingList()
+                    $("#left-block-inner").empty()
+                    showToastNotification(`${formData.bookingType} Booking`, `Your booking has been submitted for ${formData.dateTime}.`)
+                },
+                error: function (xhr, status, error) {
+                    console.log("Error: ", error);
+                    showToastNotification(formData.bookingType, "Something went wrong when saving this booking")
+                }
+            })
+        }),
+    )
 }
 
 function showDeleteModal(bookingData){
@@ -182,3 +251,4 @@ function refreshBookingList(){
 function saveBooking(){
 
 }
+
