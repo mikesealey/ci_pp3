@@ -71,7 +71,7 @@ function buildForm(){
         $("<label>", { for: "vehicle", text: "Vehicle:" }),
         $("<select>", { id: "vehicle", name: "vehicle", required: true }),
         // SELECT options populated with AJAX call below
-        $("<button>", { type: "submit", text: "Save Vehicle" }),
+        $("<button>", { type: "submit", text: "Save Booking" }),
         // Booking Submission
         $("#new-booking-form").on("submit", function(e) {
             e.preventDefault()
@@ -91,7 +91,7 @@ function buildForm(){
                 data: JSON.stringify(formData),
                 success: function(response) {
                     console.log(response);
-                    // Refresh Booking List
+                    refreshBookingList()
                 },
                 error: function (xhr, status, error) {
                     console.log("Error: ", error);
