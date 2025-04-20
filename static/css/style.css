@@ -191,3 +191,8 @@ input {
 .modal * {
     color: black;
 }
+
+.label {
+    background-color: #5c6B73;
+    opacity: 50%;
+}
