@@ -50,11 +50,17 @@ function displayBooking(bookingData){
     $("#left-block-inner").append($("<div>", { id: "vehicle-mileage-at-service-view", text: bookingData.vehicle_mileage_at_service }))
     $("#left-block-inner").append($("<div>", { class: "label", text: "Booking Status" }))
     $("#left-block-inner").append($("<div>", { id: "completed-service-view", text: bookingData.completed_service ? "Completed" : "Not yet completed" }))
-    $("#left-block-inner").append($("<button>", { id: "edit-booking", text: "Edit booking" })); // replace with pen icon for edit
+
+    let editable = true
+    const bookingDate = new Date(bookingData.dateTime)
+    if (bookingData.completed_service || bookingDate < new Date()) {
+        editable = false
+    }
+    $("#left-block-inner").append($("<button>", { id: "edit-booking", text: "Edit booking", disabled: !editable })); // replace with pen icon for edit
     $("#left-block-inner").off("click", "#edit-booking").on("click", "#edit-booking", function (){ // stops multiple event listeners being added - fixes bug in forms
       buildEditBookingForm(bookingData)
-  })
-    $("#left-block-inner").append($("<button>", { id: "delete-booking", text: "Delete booking" })); // replace with bin icon for delete
+    })
+    $("#left-block-inner").append($("<button>", { id: "delete-booking", text: "Delete booking", disabled: !editable })); // replace with bin icon for delete
     $("#left-block-inner").off("click", "#delete-booking").on("click", "#delete-booking", function(){
         showDeleteModal(bookingData) // showDeleteModal needs refactoring to be "showModal"
     })
