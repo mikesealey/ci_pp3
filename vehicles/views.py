@@ -35,8 +35,11 @@ def add_vehicle(request):
     return JsonResponse({"error": "Invalid request"}, status=400)
 
 # Queries DVLA API for vehicle data based on Vehicle Registration Number (VRN)
-# Bring in API key from env
-from env import DVLA_API_KEY
+# Bring in API key from env OR Heroku
+try:
+    from env import DVLA_API_KEY  # for local development
+except ImportError:
+    DVLA_API_KEY = os.getenv("DVLA_API_KEY")
 @csrf_exempt
 def query_vehicle(request):
     # Unpick VRN from request
