@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
-from django.contrib.auth.forms import UserChangeForm
+from django.contrib.auth.forms import UserChangeForm, UserCreationForm
+from django.contrib.auth import login
 
 def homepage(request):
     return render(request, "AutoMate/home.html")
@@ -20,3 +21,14 @@ def profile(request):
 
 def home(request):
     return render(request, "AutoMate/home.html")
+
+def signup(request):
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect("homepage")
+    else:
+        form = UserCreationForm()
+    return render(request, "registration/signup.html", {"form": form})
