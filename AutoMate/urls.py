@@ -21,7 +21,8 @@ from vehicles.views import vehicles
 from bookings.views import bookings
 from AutoMate.views import homepage, profile, signup
 from AutoMate import views as core_views
-from .views import profile
+from .views import profile, signup
+
 
 
 
