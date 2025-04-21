@@ -24,7 +24,6 @@ from .views import profile
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("", vehicles, name="vehicles"),
     path('vehicles/', include("vehicles.urls")),
     path('bookings/', include("bookings.urls")),
     path("", homepage, name="homepage"),

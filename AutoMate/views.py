@@ -17,3 +17,6 @@ def profile(request):
         form = UserChangeForm(instance=request.user)
 
     return render(request, "profile/profile.html", {"form": form})
+
+def home(request):
+    return render(request, "AutoMate/home.html")

@@ -46,6 +46,7 @@
         <nav>
             <ul>
                 {% if user.is_authenticated %}
+                    <h4>Welcome back, {{ user.username }}</h4>
                     <li><a href="{% url 'vehicles' %}">My Vehicles</a></li>
                     <li><a href="{% url 'bookings' %}">My Bookings</a></li>
                     <li><a href="{% url 'profile' %}">My Profile</a></li>

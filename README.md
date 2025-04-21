@@ -45,6 +45,11 @@ Interesting bugs:
 Because much of the dom is being manipulated, I had to change teh way they're applied 
 Swapping $("#thing").on("click", function(){}) for $("#parent-thing").on("click", "#thing", function(){}) where the parent "thing" should always be present.
 
+tripping point: 
+JS booleans and Python booleans are not comparable - Django returns a True or False, which I want to compare with JS true or false
+True =/= true and False =/= false
+in fact, when simply checking if (knownFalsePython) for truthiness, False will return true, because it equates to a string
+
 icons for service types
 
 
@@ -52,3 +57,4 @@ stumbled aacrrs View Decorators - https://docs.djangoproject.com/en/5.1/topics/h
 
 issues setting the datetime-local element with the saved value in the input form
 https://stackoverflow.com/questions/30166338/setting-value-of-datetime-local-from-date
+
