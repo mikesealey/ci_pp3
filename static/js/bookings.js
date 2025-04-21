@@ -51,16 +51,17 @@ function displayBooking(bookingData){
     $("#left-block-inner").append($("<div>", { class: "label", text: "Booking Status" }))
     $("#left-block-inner").append($("<div>", { id: "completed-service-view", text: bookingData.completed_service ? "Completed" : "Not yet completed" }))
 
-    let editable = true
+    let buttonDisabled = false
     const bookingDate = new Date(bookingData.dateTime)
-    if (bookingData.completed_service || bookingDate < new Date()) {
-        editable = false
+    const now = new Date()
+    if (bookingData.completed_service === "True" || bookingDate.getTime() < now.getTime()) { // Need to check against string of "True" because it's a response from Python/Django
+        buttonDisabled = true
     }
-    $("#left-block-inner").append($("<button>", { id: "edit-booking", text: "Edit booking", disabled: !editable })); // replace with pen icon for edit
+    $("#left-block-inner").append($("<button>", { id: "edit-booking", text: "Edit booking", disabled: buttonDisabled })); // replace with pen icon for edit
     $("#left-block-inner").off("click", "#edit-booking").on("click", "#edit-booking", function (){ // stops multiple event listeners being added - fixes bug in forms
       buildEditBookingForm(bookingData)
     })
-    $("#left-block-inner").append($("<button>", { id: "delete-booking", text: "Delete booking", disabled: !editable })); // replace with bin icon for delete
+    $("#left-block-inner").append($("<button>", { id: "delete-booking", text: "Delete booking", disabled: buttonDisabled })); // replace with bin icon for delete
     $("#left-block-inner").off("click", "#delete-booking").on("click", "#delete-booking", function(){
         showDeleteModal(bookingData) // showDeleteModal needs refactoring to be "showModal"
     })
