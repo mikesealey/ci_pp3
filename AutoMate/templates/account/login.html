@@ -1,9 +1,18 @@
 {% extends "AutoMate/base.html" %}
+{% load static %}
 {% block content %}
-  <h2>Login</h2>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Login</button>
-  </form>
+<div class="double-block">
+    <div id="left-block" class="block">
+        <h2>Login</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Login</button>
+        </form>
+    </div>
+    <!-- <div class="block">
+        SSO goes here
+    </div> -->
+</div>
+  
 {% endblock %}
