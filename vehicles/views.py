@@ -41,6 +41,7 @@ try:
 except ImportError:
     DVLA_API_KEY = os.getenv("DVLA_API_KEY")
 @csrf_exempt
+@login_required
 def query_vehicle(request):
     # Unpick VRN from request
     body = json.loads(request.body)

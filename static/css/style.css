@@ -7,7 +7,7 @@ C2DFE3 - Light Blue - Positive Button
 */
 @font-face {
     font-family: 'Mandatory';
-    src: url('/fonts/Mandatory.woff') format('woff');
+    src: url("{% static 'fonts/Mandatory.woff' %}") format('woff');
     font-weight: normal;
     font-style: normal;
 }
