@@ -5,7 +5,12 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
-
+from django.conf import settings
+from django.core.mail import EmailMessage
+from django.conf import settings
+from django.template.loader import render_to_string
+from django.utils import timezone
+from datetime import datetime
 
 # Create your views here.
 @login_required
@@ -52,6 +57,7 @@ def add_booking(request):
             vehicle = vehicle,
             user = request.user
         )
+        # send_booking_confirmation_email(booking)
         return JsonResponse({"status": "ok", "booking_id": booking.id})
     return JsonResponse({"error": "Invalid request"}, status=400)
 
@@ -84,3 +90,31 @@ def update_booking(request, booking_id):
         return JsonResponse({"status": "updated", "booking_id": booking.id})
 
     return JsonResponse({"error": "Invalid request method"}, status=400)
+
+
+############ SENDING EMAILS #######
+from django.core.mail import send_mail
+
+def send_booking_confirmation_email(booking):
+    subject = "Your AutoMate Service Booking Confirmation"
+    message = f"""Hi {booking.user.first_name},
+
+Your booking for your vehicle, {booking.vrn} {booking.vehicle.make} {booking.vehicle.model} is confirmed for {booking.date}.
+
+Thank you for choosing AutoMate!
+"""
+    send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [booking.customer.email])
+    # WOuld be nice to also include calendar attachment - ICS or ICAL - maybe if I get time
+
+def send_post_service_email(booking):
+    subject = "AutoMate Service Completed – Here's What We Found"
+    message = f"""Hi {booking.customer.name},
+
+Your service for {booking.vehicle.make} {booking.vehicle.model} is complete.
+
+Mechanic's Notes:
+{booking.mechanic_notes}
+
+Thanks for using AutoMate!
+"""
+    send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [booking.customer.email])

@@ -7,6 +7,7 @@ coolors.co - colour pallette picker
 Background image by Malte Luk https://www.pexels.com/photo/man-fixing-vehicle-engine-2244746/
 
 UK Rear number plate is colour #ffd800 with dimensions 520mm 111mm
+https://assets.publishing.service.gov.uk/media/6694e379fc8e12ac3edafc60/inf104-vehicle-registration-numbers-and-number-plates.pdf More writings on Number Plate Sizing Dimensions
 
 Bootstrap Modal https://getbootstrap.com/docs/4.0/components/modal/
 Adding in Bootstrap part way through this project was an awful decision and I should 100% have brought it in earlier or not at all
@@ -57,4 +58,10 @@ stumbled aacrrs View Decorators - https://docs.djangoproject.com/en/5.1/topics/h
 
 issues setting the datetime-local element with the saved value in the input form
 https://stackoverflow.com/questions/30166338/setting-value-of-datetime-local-from-date
+
+Mobile Navbar tutorial
+https://www.youtube.com/watch?v=iJRZi_OdlPE
+
+Automating Emails tutorial
+https://www.youtube.com/watch?v=1BaLWYUO1k4
 
