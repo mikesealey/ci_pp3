@@ -20,11 +20,10 @@ from django.urls import path, include
 from vehicles.views import vehicles
 from bookings.views import bookings
 from AutoMate.views import homepage, profile, signup
+from accounts.views import profile_view
 from AutoMate import views as core_views
-from .views import profile, signup
-
-
-
+from .views import profile
+from django.shortcuts import redirect
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -32,9 +31,10 @@ urlpatterns = [
     path('bookings/', include("bookings.urls")),
     
     path('', homepage, name='homepage'),
-    path('profile/', profile, name='profile'),
+    path('profile/', profile_view, name='profile'),
+    path('accounts/', include('allauth.urls')),
 
     path('login/', auth_views.LoginView.as_view(template_name='account/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(next_page='homepage'), name='logout'),
-    path('signup/', signup, name='signup'),
+    path('signup/', lambda request: redirect('account_signup')),
 ]

@@ -3,7 +3,7 @@
     <div class="double-block">
         <div id="left-block" class="block">
             <h2>Sign Up</h2>
-            <form method="post">
+            <form method="post" action="{% url 'account_signup' %}">
                 {% csrf_token %}
                 {{ form.as_p }}
                 <button type="submit">Create account</button>

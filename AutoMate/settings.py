@@ -38,6 +38,7 @@ ALLOWED_HOSTS = [
 # Application definition
 
 INSTALLED_APPS = [
+    "django.contrib.sites",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -46,6 +47,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'bookings',
     'vehicles',
+    'accounts.apps.AccountsConfig',
+    "allauth",
+    "allauth.account",
 ]
 
 MIDDLEWARE = [
@@ -57,7 +61,10 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     "whitenoise.middleware.WhiteNoiseMiddleware", 
+    'allauth.account.middleware.AccountMiddleware', 
 ]
+
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 ROOT_URLCONF = 'AutoMate.urls'
 
@@ -79,6 +86,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'AutoMate.wsgi.application'
 
+ACCOUNT_FORMS = {
+    'signup': 'accounts.forms.CustomSignupForm',
+}
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
@@ -149,3 +159,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 DVLA_API_KEY = "703aK4Th4J9cjosYr3KeP5MEci24ENUg8awsY8gp"
+
+SITE_ID = 1
+

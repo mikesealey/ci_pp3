@@ -1,10 +1,33 @@
 {% extends 'AutoMate/base.html' %}
-
 {% block content %}
-    <h2>Edit Profile</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Save Changes</button>
-    </form>
+<div class="double-block">
+    <div class="block" id="left-block">
+        <h2>Edit Profile</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ user_form.non_field_errors }}
+            <div>
+            {{ user_form.first_name.label_tag }}
+            {{ user_form.first_name }}
+            {{ user_form.first_name.errors }}
+            </div>
+        
+            <div>
+            {{ user_form.last_name.label_tag }}
+            {{ user_form.last_name }}
+            {{ user_form.last_name.errors }}
+            </div>
+        
+            {{ profile_form.non_field_errors }}
+            <div>
+            {{ profile_form.phone_number.label_tag }}
+            {{ profile_form.phone_number }}
+            {{ profile_form.phone_number.errors }}
+            </div>
+        
+            <button type="submit">Save Changes</button>
+        </form>
+    </div>
+</div>
+
 {% endblock %}
