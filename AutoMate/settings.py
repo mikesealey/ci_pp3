@@ -158,7 +158,9 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-DVLA_API_KEY = "703aK4Th4J9cjosYr3KeP5MEci24ENUg8awsY8gp"
+DVLA_API_KEY = os.environ.get("DVLA_API_KEY")
 
 SITE_ID = 1
+
+
 
