@@ -17,6 +17,11 @@
             {{ user_form.last_name }}
             {{ user_form.last_name.errors }}
             </div>
+            <div>
+                {{ user_form.email.label_tag }}
+                {{ user_form.email }}
+                {{ user_form.email.errors }}
+            </div>
         
             {{ profile_form.non_field_errors }}
             <div>
@@ -24,6 +29,7 @@
             {{ profile_form.phone_number }}
             {{ profile_form.phone_number.errors }}
             </div>
+            
         
             <button type="submit">Save Changes</button>
         </form>
