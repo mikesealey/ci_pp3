@@ -49,7 +49,7 @@ function displayBooking(bookingData){
     $("#left-block-inner").append($("<div>", { class: "label", text: "Last known mileage" }))
     $("#left-block-inner").append($("<div>", { id: "vehicle-mileage-at-service-view", text: bookingData.vehicle_mileage_at_service }))
     $("#left-block-inner").append($("<div>", { class: "label", text: "Booking Status" }))
-    $("#left-block-inner").append($("<div>", { id: "completed-service-view", text: bookingData.completed_service ? "Completed" : "Not yet completed" }))
+    $("#left-block-inner").append($("<div>", { id: "completed-service-view", text: bookingData.completed_service === "True" ? "Completed" : "Not yet completed" }))
 
     let buttonDisabled = false
     const bookingDate = new Date(bookingData.dateTime)
