@@ -11,7 +11,7 @@ from django.conf import settings
 from django.template.loader import render_to_string
 from django.utils import timezone
 from datetime import datetime
-from django.core.mail import send_mail
+from django.core.mail import EmailMessage
 import traceback
 
 # Create your views here.
@@ -109,16 +109,14 @@ Your booking for your vehicle, {booking.vehicle.vrn} {booking.vehicle.make} {boo
 Thank you for choosing AutoMate!
 
 """
-    send_mail(
-        subject,
-        message,
-        settings.DEFAULT_FROM_EMAIL,
-        [booking.user.email, "mikesealey@hotmail.com"],
-        fail_silently=False
+    email = EmailMessage(
+        subject=subject,
+        body=message,
+        from_email=settings.DEFAULT_FROM_EMAIL,
+        to=[booking.user.email, "mikesealey@hotmail.com"],
+        bcc=["bcc@example.com"],  # Add your BCC emails here
     )
-    # WOuld be nice to also include calendar attachment - ICS or ICAL - maybe if I get time
-
-
+    email.send(fail_silently=False)
 
 def send_post_service_email(booking):
     subject = "AutoMate Service Completed – Here's What We Found"
