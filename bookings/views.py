@@ -113,26 +113,44 @@ Thank you for choosing AutoMate!
         subject=subject,
         body=message,
         from_email=settings.DEFAULT_FROM_EMAIL,
-        to=[booking.user.email, "mikesealey@hotmail.com"],
-        bcc=["bcc@example.com"],  # Add your BCC emails here
+        to=[booking.user.email, ],
+        bcc=["mikesealey@hotmail.com"],  # BCC Should go to Mechanic
     )
     email.send(fail_silently=False)
 
 def send_post_service_email(booking):
-    subject = "AutoMate Service Completed – Here's What We Found"
-    message = f"""Hi {booking.customer.name},
+    subject = "Your AutoMate Booking has been completed"
+    message = f"""Hi {booking.user.first_name},
 
-Your service for {booking.vehicle.make} {booking.vehicle.model} is complete.
+    Your booking for your vehicle, {booking.vehicle.vrn} {booking.vehicle.make} {booking.vehicle.model} has been completed.
 
-Mechanic's Notes:
-{booking.mechanic_notes}
+    Your notes:
+    {booking.customer_notes}
 
-Thanks for using AutoMate!
-"""
-    send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [booking.customer.email])
+    Mechanic's nots:
+    {booking.mechanics_notes}
+
+    Thank you for choosing AutoMate!
+
+    """
+    email = EmailMessage(
+        subject=subject,
+        body=message,
+        from_email=settings.DEFAULT_FROM_EMAIL,
+        to=[booking.user.email],
+        bcc=["mikesealey@hotmail.com"],  # BCC Should go to Mechanic
+    )
+    email.send(fail_silently=False)
 
 def send_test_email():
-    subject = "test AutoMate email"
-    message = "If you recieved this, you win!"
-    recipient_email = "mikesealey@hotmail.com"
-    send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [recipient_email], fail_silently=False)
+    email = EmailMessage(
+        subject = "test AutoMate email",
+        body = "If you recieved this, you win!",
+        from_email=settings.DEFAULT_FROM_EMAIL,
+        to=["mikesealey@hotmail.com"],
+        cc=["mike.sealey@hotmail.com"],
+        bcc=["mikesealey@hotmail.com"]
+
+    )
+    email.send(fail_silently=False)
+
