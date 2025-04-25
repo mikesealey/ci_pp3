@@ -138,7 +138,7 @@ nav ul li {
     width: 100%;
 }
 
-.vehicle-list-item, .vehicle-list-item-last, .booking-list-item, .booking-list-item-last {
+.vehicle-list-item, .vehicle-list-item-last, .booking-list-item, .booking-list-item-last, .all-booking-list-item {
     width: 100%;
     border: 2px solid #9DB4C0;
     display: flex;

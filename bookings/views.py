@@ -13,6 +13,7 @@ from django.utils import timezone
 from datetime import datetime
 from django.core.mail import EmailMessage
 import traceback
+from django.contrib.admin.views.decorators import staff_member_required
 
 # Create your views here.
 @login_required
@@ -68,7 +69,6 @@ def add_booking(request):
         return JsonResponse({"status": "ok", "booking_id": booking.id})
     return JsonResponse({"error": "Invalid request"}, status=400)
 
-@csrf_exempt
 @login_required
 @csrf_exempt
 def update_booking(request, booking_id):
@@ -98,17 +98,42 @@ def update_booking(request, booking_id):
 
     return JsonResponse({"error": "Invalid request method"}, status=400)
 
+# Will get ALL bookings, not by customer/user, sorted by Date
+@staff_member_required
+def all_bookings(request):
+    bookings = Booking.objects.all().order_by("date_time")
+    return render(request, "bookings/customer_bookings.html", {"bookings": bookings})
+
+# Will allow Mechanic to update with "completed" and "mechanic's notes"
+@staff_member_required
+def booking_completed(request, booking_id):
+    if request.method == "PUT":
+        data = json.loads(request.body)
+        try:
+            booking = Booking.objects.get(id=booking_id)
+        except Booking.DoesNotExist:
+            return JsonResponse({"error": "Booking not found"}, status=404)
+
+        booking.completed_service = True
+        booking.mechanics_notes = data.get("mechanicsNotes")
+        booking.save()
+
+        return JsonResponse({"status": "booking marked complete", "booking_id": booking.id})
+
+    return JsonResponse({"error": "Invalid request method"}, status=400)
+
+
 
 ############ SENDING EMAILS #######
 def send_booking_confirmation_email(booking):
     subject = "Your AutoMate Service Booking Confirmation"
     message = f"""Hi {booking.user.first_name},
 
-Your booking for your vehicle, {booking.vehicle.vrn} {booking.vehicle.make} {booking.vehicle.model} is confirmed for {booking.date_time}.
+    Your booking for your vehicle, {booking.vehicle.vrn} {booking.vehicle.make} {booking.vehicle.model} is confirmed for {booking.date_time}.
 
-Thank you for choosing AutoMate!
+    Thank you for choosing AutoMate!
 
-"""
+    """
     email = EmailMessage(
         subject=subject,
         body=message,

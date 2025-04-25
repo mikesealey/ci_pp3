@@ -1,0 +1,71 @@
+$(document).ready(function (){
+    // User clicks on Booking in Bookings list
+    $("#booking-list").on("click", ".all-booking-list-item", function (){
+        console.log("HERE")
+        // Gather booking data
+        const $booking = $(this)
+        
+        bookingObject = {
+            dateTime: $booking.data("date_time"),
+            approved: $booking.data("approved"),
+            bookingType: $booking.data("booking_type"),
+            customer_notes: $booking.data("customer_notes"),
+            mechanics_notes: $booking.data("mechanics_notes"),
+            vehicle_mileage_at_service:  $booking.data("vehicle_mileage_at_service"),
+            completed_service: $booking.data("completed_service"),
+            vehicle: $booking.data("vehicle"),
+            vehicleId: $booking.data("vehicle-id"),
+            bookingId: $booking.data("booking-id"),
+        }
+        
+        console.log("Booking dateTime at click" + bookingObject.dateTime)
+        // pass it to function
+        displayBooking(bookingObject)
+    })
+
+    function displayBooking(bookingData){
+        console.log("bookingdata" + JSON.stringify(bookingData))
+        // Display booking details
+        $("#left-block-inner").text("") // Empty out the placeholder anything already populated there
+        $("#left-block-inner").append($("<div>", { class: "label", text: "Vehicle" }))
+        $("#left-block-inner").append($("<div>", { id: "vrn-view", class: "vrn vrn-med", text: bookingData.vehicle }))
+        $("#left-block-inner").append($("<div>", { class: "label", text: "Booking Date & Time" }))
+        $("#left-block-inner").append($("<div>", { id: "date-time-view", text: bookingData.dateTime }))
+        $("#left-block-inner").append($("<div>", { class: "label", text: "Booking type" }))
+        $("#left-block-inner").append($("<div>", { id: "booking-type-view", text: bookingData.bookingType }))
+        $("#left-block-inner").append($("<div>", { class: "label", text: "Customer notes" }))
+        $("#left-block-inner").append($("<div>", { id: "customer-notes-view", text: bookingData.customer_notes || "No customer notes provided" }))
+        $("#left-block-inner").append($("<div>", { class: "label", text: "Mechanics notes" }))
+        $("#left-block-inner").append($("<div>", { id: "mechanics-notes-view", text: bookingData.mechanics_notes || "No mechanics notes provided" }))
+        $("#left-block-inner").append($("<div>", { class: "label", text: "Last known mileage" }))
+        $("#left-block-inner").append($("<div>", { id: "vehicle-mileage-at-service-view", text: bookingData.vehicle_mileage_at_service }))
+        $("#left-block-inner").append($("<div>", { class: "label", text: "Approval Status" }))
+        $("#left-block-inner").append($("<div>", { id: "approved-view", text: bookingData.approved === "True"? "Approved" : "Pending" }))
+        $("#left-block-inner").append($("<div>", { class: "label", text: "Booking Status" }))
+        $("#left-block-inner").append($("<div>", { id: "completed-service-view", text: bookingData.completed_service === "True"? "Completed" : "Awaiting Service" }))
+    
+    
+        let buttonDisabled = false
+        const bookingDate = new Date(bookingData.dateTime)
+        const now = new Date()
+        if (bookingData.completed_service === "True" || bookingDate.getTime() < now.getTime()) { // Need to check against string of "True" because it's a response from Python/Django
+            buttonDisabled = true
+        }
+        $("#left-block-inner").append($("<button>", { id: "approve-booking", text: "Approve booking", disabled: bookingData.approved === "True" || buttonDisabled })).on("click", "#approve-booking", function(){
+            approveBooking(bookingData)
+        });
+        $("#left-block-inner").append($("<button>", { id: "edit-booking", text: "Edit booking", disabled: buttonDisabled })); // replace with pen icon for edit
+        $("#left-block-inner").off("click", "#edit-booking").on("click", "#edit-booking", function (){ // stops multiple event listeners being added - fixes bug in forms
+          buildEditBookingForm(bookingData)
+        })
+       
+    }
+
+    // $("#left-block-inner").on("click", "save")
+})
+
+function approveBooking(bookingData){
+    console.log("approve booking!")
+    // Make the AJAX call to approve the booking
+    // Refresh the list
+}

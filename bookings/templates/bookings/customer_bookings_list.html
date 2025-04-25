@@ -1,0 +1,29 @@
+{% for booking in bookings %}
+    <div
+        class="all-booking-list-item"
+        data-date_time="{{ booking.date_time|date:'Y-m-d\\TH:i' }}"
+        data-approved="{{ booking.approved }}"
+        data-booking_type="{{ booking.booking_type }}"
+        data-customer_notes="{{ booking.customer_notes }}"
+        data-mechanics_notes="{{ booking.mechanics_notes }}"
+        data-vehicle_mileage_at_service="{{ booking.vehicle_mileage_at_service }}"
+        data-completed_service="{{ booking.completed_service }}"
+        data-vehicle="{{ booking.vehicle.vrn }}"
+        data-vehicle-id="{{ booking.vehicle.id }}"
+        data-booking-id="{{ booking.id }}"
+    >
+        <p>{{ booking.booking_type }}</p>
+        {% if booking.approved %}
+            <p>Approved</p>
+        {% else %}
+            <p>Pending</p>
+        {% endif %}
+        <p>{{ booking.date_time }}</p>
+        {% if booking.completed_service %}
+            <p>Completed</p>
+        {% else %}
+            <p>Awaiting Service</p>
+        {% endif %}
+        <div class="vrn">{{ booking.vehicle.vrn }}</div>
+    </div>
+{% endfor %}
