@@ -90,7 +90,7 @@ function approveBooking(bookingData){
             showToastNotification("Failed to approve booking:", error)
             // Undo the optimistic change of the "approved"
             $("#approved-view").text("Approved")
-            $("#approve-booking").disabled(false)
+            $("#approve-booking").prop("disabled", false)
         }
     });
     // Refresh the list
@@ -98,14 +98,11 @@ function approveBooking(bookingData){
 
     // Optimistically change the 'approved-view'
     $("#approved-view").text("Pending")
-    $("#approve-booking").disabled(true)
-
-    // Notifiy the customer
-    // Via Email
-    // Show toast notification
+    $("#approve-booking").prop("disabled", true)
 }
 
 function completeBooking(bookingData){
+    
     // Gather data from the form
     // Make the AJAX call
     // Notifiy the customer
@@ -116,6 +113,23 @@ function completeBooking(bookingData){
 
 function buildServiceForm(){
     console.log("Building the service form!")
+    console.log("carrying out service!")
+    // Swap out statment of mechanics notes with input for mechanics ntoes
+    $("#mechanics-notes-view").replaceWith(
+        $("<textarea>", {
+            id: "mechanics-notes-input",
+            placeholder: "Enter mechanics notes...",
+            rows: 5,
+            cols: 40
+        })
+    );
+    $("<button>", {
+        id: "save-mechanics-notes",
+        text: "Save"
+    }).insertAfter("#mechanics-notes-input");
+    $("#save-mechanics-notes").off("click").on("click", function () {
+        console.log("Saving notes and completing service");
+    });
 }
 
 function refreshAllBookingList(){
@@ -128,4 +142,9 @@ function refreshAllBookingList(){
 function getCSRFToken() {
     console.log("getting CSRF tocken")
     return document.querySelector('[name=csrfmiddlewaretoken]').value;
+}
+
+function carryOutService(){
+    
+
 }
