@@ -37,7 +37,7 @@ def delete_booking(request, booking_id):
 @login_required
 def get_bookings_list(request):
     bookings = Booking.objects.filter(user=request.user)
-    return render(request, "bookings/bookings_list.html", {"bookings": bookings})
+    return render(request, "bookings/api/bookings_list.html", {"bookings": bookings})
 
 @csrf_exempt
 @login_required
@@ -122,6 +122,26 @@ def booking_completed(request, booking_id):
 
     return JsonResponse({"error": "Invalid request method"}, status=400)
 
+# Mechanic/Staff Approves booking
+@csrf_exempt
+@staff_member_required
+def approve_booking(request, booking_id):
+    if request.method == "PUT":
+        try:
+            booking = Booking.objects.get(id=booking_id)
+        except Booking.DoesNotExist:
+            return JsonResponse({"error": "Booking not found"}, status=404)
+
+        booking.approved = True
+        booking.save()
+
+        return JsonResponse({
+            "status": "booking marked complete",
+            "booking_id": booking.id,
+            "approved": booking.approved,
+        })
+
+    return JsonResponse({"error": "Invalid request method"}, status=400)
 
 
 ############ SENDING EMAILS #######

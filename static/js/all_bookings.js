@@ -54,9 +54,9 @@ $(document).ready(function (){
         $("#left-block-inner").append($("<button>", { id: "approve-booking", text: "Approve booking", disabled: bookingData.approved === "True" || buttonDisabled })).on("click", "#approve-booking", function(){
             approveBooking(bookingData)
         });
-        $("#left-block-inner").append($("<button>", { id: "edit-booking", text: "Edit booking", disabled: buttonDisabled })); // replace with pen icon for edit
-        $("#left-block-inner").off("click", "#edit-booking").on("click", "#edit-booking", function (){ // stops multiple event listeners being added - fixes bug in forms
-          buildEditBookingForm(bookingData)
+        $("#left-block-inner").append($("<button>", { id: "carry-out-service", text: "Carry out service", disabled: buttonDisabled })); // replace with pen icon for edit
+        $("#left-block-inner").off("click", "#carry-out-service").on("click", "#carry-out-service", function (){ // stops multiple event listeners being added - fixes bug in forms
+          buildServiceForm(bookingData)
         })
        
     }
@@ -64,8 +64,55 @@ $(document).ready(function (){
     // $("#left-block-inner").on("click", "save")
 })
 
+
+
 function approveBooking(bookingData){
     console.log("approve booking!")
     // Make the AJAX call to approve the booking
+    $.ajax({
+        url: `/bookings/api/approve_booking/${bookingData.bookingId}/`,
+        type: "PUT",
+        headers: {
+            "X-CSRFToken": getCSRFToken(),
+        },
+        success: function(response) {
+            console.log("Booking approved successfully:", response);
+            refreshAllBookingList(); 
+            // Success Toast
+        },
+        error: function(xhr, status, error) {
+            console.error("Failed to approve booking:", error);
+            // Failure Toast
+        }
+    });
     // Refresh the list
+    refreshAllBookingList()
+    // Notifiy the customer
+    // Via Email
+    // Show toast notification
+}
+
+function completeBooking(bookingData){
+    // Gather data from the form
+    // Make the AJAX call
+    // Notifiy the customer
+    // Refresh the bookings list
+    refreshAllBookingList()
+    // Show toast notification
+}
+
+function buildServiceForm(){
+    console.log("Building the service form!")
+}
+
+function refreshAllBookingList(){
+    console.log("Refreshing All-Bookings List!")
+    $.get("/bookings/api/all_bookings/", function(html) {
+        $("#all-booking-list").html(html)
+    })
+}
+
+function getCSRFToken() {
+    console.log("getting CSRF tocken")
+    return document.querySelector('[name=csrfmiddlewaretoken]').value;
 }
