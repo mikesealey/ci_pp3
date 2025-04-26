@@ -98,11 +98,17 @@ def update_booking(request, booking_id):
 
     return JsonResponse({"error": "Invalid request method"}, status=400)
 
-# Will get ALL bookings, not by customer/user, sorted by Date
+# All bookings _page_
 @staff_member_required
-def all_bookings(request):
-    bookings = Booking.objects.all().order_by("date_time")
+def all_bookings_page(request):
+    bookings = Booking.objects.all().order_by('date_time')
     return render(request, "bookings/customer_bookings.html", {"bookings": bookings})
+
+# Will get ALL bookings, (not by customer/user) sorted by Date
+@staff_member_required
+def all_bookings_list(request):
+    bookings = Booking.objects.all().order_by('date_time')
+    return render(request, "bookings/customer_bookings_list.html", {"bookings": bookings})
 
 # Will allow Mechanic to update with "completed" and "mechanic's notes"
 @staff_member_required

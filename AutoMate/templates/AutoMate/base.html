@@ -42,7 +42,7 @@
             <ul>
                 <h4>Welcome back, {{ user.username }}</h4>
                 {% if user.is_staff %}
-                  <li><a href="{% url 'all_bookings' %}">Customer Bookings</a></li>
+                  <li><a href="{% url 'all_bookings_page' %}">Customer Bookings</a></li>
                 {% endif %}
                 {% if user.is_authenticated %}
                     

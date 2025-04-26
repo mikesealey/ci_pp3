@@ -1,6 +1,6 @@
 $(document).ready(function (){
     // User clicks on Booking in Bookings list
-    $("#booking-list").on("click", ".all-booking-list-item", function (){
+    $("#all-booking-list").on("click", ".all-booking-list-item", function (){
         console.log("HERE")
         // Gather booking data
         const $booking = $(this)
@@ -87,6 +87,8 @@ function approveBooking(bookingData){
     });
     // Refresh the list
     refreshAllBookingList()
+    // Optimistically change the 'approved-view'
+    $("#approved-view").text("Approved")
     // Notifiy the customer
     // Via Email
     // Show toast notification
