@@ -61,7 +61,7 @@ def add_booking(request):
             user = request.user
         )
         try:
-            send_booking_confirmation_email(booking)
+            send_booking_creation_email(booking)
             # send_test_email()
         except Exception as e:
             print("Email sending failed:", e)
@@ -134,28 +134,33 @@ def booking_completed(request, booking_id):
 def approve_booking(request, booking_id):
     if request.method == "PUT":
         try:
-            booking = Booking.objects.get(id=booking_id)
+            bookingData = Booking.objects.get(id=booking_id)
         except Booking.DoesNotExist:
             return JsonResponse({"error": "Booking not found"}, status=404)
 
-        booking.approved = True
-        booking.save()
+        bookingData.approved = True
+        bookingData.save()
+        send_booking_confirmation_email(bookingData)
 
         return JsonResponse({
             "status": "booking marked complete",
-            "booking_id": booking.id,
-            "approved": booking.approved,
+            "booking_id": bookingData.id,
+            "approved": bookingData.approved,
         })
 
     return JsonResponse({"error": "Invalid request method"}, status=400)
 
 
 ############ SENDING EMAILS #######
-def send_booking_confirmation_email(booking):
-    subject = "Your AutoMate Service Booking Confirmation"
+
+# User creates booking
+def send_booking_creation_email(booking):
+    subject = "News about your AutoMate booking"
     message = f"""Hi {booking.user.first_name},
 
-    Your booking for your vehicle, {booking.vehicle.vrn} {booking.vehicle.make} {booking.vehicle.model} is confirmed for {booking.date_time}.
+    Your booking for your vehicle, {booking.vehicle.vrn} {booking.vehicle.make} {booking.vehicle.model} for {booking.date_time} has been sent to our team of mechanics for review.
+
+    Once the mechanic has reviewed and approved your booking you will recieve a confirmation email.
 
     Thank you for choosing AutoMate!
 
@@ -169,6 +174,29 @@ def send_booking_confirmation_email(booking):
     )
     email.send(fail_silently=False)
 
+# Mechanic approves booking
+def send_booking_confirmation_email(booking):
+    print("sending booking confirmaton email")
+    subject = "Your AutoMate Service Booking Confirmation"
+    message = f"""Hi {booking.user.first_name},
+
+    Your booking for your vehicle, {booking.vehicle.vrn} {booking.vehicle.make} {booking.vehicle.model} for {booking.date_time} has been approved by our team of mechanics.
+
+    Please arrive promptly, using one of the parking spaces marked "Service". Head into reception and speak to one of our staff members.
+
+    Thank you for choosing AutoMate!
+
+    """
+    email = EmailMessage(
+        subject=subject,
+        body=message,
+        from_email=settings.DEFAULT_FROM_EMAIL,
+        to=[booking.user.email, ],
+        bcc=["mikesealey@hotmail.com"],  # BCC Should go to Mechanic
+    )
+    email.send(fail_silently=False)
+
+# Mechanic Completes booking
 def send_post_service_email(booking):
     subject = "Your AutoMate Booking has been completed"
     message = f"""Hi {booking.user.first_name},

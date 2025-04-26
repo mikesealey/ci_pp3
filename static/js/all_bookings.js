@@ -68,7 +68,7 @@ $(document).ready(function (){
 
 function approveBooking(bookingData){
     console.log("approve booking!")
-    console.log(bookingData)
+    console.log("bookingData" + JSON.stringify(bookingData))
     // Make the AJAX call to approve the booking
     $.ajax({
         url: `/bookings/api/approve_booking/${bookingData.bookingId}/`,
@@ -82,17 +82,24 @@ function approveBooking(bookingData){
             // Success Toast
             const message = `Booking approved for ${bookingData.bookingType === "Other" ? "Other Service" : bookingData.bookingType} of ${bookingData.vehicle} on ${bookingData.dateTime}`
             showToastNotification(bookingData.vrn, message)
+
         },
         error: function(xhr, status, error) {
             console.error("Failed to approve booking:", error);
             // Failure Toast
             showToastNotification("Failed to approve booking:", error)
+            // Undo the optimistic change of the "approved"
+            $("#approved-view").text("Approved")
+            $("#approve-booking").disabled(false)
         }
     });
     // Refresh the list
     refreshAllBookingList()
+
     // Optimistically change the 'approved-view'
-    $("#approved-view").text("Approved")
+    $("#approved-view").text("Pending")
+    $("#approve-booking").disabled(true)
+
     // Notifiy the customer
     // Via Email
     // Show toast notification
