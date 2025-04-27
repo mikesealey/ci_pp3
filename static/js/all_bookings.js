@@ -20,13 +20,17 @@ $(document).ready(function (){
         
         console.log("Booking dateTime at click" + bookingObject.dateTime)
         // pass it to function
-        displayBooking(bookingObject)
+        displayCustomerBooking(bookingObject)
     })
+})
 
-    function displayBooking(bookingData){
+    function displayCustomerBooking(bookingData){
+        console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Display Booking invoked")
         console.log("bookingdata" + JSON.stringify(bookingData))
         // Display booking details
+        console.log("Emptying out customerBooking")
         $("#left-block-inner").text("") // Empty out the placeholder anything already populated there
+        console.log($("#left-block-inner"))
         $("#left-block-inner").append($("<div>", { class: "label", text: "Vehicle" }))
         $("#left-block-inner").append($("<div>", { id: "vrn-view", class: "vrn vrn-med", text: bookingData.vehicle }))
         $("#left-block-inner").append($("<div>", { class: "label", text: "Booking Date & Time" }))
@@ -58,11 +62,9 @@ $(document).ready(function (){
         $("#left-block-inner").off("click", "#carry-out-service").on("click", "#carry-out-service", function (){ // stops multiple event listeners being added - fixes bug in forms
           buildServiceForm(bookingData)
         })
-       
     }
+    
 
-    // $("#left-block-inner").on("click", "save")
-})
 
 
 
@@ -114,6 +116,12 @@ function completeBooking(bookingData){
 function buildServiceForm(bookingData){
     console.log("Building the service form!")
     console.log(bookingData)
+    // If service is being abandonned, inputs and buttons will exist- remove them
+    if ($("#multi-purpose-modal").is(":visible")) {
+        $("#carry-out-service").focus(); // Sets the button as the focus elsewhere before removing the modal
+        $("#multi-purpose-modal").modal("hide"); // Then safely close the modal
+        displayCustomerBooking(bookingData)
+    } else {
     // Swap out statment of mechanics notes with input for mechanics ntoes
     $("#mechanics-notes-view").replaceWith(
         $("<textarea>", {
@@ -127,6 +135,10 @@ function buildServiceForm(bookingData){
         id: "save-mechanics-notes",
         text: "Save"
     }).insertAfter("#mechanics-notes-input");
+    $("<button>", {
+        id: "cancel-mechanics-notes",
+        text: "Cancel"
+    }).insertAfter("#mechanics-notes-input");
     $("#save-mechanics-notes").off("click").on("click", function () {
         console.log("Saving notes and completing service");
         // Show modal to ask mechanic to confirm their notes
@@ -134,13 +146,28 @@ function buildServiceForm(bookingData){
             confirmationButtonFunction: saveMechanicsNotes,
             confirmationButtonFunctionArgument: bookingData,
             title: "Save notes and complete booking",
-            body: "body",
+            body: "body", // PLS FIX
             confirmButtonText: "confrm",
             cancelButtonText: "reject",
             booking: bookingData
         }
-        console.log("modalObjectBookingData: " + JSON.stringify(modalObject.confirmationButtonFunctionArgument))
         showMultiPurposeModal(modalObject)
+    });
+    $("#cancel-mechanics-notes").off("click").on("click", function () {
+        console.log("Cancelling notes");
+        // Show modal to ask mechanic to confirm their notes
+        const modalObject = {
+            confirmationButtonFunction: buildServiceForm,
+            confirmationButtonFunctionArgument: bookingData,
+            title: "Are you sure...?",
+            body: "You are about to abandon this service. No notes will be saved, the customer will not be notified. This service will still need to be completed at a later time.",
+            confirmButtonText: "Abandon service",
+            cancelButtonText: "Keep working on this service",
+            booking: bookingData
+        }
+        showMultiPurposeModal(modalObject)
+        
+
         
         
     });
@@ -150,6 +177,7 @@ function buildServiceForm(bookingData){
     // refresh list
     // Make sure to send the email
     // Probably want some "Are you sure you want to continue?" modals
+}
 }
 
 function refreshAllBookingList(){
@@ -184,11 +212,16 @@ function saveMechanicsNotes(bookingData) {
         success: function(response) {
             console.log("Booking marked complete:", response);
             refreshAllBookingList();
-            // Happu Toast
             showToastNotification("Success", "Mechanic's notes saved and booking marked complete.");
-            // Close the modal
-            // Refresh teh booking list
-            // Clear the booking from the left block (or at least remove the form)
+            $("#multi-purpose-modal").modal("hide");
+            // Optimistically render these instead, 
+            $("#mechanics-notes-input").replaceWith($("<div>", { id: "mechanics-notes-view", text: mechanicsNotes || "No mechanics notes provided" }))
+            $("#completed-service-view").text("Completed")
+            $("#save-mechanics-notes").remove()
+            $("#carry-out-service").prop("disabled", true)
+            // Email customer!
+
+
         },
         error: function(xhr, status, error) {
             console.error("Failed to save mechanic's notes:", error);

@@ -46,5 +46,7 @@ function showMultiPurposeModal(modalObject){
         $("#multi-purpose-modal-positive").on("click", function () {
           console.log("invoking function!")
           modalObject.confirmationButtonFunction(modalObject.confirmationButtonFunctionArgument)
-        })
+  })
+  console.log("|abandingonig service")
+  
 }

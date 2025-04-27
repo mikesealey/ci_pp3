@@ -65,3 +65,38 @@ https://www.youtube.com/watch?v=iJRZi_OdlPE
 Automating Emails tutorial
 https://www.youtube.com/watch?v=1BaLWYUO1k4
 
+Fun(!) Bug 
+```JS
+$.ajax({
+        url: `/bookings/${bookingData.bookingId}/complete/`,
+        type: "PUT",
+        contentType: "application/json",
+        headers: {
+            "X-CSRFToken": getCSRFToken(),
+        },
+        data: JSON.stringify({
+            mechanicsNotes: mechanicsNotes
+        }),
+        success: function(response) {
+            console.log("Booking marked complete:", response);
+            refreshAllBookingList();
+            showToastNotification("Success", "Mechanic's notes saved and booking marked complete.");
+            $("#multi-purpose-modal").modal("hide");
+            // Clear the booking from the left block (or at least remove the form)
+            // console.log("Done, and now going to display the booking data!")
+            // displayBooking(bookingData)
+            // Wont work! Because that's going to overwrite it with the data from before the mehcanics notes were saved
+            // Optimistically render these instead, 
+            $("#mechanics-notes-input").replaceWith($("<div>", { id: "mechanics-notes-view", text: bookingData.mechanics_notes || "No mechanics notes provided" }))
+            // $("#mechanics-notes-view").val(mechanicsNotes)
+        },
+        error: function(xhr, status, error) {
+            console.error("Failed to save mechanic's notes:", error);
+            showToastNotification("Error", "Failed to save mechanic's notes.");
+            // Sad Toast
+        }
+    });
+```
+
+Interesting Bug - Function from elsewhere in the code by the same name was getting called instead of one in the file
+Had to rename displayBooking in all_bookings.js to displayCustomerBooking to combat this.

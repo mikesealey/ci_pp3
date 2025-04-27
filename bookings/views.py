@@ -123,6 +123,7 @@ def booking_completed(request, booking_id):
         booking.completed_service = True
         booking.mechanics_notes = data.get("mechanicsNotes")
         booking.save()
+        send_post_service_email(booking)
 
         return JsonResponse({"status": "booking marked complete", "booking_id": booking.id})
 
