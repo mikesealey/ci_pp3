@@ -10,6 +10,6 @@ urlpatterns = [
     path("api/update-booking/<int:booking_id>/", views.update_booking, name="update-booking"),
     path("all_bookings/", views.all_bookings_page, name="all_bookings_page"),
     path("api/all_bookings/", views.all_bookings_list, name="all_bookings_list"),
-    path("bookings/<int:booking_id>/complete/", views.booking_completed, name="booking_completed"),
+    path("<int:booking_id>/complete/", views.booking_completed, name="booking_completed"),
     path("api/approve_booking/<int:booking_id>/", views.approve_booking, name="approve_booking"),
 ]

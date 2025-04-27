@@ -22,6 +22,20 @@ function showToastNotification(title, message){
  * 
  * }
  */
+
+/**
+ * @typedef {Object} ModalObject
+ * @property {function} confirmationButtonFunction - Function to call when confirming.
+ * @property {*} confirmationButtonFunctionArgument - Argument to pass into the confirmation function.
+ * @property {string} title - Title of the modal.
+ * @property {string} body - Body text of the modal.
+ * @property {string} confirmButtonText - Text for the confirmation button.
+ * @property {string} cancelButtonText - Text for the cancellation button.
+ * @property {object} booking - the bookingData object
+ * 
+ * Opens and handles the Multi-Purpose Modal.
+ * @param {ModalObject} modalObject - The configuration for the modal.
+ */
 function showMultiPurposeModal(modalObject){
   console.log("Opening MultiPurposeModal")
         $("#multi-purpose-modal-title").text(modalObject.title)
@@ -31,6 +45,6 @@ function showMultiPurposeModal(modalObject){
         $("#multi-purpose-modal").modal("show");
         $("#multi-purpose-modal-positive").on("click", function () {
           console.log("invoking function!")
-          modalObject.confirmationButtonFunction(confirmationButtonArgument)
+          modalObject.confirmationButtonFunction(modalObject.confirmationButtonFunctionArgument)
         })
 }

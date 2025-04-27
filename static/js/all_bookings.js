@@ -111,9 +111,9 @@ function completeBooking(bookingData){
     // Show toast notification
 }
 
-function buildServiceForm(){
+function buildServiceForm(bookingData){
     console.log("Building the service form!")
-    console.log("carrying out service!")
+    console.log(bookingData)
     // Swap out statment of mechanics notes with input for mechanics ntoes
     $("#mechanics-notes-view").replaceWith(
         $("<textarea>", {
@@ -129,7 +129,27 @@ function buildServiceForm(){
     }).insertAfter("#mechanics-notes-input");
     $("#save-mechanics-notes").off("click").on("click", function () {
         console.log("Saving notes and completing service");
+        // Show modal to ask mechanic to confirm their notes
+        const modalObject = {
+            confirmationButtonFunction: saveMechanicsNotes,
+            confirmationButtonFunctionArgument: bookingData,
+            title: "Save notes and complete booking",
+            body: "body",
+            confirmButtonText: "confrm",
+            cancelButtonText: "reject",
+            booking: bookingData
+        }
+        console.log("modalObjectBookingData: " + JSON.stringify(modalObject.confirmationButtonFunctionArgument))
+        showMultiPurposeModal(modalObject)
+        
+        
     });
+
+    // Work on a way to save form
+    // Work on a way to put the form back to the original view
+    // refresh list
+    // Make sure to send the email
+    // Probably want some "Are you sure you want to continue?" modals
 }
 
 function refreshAllBookingList(){
@@ -144,7 +164,37 @@ function getCSRFToken() {
     return document.querySelector('[name=csrfmiddlewaretoken]').value;
 }
 
-function carryOutService(){
-    
+function saveMechanicsNotes(bookingData) {
+    console.log("Saving mechanic's Notes!" + bookingData)
+    // Get the notes from the form
+    const mechanicsNotes = $("#mechanics-notes-input").val()
+    console.log(mechanicsNotes)
 
+    // Make the AJAX call
+    $.ajax({
+        url: `/bookings/${bookingData.bookingId}/complete/`,
+        type: "PUT",
+        contentType: "application/json",
+        headers: {
+            "X-CSRFToken": getCSRFToken(),
+        },
+        data: JSON.stringify({
+            mechanicsNotes: mechanicsNotes
+        }),
+        success: function(response) {
+            console.log("Booking marked complete:", response);
+            refreshAllBookingList();
+            // Happu Toast
+            showToastNotification("Success", "Mechanic's notes saved and booking marked complete.");
+            // Close the modal
+            // Refresh teh booking list
+            // Clear the booking from the left block (or at least remove the form)
+        },
+        error: function(xhr, status, error) {
+            console.error("Failed to save mechanic's notes:", error);
+            showToastNotification("Error", "Failed to save mechanic's notes.");
+            // Sad Toast
+        }
+    });
+    
 }
