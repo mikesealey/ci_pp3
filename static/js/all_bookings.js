@@ -31,6 +31,7 @@ $(document).ready(function (){
         console.log("Emptying out customerBooking")
         $("#left-block-inner").text("") // Empty out the placeholder anything already populated there
         console.log($("#left-block-inner"))
+        console.log()
         $("#left-block-inner").append($("<div>", { class: "label", text: "Vehicle" }))
         $("#left-block-inner").append($("<div>", { id: "vrn-view", class: "vrn vrn-med", text: bookingData.vehicle }))
         $("#left-block-inner").append($("<div>", { class: "label", text: "Booking Date & Time" }))
@@ -146,9 +147,9 @@ function buildServiceForm(bookingData){
             confirmationButtonFunction: saveMechanicsNotes,
             confirmationButtonFunctionArgument: bookingData,
             title: "Save notes and complete booking",
-            body: "body", // PLS FIX
-            confirmButtonText: "confrm",
-            cancelButtonText: "reject",
+            body: `Do you want to save these notes: ${$("#mechanics-notes-input").val()}`,
+            confirmButtonText: "Save Notes",
+            cancelButtonText: "Keep Editing",
             booking: bookingData
         }
         showMultiPurposeModal(modalObject)
