@@ -198,6 +198,7 @@ $("#new-vehicle-form").on("submit", function(e) {
     success: function(response) {
         console.log(response);
         refreshVehicleList()
+        showToastNotification(formData.vrn, "Vehicle Saved")
     },
     error: function(xhr, status, error) {
         console.log("Error: ", error);
@@ -224,6 +225,7 @@ function deleteVehicle(vrn){
     error: function(xhr) {
       alert("Error: " + xhr.responseText);
       console.log("Error:", xhr);
+      showToastNotification(vrn, "vehicle deleted")
     }
   });
   $("#multi-purpose-modal").modal("hide");
