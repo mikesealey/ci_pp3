@@ -33,6 +33,7 @@ body {
     background-repeat: no-repeat;
 }
 
+/* Whole heading/nav bar */
 #nav-container {
     display: flex;
     flex-direction: row;
@@ -42,6 +43,26 @@ body {
     align-items: center;
 }
 
+/* Spanner Logo plus Automate Title */
+#logo-title {
+    display: flex;
+    flex-direction: row;
+    align-items: end;
+    padding: 12px;
+}
+
+#logo-title h1 {
+    margin: 0;
+    padding: 0;
+}
+
+
+#welcome-name p, #welcome-name a {
+    padding: 0;
+    margin: 0;
+}
+
+/* Contains the links */
 nav {
     max-height: fit-content;
 }
@@ -58,68 +79,22 @@ nav ul li {
     padding: 12px;
 }
 
-/*  */
-.custom-navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.75rem 1rem;
-    color: white;
-    background-color: #222; /* your preferred dark shade */
-    position: relative;
-  }
-  
-  .burger-menu {
-    font-size: 1.5rem;
-    background: none;
-    color: white;
-    border: none;
-    cursor: pointer;
-    z-index: 1010;
-  }
-  
-  .slideout-menu {
-    position: fixed;
-    top: 0;
-    right: -250px;
-    width: 250px;
-    height: 100%;
-    background-color: #333;
-    color: white;
-    padding-top: 60px;
-    transition: right 0.3s ease;
-    z-index: 1000;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    padding-left: 1rem;
-  }
-  
-  .slideout-menu a {
-    color: white;
-    text-decoration: none;
-    font-size: 1.2rem;
-  }
-  
-  .slideout-open {
-    right: 0 !important;
-  }
-  
-/*  */
+
+
+
+#welcome-name {
+    padding: 0;
+    margin: 0;
+    border: 3px solid red;
+}
 
 #title-spanner {
     font-size: 75px;
 }
 
-#title-container a {
+#title-container {
     display: flex;
     flex-direction: row;
-    align-items: baseline;
-}
-
-#title-container a h1 {
-    margin: 0 0 0 -30px;
-    padding: 0;
 }
 
 .block {
@@ -138,6 +113,13 @@ nav ul li {
     width: 100%;
 }
 
+@media (max-width: 800px) {
+    .double-block {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
 .vehicle-list-item, .vehicle-list-item-last, .booking-list-item, .booking-list-item-last, .all-booking-list-item {
     width: 100%;
     border: 2px solid #9DB4C0;
@@ -148,7 +130,6 @@ nav ul li {
 }
 
 #new-vehicle-form, #new-booking-form {
-    border: 3px solid red;
     display: flex;
     flex-direction: column;
 }
@@ -221,13 +202,6 @@ form button, button {
 #left-block-inner {
     padding: 12px;
     
-}
-
-#left-block-inner * {
-}
-
-.test-class {
-    border: 3px solid red;
 }
 
 input {
