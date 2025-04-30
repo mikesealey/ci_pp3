@@ -40,7 +40,7 @@
         </div>
         <nav>
             <ul>
-                <h4>Welcome back, {{ user.username }}</h4>
+                <li>Welcome back, {{ user.username }}</li>
                 {% if user.is_staff %}
                   <li><a href="{% url 'all_bookings_page' %}">Customer Bookings</a></li>
                 {% endif %}
