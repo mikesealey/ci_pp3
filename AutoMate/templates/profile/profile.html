@@ -2,37 +2,39 @@
 {% block content %}
 <div class="double-block">
     <div class="block" id="left-block">
-        <h2>Edit Profile</h2>
-        <form method="post">
-            {% csrf_token %}
-            {{ user_form.non_field_errors }}
-            <div>
-            {{ user_form.first_name.label_tag }}
-            {{ user_form.first_name }}
-            {{ user_form.first_name.errors }}
-            </div>
-        
-            <div>
-            {{ user_form.last_name.label_tag }}
-            {{ user_form.last_name }}
-            {{ user_form.last_name.errors }}
-            </div>
-            <div>
-                {{ user_form.email.label_tag }}
-                {{ user_form.email }}
-                {{ user_form.email.errors }}
-            </div>
-        
-            {{ profile_form.non_field_errors }}
-            <div>
-            {{ profile_form.phone_number.label_tag }}
-            {{ profile_form.phone_number }}
-            {{ profile_form.phone_number.errors }}
-            </div>
-            
-        
-            <button type="submit">Save Changes</button>
-        </form>
+        <div id="profile-form-container">
+            <h2>Edit Profile</h2>
+            <form id="profile-form" method="post">
+                {% csrf_token %}
+                {{ user_form.non_field_errors }}
+                <div>
+                    {{ user_form.first_name.label_tag }}
+                    {{ user_form.first_name }}
+                    {{ user_form.first_name.errors }}
+                </div>
+                
+                <div>
+                    {{ user_form.last_name.label_tag }}
+                    {{ user_form.last_name }}
+                    {{ user_form.last_name.errors }}
+                </div>
+                <div>
+                    {{ user_form.email.label_tag }}
+                    {{ user_form.email }}
+                    {{ user_form.email.errors }}
+                </div>
+                
+                {{ profile_form.non_field_errors }}
+                <div>
+                    {{ profile_form.phone_number.label_tag }}
+                    {{ profile_form.phone_number }}
+                    {{ profile_form.phone_number.errors }}
+                </div>
+                
+                
+                <button type="submit">Save Changes</button>
+            </form>
+        </div>
     </div>
 </div>
 

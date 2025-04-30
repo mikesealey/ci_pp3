@@ -19,6 +19,7 @@ C2DFE3 - Light Blue - Positive Button
 
 a {
     text-decoration: none;
+    color: #E0FBFC;
 }
 
 body {
@@ -43,26 +44,7 @@ body {
     align-items: center;
 }
 
-/* Spanner Logo plus Automate Title */
-#logo-title {
-    display: flex;
-    flex-direction: row;
-    align-items: end;
-    padding: 12px;
-}
 
-#logo-title h1 {
-    margin: 0;
-    padding: 0;
-}
-
-
-#welcome-name p, #welcome-name a {
-    padding: 0;
-    margin: 0;
-}
-
-/* Contains the links */
 nav {
     max-height: fit-content;
 }
@@ -79,14 +61,6 @@ nav ul li {
     padding: 12px;
 }
 
-
-
-
-#welcome-name {
-    padding: 0;
-    margin: 0;
-    border: 3px solid red;
-}
 
 #title-spanner {
     font-size: 75px;
@@ -228,3 +202,25 @@ input {
     background-color: #5c6B73;
     opacity: 50%;
 }
+
+#profile-form-container {
+    border: 2px solid red;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#profile-form {
+    border: 3px solid lime;
+    max-width: 680px;
+    
+}
+
+/* Label and field */
+#profile-form div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
