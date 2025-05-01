@@ -72,9 +72,15 @@ nav ul li {
     font-size: 75px;
 }
 
-#title-container {
+#title-container, #profile-form-container {
     display: flex;
     flex-direction: row;
+}
+
+/* Label and field */
+#profile-form div {
+    display: flex;
+    flex-direction: column;
 }
 
 .block {
@@ -136,13 +142,13 @@ nav ul li {
 }
 
 /* Forms */
-#new-vehicle-form, #new-booking-form {
+#new-vehicle-form, #new-booking-form #profile-form-container {
     display: flex;
     flex-direction: column;
+    border: 3px solid red;
 }
 
-#new-vehicle-form *, #new-booking-form * {
-    /* Needs work - temp fix  */
+input, select, textarea {
     color: black; 
 }
 
@@ -179,10 +185,11 @@ nav ul li {
     font-weight: bold;
 }
 
-.vrn-xl {
-    font-size: 79px;
-    background-color: pink;
-    border: 25px solid lime;
+.vrn-med {
+    font-size: 54px;
+    font-weight: 600;
+    max-width: 265px;
+
 }
 
 .electric {
@@ -236,15 +243,7 @@ input {
     opacity: 50%;
 }
 
-#profile-form-container {
-    border: 2px solid red;
-    display: flex;
-    flex-direction: column;
-}
 
-/* Label and field */
-#profile-form div {
-    display: flex;
-    flex-direction: column;
-}
+
+
 
