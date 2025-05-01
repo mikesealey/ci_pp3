@@ -36,6 +36,19 @@
             </form>
         </div>
     </div>
+    <div class="block" id="right-block">
+        <div id="my-stats">
+            <h1>My Stats</h1>
+            <ul id="stats-list">
+                <li>Date joined {{ user.date_joined }}</li>
+                <li>Vehicles: {{ user.vehicles.count }}</li>
+                <li>Bookings: {{ user.bookings.count }}</li>
+            </ul>
+            
+        </div>
+
+    </div>
+
 </div>
 
 {% endblock %}
