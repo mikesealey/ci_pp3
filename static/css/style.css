@@ -44,6 +44,12 @@ body {
     align-items: center;
 }
 
+#link-home {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
 
 nav {
     max-height: fit-content;

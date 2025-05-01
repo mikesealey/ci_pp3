@@ -33,7 +33,7 @@
 <body>
     <div id="nav-container">
         <div id="title-container">
-            <a href="{% url 'homepage' %}">
+            <a id="link-home" href="{% url 'homepage' %}">
                 <i class="fa-solid fa-wrench" id="title-spanner"></i>
                 <h1>AutoMate</h1>
             </a>
@@ -45,7 +45,6 @@
                   <li><a href="{% url 'all_bookings_page' %}">Customer Bookings</a></li>
                 {% endif %}
                 {% if user.is_authenticated %}
-                    
                     <li><a href="{% url 'vehicles' %}">My Vehicles</a></li>
                     <li><a href="{% url 'bookings' %}">My Bookings</a></li>
                     <li><a href="{% url 'profile' %}">My Profile</a></li>
