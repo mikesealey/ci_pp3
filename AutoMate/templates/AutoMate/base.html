@@ -40,7 +40,9 @@
         </div>
         <nav>
             <ul>
-                <li>Welcome back, {{ user.username }}</li>
+                {% if user.is_authenticated %}
+                  <li>Welcome back, {{ user.username }}</li>
+                {% endif %}
                 {% if user.is_staff %}
                   <li><a href="{% url 'all_bookings_page' %}">Customer Bookings</a></li>
                 {% endif %}
