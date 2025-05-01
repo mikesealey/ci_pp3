@@ -84,7 +84,23 @@ nav ul li {
     background-color: #5c6b73bb;
     height: 80vh;
     flex: 1; 
+    overflow: auto;
+}
 
+::-webkit-scrollbar {
+    width: 12px;
+}
+  
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+  
+::-webkit-scrollbar-thumb {
+    background-color: #9DB4C0; 
+}
+  
+.block::-webkit-scrollbar-thumb:hover {
+    background-color: #9DB4C0;
 }
 
 .double-block {
@@ -109,6 +125,7 @@ nav ul li {
     justify-content: space-between;
 }
 
+/* Forms */
 #new-vehicle-form, #new-booking-form {
     display: flex;
     flex-direction: column;
@@ -213,20 +230,17 @@ input {
     border: 2px solid red;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
 }
 
-#profile-form {
+ {
     border: 3px solid lime;
-    max-width: 680px;
+
     
 }
 
 /* Label and field */
 #profile-form div {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    flex-direction: column;
 }
 
