@@ -37,47 +37,48 @@ $(document).ready(function () {
         
         // User clicks "Edit vehicle" - switches info display to form
         $("#left-block-inner").on("click", "#edit-vehicle", function () {
-              $("#left-block-inner").empty()
-              $("#left-block-inner").append(
-                $("<h2>", { text: "Editing details for: "}),
-                $("<div>", { id: "vrn", class: "vrn", text: vehicleData.vrn }),
-                $("<label>", { for: "make", text: "Make:" }),
-                $("<input>", { type: "text", id: "make", name: "make", required: "true", value: vehicleData.make }),
-                $("<br>"),
-                $("<label>", { for: "model", text: "Model:" }),
-                $("<input>", { type: "text", id: "model", name: "model", required: "true", value: vehicleData.model }),
-                $("<br>"),
-                $("<label>", { for: "engine_capacity", text: "Engine Capacity:" }),
-                $("<input>", { type: "text", id: "engine_capacity", name: "engine_capacity", required: "true", value: vehicleData.engine_capacity }),
-                $("<br>"),
-                $("<label>", { for: "fuel_type", text: "Fuel Type:" }),
-                $("<input>", { type: "text", id: "fuel_type", name: "fuel_type", required: "true", value: vehicleData.fuel_type }),
-                $("<br>"),
-                $("<label>", { for: "year", text: "Year:" }),
-                $("<input>", { type: "text", id: "year", name: "year", required: "true", value: vehicleData.year }),
-                $("<br>"),
-                $("<label>", { for: "colour", text: "Colour:" }),
-                $("<input>", { type: "text", id: "colour", name: "colour", required: "true", value: vehicleData.colour }),
-                $("<br>"),
-                $("<button>", { 
-                  id: "save-changes",
-                  type: "submit",
-                  text: "Save changes to Vehicle",
-                  click: function() {
-                    updatedVehicleData = {
-                      vrn: vehicleData.vrn,
-                      make: $("#make").val(),
-                      model: $("#model").val(),
-                      engine_capacity: $("#engine_capacity").val(),
-                      fuel_type: $("#fuel_type").val(),
-                      year: $("#year").val(),
-                      colour: $("#colour").val()
-                    }
-                    saveVehicleChanges(updatedVehicleData)
-                  } }),
-                $("<h5>", { type: "text", id: "error" }),
-              )
-        })
+          $("#left-block-inner").empty();
+        
+          const form = $("<form>", { id: "edit-vehicle-form" });
+        
+          form.append(
+            $("<h2>", { text: "Editing details for:" }),
+            $("<div>", { id: "vrn", class: "vrn", text: vehicleData.vrn }),
+            $("<label>", { for: "make", text: "Make:" }),
+            $("<input>", { type: "text", id: "make", name: "make", required: true, value: vehicleData.make }),
+            $("<label>", { for: "model", text: "Model:" }),
+            $("<input>", { type: "text", id: "model", name: "model", required: true, value: vehicleData.model }),
+            $("<label>", { for: "engine_capacity", text: "Engine Capacity:" }),
+            $("<input>", { type: "text", id: "engine_capacity", name: "engine_capacity", required: true, value: vehicleData.engine_capacity }),
+            $("<label>", { for: "fuel_type", text: "Fuel Type:" }),
+            $("<input>", { type: "text", id: "fuel_type", name: "fuel_type", required: true, value: vehicleData.fuel_type }),
+            $("<label>", { for: "year", text: "Year:" }),
+            $("<input>", { type: "text", id: "year", name: "year", required: true, value: vehicleData.year }),
+            $("<label>", { for: "colour", text: "Colour:" }),
+            $("<input>", { type: "text", id: "colour", name: "colour", required: true, value: vehicleData.colour }),
+            $("<button>", {
+              id: "save-changes",
+              type: "submit",
+              text: "Save changes to Vehicle"
+            }),
+          );
+        
+          $("#left-block-inner").append(form);
+        
+          form.on("submit", function (e) {
+            e.preventDefault();
+            const updatedVehicleData = {
+              vrn: vehicleData.vrn,
+              make: $("#make").val(),
+              model: $("#model").val(),
+              engine_capacity: $("#engine_capacity").val(),
+              fuel_type: $("#fuel_type").val(),
+              year: $("#year").val(),
+              colour: $("#colour").val()
+            };
+            saveVehicleChanges(updatedVehicleData);
+          });
+        });
         
         // User clicks "Delete Vehicle" - Confirmation modal opens, populates with vehicle data
         $("#left-block-inner").on("click", "#delete-vehicle", function () {

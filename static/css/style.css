@@ -142,10 +142,10 @@ nav ul li {
 }
 
 /* Forms */
-#new-vehicle-form, #new-booking-form #profile-form-container {
+form {
     display: flex;
     flex-direction: column;
-    border: 3px solid red;
+    border: 3px solid fuchsia;
 }
 
 input, select, textarea {
@@ -197,9 +197,6 @@ input, select, textarea {
     padding-left: 0;
 }
 
-form {
-
-}
 
 form input {
     color: black;

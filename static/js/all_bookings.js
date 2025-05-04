@@ -219,6 +219,7 @@ function saveMechanicsNotes(bookingData) {
             $("#mechanics-notes-input").replaceWith($("<div>", { id: "mechanics-notes-view", text: mechanicsNotes || "No mechanics notes provided" }))
             $("#completed-service-view").text("Completed")
             $("#save-mechanics-notes").remove()
+            $("#cancel-mechanics-notes").remove()
             $("#carry-out-service").prop("disabled", true)
             // Email customer!
 
