@@ -19,8 +19,8 @@ $(document).ready(function () {
         // Display vehicle data
         $("#left-block-inner").text("") // Empyt out the placeholder anything already populated there
         $("#left-block-inner").append($("<div>", { id: "vrn-view", class: "vrn vrn-med", text: vehicleData.vrn }))
-        if (vehicleData.fuel_type === "electric") {
-            $("#vrn-view").addClass("electric")
+        if (vehicleData.fuel_type === "ELECTRICITY") {
+            $("#vrn-view").addClass("electric-med")
         }
         $("#left-block-inner").append($("<div>", { id: "make-view", text: vehicleData.make }));
         $("#left-block-inner").append($("<div>", { id: "model-view", text: vehicleData.model }));

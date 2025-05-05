@@ -8,8 +8,8 @@
       data-year="{{ vehicle.year_of_manufacture }}"
       data-colour="{{ vehicle.colour }}"
       >
-      {% if vehicle.fuel_type == "electric" %}
-          <div class="vrn electric">{{ vehicle.vrn }}</div>
+      {% if vehicle.fuel_type == "ELECTRICITY" %}
+          <div class="vrn electric-list">{{ vehicle.vrn }}</div>
       {% else %}
           <div class="vrn">{{ vehicle.vrn }}</div>
       {% endif %}

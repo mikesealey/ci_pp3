@@ -106,6 +106,7 @@ nav ul li {
     background-color: #5c6b73bb;
     height: 80vh;
     flex: 1; 
+    overflow: auto;
 }
 
 ::-webkit-scrollbar {
@@ -211,7 +212,7 @@ input, select, textarea {
 }
 
 .vrn-list {
-    padding: 2px 12px;
+    padding: 5px 12px;
     letter-spacing: 1px;
     font-size: 32px;
     font-size: 2rem;
@@ -219,14 +220,19 @@ input, select, textarea {
     font-weight: bold;
 }
 
+.electric-list {
+    border-left: 5px solid green;
+    padding-left: 0;
+}
+
 .vrn-med {
-    font-size: 54px;
+    font-size: 50px;
     font-weight: 600;
     max-width: 265px;
 
 }
 
-.electric {
+.electric-med {
     border-left: 15px solid green;
     padding-left: 0;
 }
@@ -246,7 +252,6 @@ form button, button {
 
 #left-block-inner {
     padding: 12px;
-    
 }
 
 input {
@@ -269,6 +274,7 @@ input {
     color: black;
 }
 
+/* Labels for displaying bookings and vehicles */
 .label {
     background-color: #5c6B73;
     opacity: 50%;
