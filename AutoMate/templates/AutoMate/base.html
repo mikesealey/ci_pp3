@@ -41,7 +41,7 @@
                 <h1>AutoMate</h1>
             </a>
         </div>
-        <nav>
+        <nav id="desktop-nav" class="d-none d-md-flex">
             <ul>
                 {% if user.is_authenticated %}
                   <li>Welcome back, {{ user.username }}</li>
@@ -61,7 +61,7 @@
             </ul>
         </nav>
         <!-- Bootstrap sidepanel -->
-        <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">☰</button>
+        <button id="hamburger-button" class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">☰</button>
 
         <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
           <div class="offcanvas-header">
@@ -75,7 +75,6 @@
           <div class="offcanvas-body">
             <nav>
               <ul id="mobile-nav">
-                  
                   {% if user.is_staff %}
                     <li><a href="{% url 'all_bookings_page' %}">Customer Bookings</a></li>
                   {% endif %}
@@ -94,12 +93,11 @@
         </div>
         <!-- End of bootstrap sidepanle -->
     </div>
-    </div>
-    
+    <div id="block-content">
     {% block content %}
 
     {% endblock %}
-
+    </div>
     <!-- Resusable Boostrap Modal -->
     <div class="modal fade" id="multi-purpose-modal" tabindex="-1" aria-labelledby="multi-purpose-modal-title" aria-hidden="true">
       <div class="modal-dialog">

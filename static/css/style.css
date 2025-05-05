@@ -26,12 +26,13 @@ body {
     background-color: #011502;
     width: 100vw;
     height: 100vh;
-    padding: 0%;
+    padding: 0;
     margin: 0;
     background-image: url("../images/pexels-maltelu-2244746.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    overflow: hidden;
 }
 
 /* Whole heading/nav bar */
@@ -93,6 +94,11 @@ nav ul li {
     flex-direction: column;
 }
 
+#block-content {
+    max-height: 90vh;
+    overflow: auto;
+}
+
 .block {
     margin: 32px;
     padding: 0 24px 24px 24px;
@@ -100,7 +106,6 @@ nav ul li {
     background-color: #5c6b73bb;
     height: 80vh;
     flex: 1; 
-    overflow: auto;
 }
 
 ::-webkit-scrollbar {
@@ -135,10 +140,27 @@ nav ul li {
     max-width: 650px;
 }
 
-@media (max-width: 800px) {
+#hamburger-button {
+    display: none;
+}
+
+@media (max-width: 766px) {
     .double-block {
         display: flex;
         flex-direction: column;
+        align-items: center;
+    }
+
+    #left-block {
+        /* margin: 5px 0 10px 0; */
+    }
+
+    #hamburger-button {
+        display: inline;
+    }
+
+    #desktop-nav {
+        display: hidden;
     }
 }
 
