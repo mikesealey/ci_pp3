@@ -36,8 +36,13 @@ def delete_booking(request, booking_id):
 
 @login_required
 def get_bookings_list(request):
-    bookings = Booking.objects.filter(user=request.user)
-    return render(request, "bookings/api/bookings_list.html", {"bookings": bookings})
+    try:
+        bookings = Booking.objects.filter(user=request.user)
+        bookings_list = list(bookings.values('id', 'date_time', 'booking_type', 'customer_notes', 'vehicle__vrn'))  # Include other fields you want
+        return JsonResponse({"bookings": bookings_list})
+    
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=500)
 
 @csrf_exempt
 @login_required
