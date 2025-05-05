@@ -203,7 +203,8 @@ $("#new-vehicle-form").on("submit", function(e) {
         console.log(response);
         refreshVehicleList()
         showToastNotification(formData.vrn, "Vehicle Saved")
-        // And then reset the form to the vehicle that was just created
+        // And then reset the form to the vehicle that was just created by mimicing a click on that new vehicle-item-list
+        $(`.vehicle-list-item[data-vrn="${formData.vrn}"]`).click();
     },
     error: function(xhr, status, error) {
         console.log("Error: ", error);
@@ -262,7 +263,8 @@ function saveVehicleChanges(vehicleData){
       console.log("Success:", response);
       refreshVehicleList()
       showToastNotification(vehicleData.vrn, "Changes saved!")
-
+      // And then reset the form to the vehicle that was just created by mimicing a click on that new vehicle-item-list
+      $(`.vehicle-list-item[data-vrn="${vehicleData.vrn}"]`).click();
     },
     error: function(xhr) {
       console.error("Error:", xhr.responseText);
