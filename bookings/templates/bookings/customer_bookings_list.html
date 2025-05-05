@@ -13,17 +13,17 @@
         data-vehicle-id="{{ booking.vehicle.id }}"
         data-booking-id="{{ booking.id }}"
     >
-        <p>{{ booking.booking_type }}</p>
+        <p>Type: {{ booking.booking_type }}</p>
         {% if booking.approved %}
-            <p>Approved</p>
+            <p>Approval: Approved</p>
         {% else %}
-            <p>Pending</p>
+            <p>Approval: Pending</p>
         {% endif %}
         <p>{{ booking.date_time }}</p>
         {% if booking.completed_service %}
-            <p>Completed</p>
+            <p>Status: Completed</p>
         {% else %}
-            <p>Awaiting Service</p>
+            <p>Status: Awaiting Service</p>
         {% endif %}
         <div class="vrn">{{ booking.vehicle.vrn }}</div>
     </div>
