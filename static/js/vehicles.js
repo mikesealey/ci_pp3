@@ -18,15 +18,22 @@ $(document).ready(function () {
         console.log(vehicleData);
         // Display vehicle data
         $("#left-block-inner").text("") // Empyt out the placeholder anything already populated there
+        $("#left-block-inner").append($("<div>", { class: "label", text: "Vehicle" }))
         $("#left-block-inner").append($("<div>", { id: "vrn-view", class: "vrn vrn-med", text: vehicleData.vrn }))
         if (vehicleData.fuel_type === "ELECTRICITY") {
             $("#vrn-view").addClass("electric-med")
         }
+        $("#left-block-inner").append($("<div>", { class: "label", text: "Manufacturer" }))
         $("#left-block-inner").append($("<div>", { id: "make-view", text: vehicleData.make }));
+        $("#left-block-inner").append($("<div>", { class: "label", text: "Model" }))
         $("#left-block-inner").append($("<div>", { id: "model-view", text: vehicleData.model }));
+        $("#left-block-inner").append($("<div>", { class: "label", text: "Engine Capacity (use KWH for EVs)" }))
         $("#left-block-inner").append($("<div>", { id: "engine-capacity-view", text: vehicleData.engine_capacity }));
+        $("#left-block-inner").append($("<div>", { class: "label", text: "Fuel type" }))
         $("#left-block-inner").append($("<div>", { id: "fuel-type-view", text: vehicleData.fuel_type }));
+        $("#left-block-inner").append($("<div>", { class: "label", text: "Year of Manufacture" }))
         $("#left-block-inner").append($("<div>", { id: "year-of-manufacture-view", text: vehicleData.year }));
+        $("#left-block-inner").append($("<div>", { class: "label", text: "Colour" }))
         $("#left-block-inner").append($("<div>", { id: "colour-view", text: vehicleData.colour }));
         $("#left-block-inner").append($("<button>", { id: "edit-vehicle", text: `Edit ${vehicleData.vrn}` })); // replace with pen icon for edit
         $("#left-block-inner").append($("<button>", { id: "delete-vehicle", text: `Delete ${vehicleData.vrn}` })); // replace with bin icon for delete
