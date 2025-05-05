@@ -106,3 +106,6 @@ Code from w3school scrollbar https://www.w3schools.com/howto/howto_css_custom_sc
 
 
 jquery mimic a click with https://api.jquery.com/click/
+
+Bootstrap 5.0 (had to upgrade)
+"Offcanvas" - (aka sidepanel for mobile navigation)

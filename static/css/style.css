@@ -67,6 +67,16 @@ nav ul li {
     padding: 12px;
 }
 
+.offcanvas-body, .offcanvas-header {
+    background-color: #9DB4C0;
+    color: #5c6B73;
+}
+
+.offcanvas-body nav ul {
+
+    display: flex;
+    flex-direction: column;
+}
 
 #title-spanner {
     font-size: 75px;

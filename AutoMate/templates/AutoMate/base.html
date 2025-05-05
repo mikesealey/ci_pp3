@@ -61,15 +61,35 @@
             </ul>
         </nav>
         <!-- Bootstrap sidepanel -->
-        <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Toggle right offcanvas</button>
+        <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">☰</button>
 
         <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
           <div class="offcanvas-header">
-            <h5 id="offcanvasRightLabel">Offcanvas right</h5>
+            <h5 id="offcanvasRightLabel">
+              {% if user.is_authenticated %}
+                Welcome back, {{ user.username }}
+              {% endif %}
+            </h5>
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
           </div>
           <div class="offcanvas-body">
-            ...
+            <nav>
+              <ul id="mobile-nav">
+                  
+                  {% if user.is_staff %}
+                    <li><a href="{% url 'all_bookings_page' %}">Customer Bookings</a></li>
+                  {% endif %}
+                  {% if user.is_authenticated %}
+                      <li><a href="{% url 'vehicles' %}">My Vehicles</a></li>
+                      <li><a href="{% url 'bookings' %}">My Bookings</a></li>
+                      <li><a href="{% url 'profile' %}">My Profile</a></li>
+                      <li><a href="{% url 'logout' %}">Log Out</a></li>
+                  {% else %}
+                      <li><a href="{% url 'login' %}">Login</a></li>
+                      <li><a href="{% url 'account_signup' %}">Sign Up</a></li>
+                  {% endif %}
+              </ul>
+          </nav>
           </div>
         </div>
         <!-- End of bootstrap sidepanle -->
