@@ -180,8 +180,8 @@ function buildEditBookingForm(formData){
         $("<input>", { type: "datetime-local", id: "date_time", name: "date_time", required: true, value: formData.dateTime }),
         $("#date_time").val(formData.dateTime),
         $("<label>", { for: "customer_notes", text: "Customer Notes:" }),
-        $("<textarea>", { id: "customer_notes", name: "customer_notes", rows: 4, required: true  }).val(formData.customer_notes),
-        $("<label>", { for: "vehicle_mileage_at_service", text: "Vehicle Mileage at Service:" }),
+        $("<textarea>", { id: "customer_notes", name: "customer_notes", rows: 4, required: true, maxlength: 1000 }).val(formData.customer_notes),
+        $("<label>", { for: "vehicle_mileage_at_service", text: "Vehicle Mileage at Service:", max: 999999 }),
         $("<input>", { type: "number", id: "vehicle_mileage_at_service", name: "vehicle_mileage_at_service", min: 0, required: true, value: formData.vehicle_mileage_at_service}),
         $("<button>", { type: "submit", text: "Save Booking" }),
         // Booking Submission
