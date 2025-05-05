@@ -48,7 +48,7 @@ $(document).ready(function () {
             $("<input>", { type: "text", id: "make", name: "make", required: true, value: vehicleData.make }),
             $("<label>", { for: "model", text: "Model:" }),
             $("<input>", { type: "text", id: "model", name: "model", required: true, value: vehicleData.model }),
-            $("<label>", { for: "engine_capacity", text: "Engine Capacity:" }),
+            $("<label>", { for: "engine_capacity", text: "Engine Capacity (use Battery Capacity in KWH for EVs):" }),
             $("<input>", { type: "text", id: "engine_capacity", name: "engine_capacity", required: true, value: vehicleData.engine_capacity }),
             $("<label>", { for: "fuel_type", text: "Fuel Type:" }),
             $("<input>", { type: "text", id: "fuel_type", name: "fuel_type", required: true, value: vehicleData.fuel_type }),
@@ -77,6 +77,9 @@ $(document).ready(function () {
               colour: $("#colour").val()
             };
             saveVehicleChanges(updatedVehicleData);
+            // Reset bacj to vehicle view
+            $("#")
+
           });
         });
         
@@ -149,7 +152,7 @@ $(document).ready(function () {
           $("<label>", { for: "model", text: "Model:" }),
           $("<input>", { type: "text", id: "model", name: "model", required: "true" }),
           $("<br>"),
-          $("<label>", { for: "engine_capacity", text: "Engine Capacity:" }),
+          $("<label>", { for: "engine_capacity", text: "Engine Capacity (use KWH for EVs):" }),
           $("<input>", { type: "text", id: "engine_capacity", name: "engine_capacity", required: "true" }),
           $("<br>"),
           $("<label>", { for: "fuel_type", text: "Fuel Type:" }),
@@ -200,6 +203,7 @@ $("#new-vehicle-form").on("submit", function(e) {
         console.log(response);
         refreshVehicleList()
         showToastNotification(formData.vrn, "Vehicle Saved")
+        // And then reset the form to the vehicle that was just created
     },
     error: function(xhr, status, error) {
         console.log("Error: ", error);

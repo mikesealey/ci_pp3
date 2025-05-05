@@ -101,4 +101,8 @@ $.ajax({
 Interesting Bug - Function from elsewhere in the code by the same name was getting called instead of one in the file
 Had to rename displayBooking in all_bookings.js to displayCustomerBooking to combat this.
 
+
 Code from w3school scrollbar https://www.w3schools.com/howto/howto_css_custom_scrollbar.asp
+
+
+jquery mimic a click with https://api.jquery.com/click/

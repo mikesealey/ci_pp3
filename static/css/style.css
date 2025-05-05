@@ -145,7 +145,6 @@ nav ul li {
 form {
     display: flex;
     flex-direction: column;
-    border: 3px solid fuchsia;
 }
 
 input, select, textarea {
