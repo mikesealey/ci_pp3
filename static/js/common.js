@@ -1,11 +1,16 @@
 // Trigger toast notifications
 function showToastNotification(title, message) {
-  $(".toast .toast-header strong").text(title);
-  $(".toast .toast-body").text(message);
+  const toastElement = document.querySelector(".toast");
+  const toastHeader = toastElement.querySelector(".toast-header strong");
+  const toastBody = toastElement.querySelector(".toast-body");
+
+
+  toastHeader.textContent = title;
+  toastBody.textContent = message;
 
   // Show the toast
-  $(".toast").toast({ delay: 15000 });
-  $(".toast").toast("show");
+  const toast = new bootstrap.Toast(toastEl, { delay: 15000 });
+  toast.show();
 }
 
 // Should move Multi-Purpose Modal function here, too.
@@ -36,17 +41,40 @@ function showToastNotification(title, message) {
  * @param {ModalObject} modalObject - The configuration for the modal.
  */
 function showMultiPurposeModal(modalObject){
-  console.log("Opening MultiPurposeModal")
-  $("#multi-purpose-modal-title").text(modalObject.title)
-  $("#multi-purpose-modal-body").text(modalObject.body)
-  $("#multi-purpose-modal-positive").html(modalObject.confirmButtonText)
-  $("#multi-purpose-modal-negative").html(modalObject.cancelButtonText)
-  $("#multi-purpose-modal").modal("show");
-  $("#multi-purpose-modal-positive").on("click", function () {
-    console.log("invoking function!")
-    modalObject.confirmationButtonFunction(
-      modalObject.confirmationButtonFunctionArgument
-    )
-  })
-  console.log("|abandingonig service")
+  console.log("Opening MultiPurposeModal");
+
+  const modalEl = document.getElementById("multi-purpose-modal");
+  const modalTitle = modalEl.querySelector("#multi-purpose-modal-title");
+  const modalBody = modalEl.querySelector("#multi-purpose-modal-body");
+  const positiveBtn = modalEl.querySelector("#multi-purpose-modal-positive");
+  const negativeBtn = modalEl.querySelector("#multi-purpose-modal-negative");
+
+  modalTitle.textContent = modalObject.title;
+  modalBody.textContent = modalObject.body;
+  positiveBtn.innerHTML = modalObject.confirmButtonText;
+  negativeBtn.innerHTML = modalObject.cancelButtonText;
+
+  // Clear old click handlers before adding new one
+  const newPositiveBtn = positiveBtn.cloneNode(true);
+  positiveBtn.parentNode.replaceChild(newPositiveBtn, positiveBtn);
+  newPositiveBtn.addEventListener("click", () => {
+    modalObject.confirmationButtonFunction(modalObject.confirmationButtonFunctionArgument);
+  });
+
+  const modal = new bootstrap.Modal(modalEl);
+  modal.show();
 }
+
+// For Bootstrap Sidepanel
+document.addEventListener("DOMContentLoaded", function () {
+  const offcanvasElement = document.getElementById("offcanvasRight");
+  const bsOffcanvas = new bootstrap.Offcanvas(offcanvasElement);
+
+  offcanvasElement.addEventListener("shown.bs.offcanvas", function () {
+    console.log("Offcanvas opened");
+  });
+
+  offcanvasElement.addEventListener("hidden.bs.offcanvas", function () {
+    console.log("Offcanvas closed");
+  });
+});
