@@ -28,7 +28,6 @@ $(document).ready(function (){
         buildNewBookingForm()
     })
 
-    // $("#left-block-inner").on("click", "save")
 })
 
 // User clicks on Booking in Bookings list
@@ -69,6 +68,12 @@ function displayBooking(bookingData){
 
 function buildNewBookingForm(){
     console.log("building bookings form")
+    // Get min and max dates for booking - Cannot book in the past, cannot book more than 13 months ahead
+    const earliest = new Date();
+    const latest = new Date(earliest);
+    latest.setFullYear(latest.getFullYear() + 1);
+    latest.setMonth(latest.getMonth() + 1);
+
     $("#left-block-inner").empty()
     $("#left-block-inner").append($("<form>", { id: "new-booking-form" }))
     $("#new-booking-form").append(
@@ -98,8 +103,9 @@ function buildNewBookingForm(){
             )
             })
         }),
-        $("<label>", { for: "date_time", text: "Date & Time:" }),
-        $("<input>", { type: "datetime-local", id: "date_time", name: "date_time", required: true }),
+        $("<label>", { for: "date_time", text: "Date & Time:"}),
+        
+        $("<input>", { type: "datetime-local", id: "date_time", name: "date_time", required: true, min: earliest.toISOString().slice(0, 16), max: latest.toISOString().slice(0, 16) }),
         $("<label>", { for: "customer_notes", text: "Customer Notes:" }),
         $("<textarea>", { id: "customer_notes", name: "customer_notes", rows: 4, required: true }),
         $("<label>", { for: "vehicle_mileage_at_service", text: "Vehicle Mileage at Service:" }),
