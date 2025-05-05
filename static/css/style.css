@@ -142,6 +142,13 @@ nav ul li {
 
 #hamburger-button {
     display: none;
+    width: 75px;
+    height: 75px;
+    background-color: #9DB4C0;
+    border-radius: 0;
+    border: none;
+    color: #E0FBFC;
+
 }
 
 @media (max-width: 766px) {
@@ -149,10 +156,6 @@ nav ul li {
         display: flex;
         flex-direction: column;
         align-items: center;
-    }
-
-    #left-block {
-        /* margin: 5px 0 10px 0; */
     }
 
     #hamburger-button {
