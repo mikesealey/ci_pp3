@@ -3,12 +3,15 @@
 {% block content %}
 <div class="double-block">
     <div id="left-block" class="block">
-        <h2>Login</h2>
-        <form method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Login</button>
-        </form>
+        <div>
+            <h2>Login</h2>
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary">Login</button>
+            </form>
+
+        </div>
     </div>
     <!-- <div class="block">
         SSO goes here

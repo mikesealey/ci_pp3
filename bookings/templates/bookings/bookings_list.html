@@ -1,20 +1,26 @@
+{% if bookings %}
+<p>Click on a saved booking to see details</p>
+{% endif %}
+
 {% for booking in bookings %}
     <div
-        class="booking-list-item"
-        data-date_time="{{ booking.date_time|date:'Y-m-d\\TH:i' }}"
-        data-approved="{{ booking.approved }}"
-        data-booking_type="{{ booking.booking_type }}"
-        data-customer_notes="{{ booking.customer_notes }}"
-        data-mechanics_notes="{{ booking.mechanics_notes }}"
-        data-vehicle_mileage_at_service="{{ booking.vehicle_mileage_at_service }}"
-        data-completed_service="{{ booking.completed_service }}"
-        data-vehicle="{{ booking.vehicle.vrn }}"
-        data-vehicle-id="{{ booking.vehicle.id }}"
-        data-booking-id="{{ booking.id }}"
-    >
-        <p>{{ booking.booking_type }}</p>
-        <p>{{ booking.date_time }}</p>
-        <div class="vrn">{{ booking.vehicle.vrn }}</div>
+    class="booking-list-item"
+    data-date_time="{{ booking.date_time|date:'Y-m-d\\TH:i' }}"
+    data-approved="{{ booking.approved }}"
+    data-booking_type="{{ booking.booking_type }}"
+    data-customer_notes="{{ booking.customer_notes }}"
+    data-mechanics_notes="{{ booking.mechanics_notes }}"
+    data-vehicle_mileage_at_service="{{ booking.vehicle_mileage_at_service }}"
+    data-completed_service="{{ booking.completed_service }}"
+    data-vehicle="{{ booking.vehicle.vrn }}"
+    data-vehicle-id="{{ booking.vehicle.id }}"
+    data-booking-id="{{ booking.id }}"
+>
+    <div class="d-flex justify-content-between align-items-center gap-3 p-3 w-100">
+        <p class="m-0">{{ booking.booking_type }}</p>
+        <p class="m-0">{{ booking.date_time }}</p>
+        <div class="vrn m-0">{{ booking.vehicle.vrn }}</div>
     </div>
+</div>
 {% endfor %}
 <div id="add-new-booking" class="booking-list-item-last"> <h2>Add new booking...</h2></div>

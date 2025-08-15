@@ -177,11 +177,7 @@ nav ul li {
     justify-content: space-between;
 }
 
-/* Forms */
-form {
-    display: flex;
-    flex-direction: column;
-}
+/* Form */
 
 input, select, textarea {
     color: black; 
@@ -209,6 +205,8 @@ input, select, textarea {
 
     /* Size/Aspect/Dimensions */
     aspect-ratio: 520 / 111;
+
+    padding: 5px
 }
 
 .vrn-list {
