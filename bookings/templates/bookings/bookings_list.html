@@ -1,3 +1,4 @@
+{% load static %}
 {% if bookings %}
 <p>Click on a saved booking to see details</p>
 {% endif %}
@@ -17,7 +18,18 @@
     data-booking-id="{{ booking.id }}"
 >
     <div class="d-flex justify-content-between align-items-center gap-3 p-3 w-100">
-        <p class="m-0">{{ booking.booking_type }}</p>
+        <div>
+            <p class="m-0">{{ booking.booking_type }}</p>
+            {% if booking.booking_type == "MOT" %}
+                <img src="{% static 'images/mot_logo.png' %}" alt="UK MOT logo" class="booking-type-logo">
+            {% elif booking.booking_type == "Service" %}
+                <i class="fa-solid fa-clipboard-check fa-2x"></i>
+            {% elif booking.booking_type == "Repair" %}
+                <i class="fa-solid fa-screwdriver-wrench fa-2x"></i>
+            {% else %}
+                <i class="fa-solid fa-wrench fa-2x"></i>
+            {% endif %}
+        </div>
         <p class="m-0">{{ booking.date_time }}</p>
         <div class="vrn m-0">{{ booking.vehicle.vrn }}</div>
     </div>

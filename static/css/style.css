@@ -278,6 +278,11 @@ input {
     opacity: 50%;
 }
 
+.booking-type-logo {
+    max-width: 36px;
+    max-height: 36px;
+    aspect-ratio: 1:1;
+}
 
 
 
