@@ -34,9 +34,16 @@ $(document).ready(function () {
         $("#left-block-inner").append($("<div>", { class: "label", text: "Year of Manufacture" }))
         $("#left-block-inner").append($("<div>", { id: "year-of-manufacture-view", text: vehicleData.year }));
         $("#left-block-inner").append($("<div>", { class: "label", text: "Colour" }))
-        $("#left-block-inner").append($("<div>", { id: "colour-view", text: vehicleData.colour }));
-        $("#left-block-inner").append($("<button>", { id: "edit-vehicle", text: `Edit ${vehicleData.vrn}` })); // replace with pen icon for edit
-        $("#left-block-inner").append($("<button>", { id: "delete-vehicle", text: `Delete ${vehicleData.vrn}` })); // replace with bin icon for delete
+        $("#left-block-inner").append($("<div>", { id: "colour-view", text: vehicleData.colour, class: " mb-3" }));
+        const editVehicleButton = $("<button>", {  id: "edit-vehicle", class: "btn btn-primary w-50"})
+        editVehicleButton.append($("<i>", { class: "fa-solid fa-pencil mx-2" }))
+        editVehicleButton.append("Edit Vehicle")
+        $("#left-block-inner").append(editVehicleButton)
+
+        const deleteVehicleButton = $("<button>", { id: "delete-vehicle", class: "btn btn-danger w-50"})
+        deleteVehicleButton.append($("<i>", { class: "fa-solid fa-trash mx-2" }))
+        deleteVehicleButton.append("Delete Vehicle")
+        $("#left-block-inner").append(deleteVehicleButton)
         
         
         
@@ -51,24 +58,27 @@ $(document).ready(function () {
           form.append(
             $("<h2>", { text: "Editing details for:" }),
             $("<div>", { id: "vrn", class: "vrn", text: vehicleData.vrn }),
-            $("<label>", { for: "make", text: "Make:" }),
-            $("<input>", { type: "text", id: "make", name: "make", required: true, value: vehicleData.make }),
-            $("<label>", { for: "model", text: "Model:" }),
-            $("<input>", { type: "text", id: "model", name: "model", required: true, value: vehicleData.model }),
-            $("<label>", { for: "engine_capacity", text: "Engine Capacity (use Battery Capacity in KWH for EVs):" }),
-            $("<input>", { type: "text", id: "engine_capacity", name: "engine_capacity", required: true, value: vehicleData.engine_capacity }),
-            $("<label>", { for: "fuel_type", text: "Fuel Type:" }),
-            $("<input>", { type: "text", id: "fuel_type", name: "fuel_type", required: true, value: vehicleData.fuel_type }),
-            $("<label>", { for: "year", text: "Year:" }),
-            $("<input>", { type: "text", id: "year", name: "year", required: true, value: vehicleData.year }),
-            $("<label>", { for: "colour", text: "Colour:" }),
-            $("<input>", { type: "text", id: "colour", name: "colour", required: true, value: vehicleData.colour }),
-            $("<button>", {
+            $("<label>", { for: "make", text: "Make:", class: "form-label pt-2" }),
+            $("<input>", { type: "text", id: "make", name: "make", required: true, value: vehicleData.make, class: "form-control" }),
+            $("<label>", { for: "model", text: "Model:", class: "form-label pt-2" }),
+            $("<input>", { type: "text", id: "model", name: "model", required: true, value: vehicleData.model, class: "form-control" }),
+            $("<label>", { for: "engine_capacity", text: "Engine Capacity (use Battery Capacity in KWH for EVs):", class: "form-label pt-2" }),
+            $("<input>", { type: "text", id: "engine_capacity", name: "engine_capacity", required: true, value: vehicleData.engine_capacity, class: "form-control" }),
+            $("<label>", { for: "fuel_type", text: "Fuel Type:", class: "form-label pt-2" }),
+            $("<input>", { type: "text", id: "fuel_type", name: "fuel_type", required: true, value: vehicleData.fuel_type, class: "form-control" }),
+            $("<label>", { for: "year", text: "Year:", class: "form-label pt-2" }),
+            $("<input>", { type: "text", id: "year", name: "year", required: true, value: vehicleData.year, class: "form-control" }),
+            $("<label>", { for: "colour", text: "Colour:", class: "form-label pt-2" }),
+            $("<input>", { type: "text", id: "colour", name: "colour", required: true, value: vehicleData.colour, class: "form-control mb-3" }),
+          )
+          const saveChangesButton = $("<button>", {
               id: "save-changes",
               type: "submit",
-              text: "Save changes to Vehicle"
-            }),
-          );
+              class: "btn btn-primary"
+          })
+          $(saveChangesButton).append($("<i>", { class: "fa-solid fa-floppy-disk mx-2" }))
+          $(saveChangesButton).append("Save changes")
+          form.append(saveChangesButton)
         
           $("#left-block-inner").append(form);
         
@@ -117,7 +127,7 @@ $(document).ready(function () {
       // Build the button outside of the form so that the icon can be added
       const searchButton = $("<button>", {
             type: "button",
-            class: "btn btn-primary",
+            class: "btn btn-primary w-100",
             click: function () {
               clearForm();
               $("#error-status").empty();
@@ -149,6 +159,13 @@ $(document).ready(function () {
           searchButton.append($("<i>", { class: "fa-solid fa-magnifying-glass me-2" }));
           searchButton.append("Search VRN");
       
+      const saveVehicleButton = $("<button>", {
+        type: "submit",
+        class: "btn btn-primary w-100"
+      })
+      saveVehicleButton.append($("<i>", { class: "fa-regular fa-floppy-disk mx-2" }));
+      saveVehicleButton.append("Save Vehicle");
+
       $("#new-vehicle-form").append(
           $("<label>", { for: "vrn", text: "Please enter your Vehicle Registration Number" }),
           $("<input>", { type: "text", id: "vrn", name: "vrn", class: "vrn vrn-med", value: "MY00REG", autocomplete: "off"}),
@@ -165,8 +182,8 @@ $(document).ready(function () {
           $("<label>", { for: "year", text: "Year:", class: "form-label pt-2" }),
           $("<input>", { type: "text", id: "year", name: "year", required: "true", class: "form-control"  }),
           $("<label>", { for: "colour", text: "Colour:", class: "form-label pt-2" }),
-          $("<input>", { type: "text", id: "colour", name: "colour", required: "true", class: "form-control"  }),
-          $("<button>", { type: "submit", text: "Save Vehicle" }),
+          $("<input>", { type: "text", id: "colour", name: "colour", required: "true", class: "form-control mb-3"  }),
+          saveVehicleButton,
           $("<h5>", { type: "text", id: "error" })
         );
       // Removes placeholder text as soon as user clicks inside VRN field
