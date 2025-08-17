@@ -68,53 +68,64 @@ function displayBooking(bookingData){
 
 function buildNewBookingForm(){
     console.log("building bookings form")
-    // Get min and max dates for booking - Cannot book in the past, cannot book more than 13 months ahead
-    const earliest = new Date();
-    const latest = new Date(earliest);
-    latest.setFullYear(latest.getFullYear() + 1);
-    latest.setMonth(latest.getMonth() + 1);
 
-    $("#left-block-inner").empty()
-    $("#left-block-inner").append($("<form>", { id: "new-booking-form" }))
-    $("#new-booking-form").append(
-        $("<label>", { for: "booking_type", text: "Booking Type:" }),
-        $("<select>", { id: "booking_type", name: "booking_type", required: true }).append(
-            $("<option>", { class: "placeholder", value: undefined, text: "Please select a booking type", disabled: true, selected: true, hidden: true }),
-            $("<option>", { value: "Service", text: "Service" }),
-            $("<option>", { value: "MOT", text: "MOT" }),
-            $("<option>", { value: "Repair", text: "Repair" }),
-            $("<option>", { value: "Other", text: "Other" })
-        ),
-        $("<label>", { for: "vehicle", text: "Vehicle:" }),
-        $("<select>", { id: "vehicle", name: "vehicle", required: true }),
-        // SELECT options populated with AJAX call below
-        // Fetch vehicles associated with current user
-        $.get("/vehicles/api/vehicle-listJSON/", function(response) {
-            const vehicles = response.vehicles;
-            console.log(vehicles)
-            $("#vehicle").append(
+    // Fetch vehicles associated with current user first
+    $.get("/vehicles/api/vehicle-listJSON/", function(response) {
+        const vehicles = response.vehicles;
+        if (!vehicles || vehicles.length === 0) {
+            showToastNotification("No Vehicles", "You have no vehicles available for booking. Redirecting to your vehicles...")
+            setTimeout(() => {
+                window.location.href = "/vehicles/"
+            }, 1500)
+            return;
+        }
+
+        // Get min and max dates for booking - Cannot book in the past, cannot book more than 13 months ahead
+        const earliest = new Date();
+        const latest = new Date(earliest);
+        latest.setFullYear(latest.getFullYear() + 1);
+        latest.setMonth(latest.getMonth() + 1);
+
+        $("#left-block-inner").empty()
+        $("#left-block-inner").append($("<form>", { id: "new-booking-form" }))
+
+        $("#new-booking-form").append(
+            $("<label>", { for: "booking_type", text: "Booking Type:" }),
+            $("<select>", { id: "booking_type", name: "booking_type", required: true }).append(
+                $("<option>", { class: "placeholder", value: undefined, text: "Please select a booking type", disabled: true, selected: true, hidden: true }),
+                $("<option>", { value: "Service", text: "Service" }),
+                $("<option>", { value: "MOT", text: "MOT" }),
+                $("<option>", { value: "Repair", text: "Repair" }),
+                $("<option>", { value: "Other", text: "Other" })
+            ),
+            $("<label>", { for: "vehicle", text: "Vehicle:" }),
+            $("<select>", { id: "vehicle", name: "vehicle", required: true }),
+        )
+
+        // Add vehicles as options
+        $("#vehicle").append(
             $("<option>", { class: "placeholder", value: undefined, text: "Please select a vehicle for service", disabled: true, selected: true, hidden: true }),
-            )
-            // Now add vehicles as options to the form
-            vehicles.forEach((vehicle) => {
-                console.log(vehicle.id)
+        )
+        vehicles.forEach((vehicle) => {
             $("#vehicle").append(
                 $("<option>", { value: vehicle.id, text: vehicle.vrn })
             )
-            })
-        }),
-        $("<label>", { for: "date_time", text: "Date & Time:"}),
-        
-        $("<input>", { type: "datetime-local", id: "date_time", name: "date_time", required: true, min: earliest.toISOString().slice(0, 16), max: latest.toISOString().slice(0, 16) }),
-        $("<label>", { for: "customer_notes", text: "Customer Notes:" }),
-        $("<textarea>", { id: "customer_notes", name: "customer_notes", rows: 4, required: true }),
-        $("<label>", { for: "vehicle_mileage_at_service", text: "Vehicle Mileage at Service:" }),
-        $("<input>", { type: "number", id: "vehicle_mileage_at_service", name: "vehicle_mileage_at_service", min: 0, required: true }),
-        $("<button>", { type: "submit", text: "Save Booking" }),
+        })
+
+        // Rest of form
+        $("#new-booking-form").append(
+            $("<label>", { for: "date_time", text: "Date & Time:"}),
+            $("<input>", { type: "datetime-local", id: "date_time", name: "date_time", required: true, min: earliest.toISOString().slice(0, 16), max: latest.toISOString().slice(0, 16) }),
+            $("<label>", { for: "customer_notes", text: "Customer Notes:" }),
+            $("<textarea>", { id: "customer_notes", name: "customer_notes", rows: 4, required: true }),
+            $("<label>", { for: "vehicle_mileage_at_service", text: "Vehicle Mileage at Service:" }),
+            $("<input>", { type: "number", id: "vehicle_mileage_at_service", name: "vehicle_mileage_at_service", min: 0, required: true }),
+            $("<button>", { type: "submit", text: "Save Booking" }),
+        )
+
         // Booking Submission
         $("#new-booking-form").on("submit", function(e) {
             e.preventDefault()
-            // Gather data from form
             const formData = {
                 bookingType: $("#booking_type").val(),
                 dateTime: $("#date_time").val(),
@@ -122,7 +133,6 @@ function buildNewBookingForm(){
                 vehicle_mileage_at_service: $("#vehicle_mileage_at_service").val(),
                 vehicle: $("#vehicle").val()
             }
-            // Pass data into AJAX query
             $.ajax({
                 url: "/bookings/api/add-booking/",
                 type: "POST",
@@ -139,10 +149,10 @@ function buildNewBookingForm(){
                     showToastNotification(formData.bookingType, "Something went wrong when saving this booking")
                 }
             })
-        }),
-    )
-    
+        })
+    })
 }
+
 
 function buildEditBookingForm(formData){
     console.log("135" + formData)
