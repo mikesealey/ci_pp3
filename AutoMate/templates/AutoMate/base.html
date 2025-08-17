@@ -46,10 +46,12 @@
         <nav id="desktop-nav" class="d-none d-md-flex">
             <ul>
                 {% if user.is_authenticated %}
-                  <li>Welcome back, {{ user.username }}</li>
-                {% endif %}
-                {% if user.is_staff %}
-                  <li><a href="{% url 'all_bookings_page' %}">Customer Bookings</a></li>
+                  <li id="welcome-message"
+                      data-date-joined="{{ user.date_joined|date:'Y-m-d H:i:s' }}"
+                      data-last-login="{{ user.last_login|date:'Y-m-d H:i:s' }}"
+                      data-username="{{ user.username }}">
+                      Welcome back, {{ user.username }}
+                  </li>
                 {% endif %}
                 {% if user.is_authenticated %}
                     <li><a href="{% url 'vehicles' %}">My Vehicles</a></li>

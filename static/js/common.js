@@ -78,3 +78,21 @@ document.addEventListener("DOMContentLoaded", function () {
     console.log("Offcanvas closed");
   });
 });
+
+// For Welcome greeting in nav bar
+$(document).ready(function() {
+    const $welcome = $('#welcome-message');
+    // If element fails to populate
+    if (!$welcome.length) return;
+
+    const dateJoined = new Date($welcome.data('date-joined'));
+    const lastLogin = new Date($welcome.data('last-login'));
+    const username = $welcome.data('username');
+
+    const diffMs = lastLogin - dateJoined;
+    const fifteenMinutesMs = 15 * 60 * 1000;
+
+    if (diffMs <= fifteenMinutesMs) {
+        $welcome.text(`Welcome to AutoMate, ${username}`);
+    }
+});
