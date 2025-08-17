@@ -112,65 +112,60 @@ $(document).ready(function () {
       console.log("Adding new vehicle!")
       // Remove displayed vehicle data
       $("#left-block-inner").empty()
-      $("#left-block-inner").append($("<form>", { id: "new-vehicle-form" }));
+      $("#left-block-inner").append($("<form>", { id: "new-vehicle-form", class: "" }));
+
+      // Build the button outside of the form so that the icon can be added
+      const searchButton = $("<button>", {
+            type: "button",
+            class: "btn btn-primary",
+            click: function () {
+              clearForm();
+              $("#error-status").empty();
+              const vrn = $("#vrn").val();
+              console.log("Sending VRN to Django backend:", vrn);
+
+              $.ajax({
+                url: "/vehicles/api/query-vehicle/",
+                method: "POST",
+                contentType: "application/json",
+                data: JSON.stringify({ registrationNumber: vrn }),
+                success: function (data) {
+                  console.log("Vehicle data from DVLA:", data);
+                  data.colour && $("#colour").val(data.colour);
+                  data.engineCapacity && $("#engine_capacity").val(data.engineCapacity);
+                  data.fuelType && $("#fuel_type").val(data.fuelType);
+                  data.make && $("#make").val(data.make);
+                  data.model && $("#model").val(data.model);
+                  data.yearOfManufacture && $("#year").val(data.yearOfManufacture);
+                },
+                error: function (err) {
+                  console.error("Something went wrong:", err);
+                  showToastNotification(vrn, "Something went wrong searching for this vehicle");
+                }
+              });
+            }
+          });
+          // Add in icon
+          searchButton.append($("<i>", { class: "fa-solid fa-magnifying-glass me-2" }));
+          searchButton.append("Search VRN");
       
       $("#new-vehicle-form").append(
           $("<label>", { for: "vrn", text: "Please enter your Vehicle Registration Number" }),
           $("<input>", { type: "text", id: "vrn", name: "vrn", class: "vrn vrn-med", value: "MY00REG", autocomplete: "off"}),
-          $("<button>", {
-              type: "button",
-              text: "Check VRN",
-              click: function () {
-                // Need to clear form of existing data to account for typos
-                clearForm()
-                $("#error-status").empty()
-                const vrn = $("#vrn").val();
-                console.log("Sending VRN to Django backend:", vrn);
-            
-                $.ajax({
-                  url: "/vehicles/api/query-vehicle/",
-                  method: "POST",
-                  contentType: "application/json",
-                  data: JSON.stringify({ registrationNumber: vrn }),
-                  success: function (data) {
-                    console.log("Vehicle data from DVLA:", data);
-                    // If property exists and is truthy, populate the form field with it
-                    data.colour ? $("#colour").val(data.colour) : ""
-                    data.engineCapacity ? $("#engine_capacity").val(data.engineCapacity) : ""
-                    data.fuelType ? $("#fuel_type").val(data.fuelType) : ""
-                    data.make ? $("#make").val(data.make) : ""
-                    data.model ? $("#model").val(data.model) : ""
-                    data.yearOfManufacture ? $("#year").val(data.yearOfManufacture) : ""
-                    
-                  },
-                  error: function (err) {
-                    console.error("Something went wrong:", err);
-                    // Warn user that DVLA API has errored
-                    showToastNotification(vrn, "Something went wrong searching for this vehicle")
-                  }
-                });
-              }
-            }),
-           $("<div>", { id: "error-status" }), 
-          $("<br>"),
-          $("<label>", { for: "make", text: "Make:" }),
-          $("<input>", { type: "text", id: "make", name: "make", required: "true"}),
-          $("<br>"),
-          $("<label>", { for: "model", text: "Model:" }),
-          $("<input>", { type: "text", id: "model", name: "model", required: "true" }),
-          $("<br>"),
-          $("<label>", { for: "engine_capacity", text: "Engine Capacity (use KWH for EVs):" }),
-          $("<input>", { type: "text", id: "engine_capacity", name: "engine_capacity", required: "true" }),
-          $("<br>"),
-          $("<label>", { for: "fuel_type", text: "Fuel Type:" }),
-          $("<input>", { type: "text", id: "fuel_type", name: "fuel_type", required: "true" }),
-          $("<br>"),
-          $("<label>", { for: "year", text: "Year:" }),
-          $("<input>", { type: "text", id: "year", name: "year", required: "true" }),
-          $("<br>"),
-          $("<label>", { for: "colour", text: "Colour:" }),
-          $("<input>", { type: "text", id: "colour", name: "colour", required: "true" }),
-          $("<br>"),
+          searchButton,
+          $("<div>", { id: "error-status" }), 
+          $("<label>", { for: "make", text: "Make:", class: "form-label pt-3" }),
+          $("<input>", { type: "text", id: "make", name: "make", required: "true", class: "form-control" }),
+          $("<label>", { for: "model", text: "Model:", class: "form-label pt-2" }),
+          $("<input>", { type: "text", id: "model", name: "model", required: "true", class: "form-control"  }),
+          $("<label>", { for: "engine_capacity", text: "Engine Capacity (use KWH for EVs):", class: "form-label pt-2" }),
+          $("<input>", { type: "text", id: "engine_capacity", name: "engine_capacity", required: "true", class: "form-control"  }),
+          $("<label>", { for: "fuel_type", text: "Fuel Type:", class: "form-label pt-2" }),
+          $("<input>", { type: "text", id: "fuel_type", name: "fuel_type", required: "true", class: "form-control"  }),
+          $("<label>", { for: "year", text: "Year:", class: "form-label pt-2" }),
+          $("<input>", { type: "text", id: "year", name: "year", required: "true", class: "form-control"  }),
+          $("<label>", { for: "colour", text: "Colour:", class: "form-label pt-2" }),
+          $("<input>", { type: "text", id: "colour", name: "colour", required: "true", class: "form-control"  }),
           $("<button>", { type: "submit", text: "Save Vehicle" }),
           $("<h5>", { type: "text", id: "error" })
         );
