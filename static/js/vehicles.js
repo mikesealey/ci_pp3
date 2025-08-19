@@ -57,7 +57,7 @@ $(document).ready(function () {
         
           form.append(
             $("<h2>", { text: "Editing details for:" }),
-            $("<div>", { id: "vrn", class: "vrn", text: vehicleData.vrn }),
+            $("<div>", { id: "vrn", class: "vrn vrn-med", text: vehicleData.vrn }),
             $("<label>", { for: "make", text: "Make:", class: "form-label pt-2" }),
             $("<input>", { type: "text", id: "make", name: "make", required: true, value: vehicleData.make, class: "form-control" }),
             $("<label>", { for: "model", text: "Model:", class: "form-label pt-2" }),
