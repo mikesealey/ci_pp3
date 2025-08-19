@@ -90,21 +90,21 @@ function buildNewBookingForm(){
         $("#left-block-inner").append($("<form>", { id: "new-booking-form" }))
 
         $("#new-booking-form").append(
-            $("<label>", { for: "booking_type", text: "Booking Type:" }),
-            $("<select>", { id: "booking_type", name: "booking_type", required: true }).append(
-                $("<option>", { class: "placeholder", value: undefined, text: "Please select a booking type", disabled: true, selected: true, hidden: true }),
-                $("<option>", { value: "Service", text: "Service" }),
+            $("<label>", { for: "booking_type", text: "Booking Type:", class: "form-label mt-2" }),
+            $("<select>", { id: "booking_type", name: "booking_type", required: true, class: "form-control" }).append(
+                $("<option>", { class: "placeholder", value:"", text: "Please select a booking type", disabled: true, selected: true, hidden: true }),
+                $("<option>", { value: "Service", text: "Service", class: "form-control" }),
                 $("<option>", { value: "MOT", text: "MOT" }),
                 $("<option>", { value: "Repair", text: "Repair" }),
                 $("<option>", { value: "Other", text: "Other" })
             ),
-            $("<label>", { for: "vehicle", text: "Vehicle:" }),
-            $("<select>", { id: "vehicle", name: "vehicle", required: true }),
+            $("<label>", { for: "vehicle", text: "Vehicle:", class: "form-label mt-2" }),
+            $("<select>", { id: "vehicle", name: "vehicle", required: true, class: "form-control" }),
         )
 
         // Add vehicles as options
         $("#vehicle").append(
-            $("<option>", { class: "placeholder", value: undefined, text: "Please select a vehicle for service", disabled: true, selected: true, hidden: true }),
+            $("<option>", { class: "placeholder", value: "", text: "Please select a vehicle for service", disabled: true, selected: true, hidden: true }),
         )
         vehicles.forEach((vehicle) => {
             $("#vehicle").append(
@@ -114,13 +114,13 @@ function buildNewBookingForm(){
 
         // Rest of form
         $("#new-booking-form").append(
-            $("<label>", { for: "date_time", text: "Date & Time:"}),
-            $("<input>", { type: "datetime-local", id: "date_time", name: "date_time", required: true, min: earliest.toISOString().slice(0, 16), max: latest.toISOString().slice(0, 16) }),
-            $("<label>", { for: "customer_notes", text: "Customer Notes:" }),
-            $("<textarea>", { id: "customer_notes", name: "customer_notes", rows: 4, required: true }),
-            $("<label>", { for: "vehicle_mileage_at_service", text: "Vehicle Mileage at Service:" }),
-            $("<input>", { type: "number", id: "vehicle_mileage_at_service", name: "vehicle_mileage_at_service", min: 0, required: true }),
-            $("<button>", { type: "submit", text: "Save Booking" }),
+            $("<label>", { for: "date_time", text: "Date & Time:", class: "form-label mt-2" }),
+            $("<input>", { type: "datetime-local", id: "date_time", name: "date_time", required: true, min: earliest.toISOString().slice(0, 16), max: latest.toISOString().slice(0, 16), class: "form-control" }),
+            $("<label>", { for: "customer_notes", text: "Customer Notes:", class: "form-label mt-2" }),
+            $("<textarea>", { id: "customer_notes", name: "customer_notes", rows: 4, required: true, class: "form-control" }),
+            $("<label>", { for: "vehicle_mileage_at_service", text: "Vehicle Mileage at Service:", class: "form-label mt-2" }),
+            $("<input>", { type: "number", id: "vehicle_mileage_at_service", name: "vehicle_mileage_at_service", min: 0, required: true, class: "form-control" }),
+            $("<button>", { type: "submit", text: "Save Booking", class: "btn btn-primary w-100 mt-3" }),
         )
 
         // Booking Submission
