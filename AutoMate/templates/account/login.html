@@ -1,5 +1,6 @@
 {% extends "AutoMate/base.html" %}
 {% load static %}
+<script src="{% static 'js/form_control.js' %}"></script>
 {% block content %}
 <div class="double-block">
     <div id="left-block" class="block">
@@ -18,4 +19,7 @@
     </div> -->
 </div>
   
+{% endblock %}
+{% block form_control_js %}
+<script src="{% static 'js/form_control.js' %}"></script>
 {% endblock %}
