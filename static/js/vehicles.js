@@ -122,7 +122,7 @@ $(document).ready(function () {
       console.log("Adding new vehicle!")
       // Remove displayed vehicle data
       $("#left-block-inner").empty()
-      $("#left-block-inner").append($("<form>", { id: "new-vehicle-form", class: "" }));
+      $("#left-block-inner").append($("<form>", { id: "new-vehicle-form", class: "w-100" }));
 
       // Build the button outside of the form so that the icon can be added
       const searchButton = $("<button>", {
@@ -167,8 +167,8 @@ $(document).ready(function () {
       saveVehicleButton.append("Save Vehicle");
 
       $("#new-vehicle-form").append(
-          $("<label>", { for: "vrn", text: "Please enter your Vehicle Registration Number" }),
-          $("<input>", { type: "text", id: "vrn", name: "vrn", class: "vrn vrn-med", value: "MY00REG", autocomplete: "off"}),
+          $("<label>", { for: "vrn", text: "Please enter your Vehicle Registration Number", class: "form-label" }),
+          $("<input>", { type: "text", id: "vrn", name: "vrn", class: "vrn vrn-med w-100", value: "MY00REG", autocomplete: "off"}),
           searchButton,
           $("<div>", { id: "error-status" }), 
           $("<label>", { for: "make", text: "Make:", class: "form-label pt-3" }),
