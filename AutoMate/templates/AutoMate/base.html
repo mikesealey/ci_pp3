@@ -38,32 +38,34 @@
 <body>
     <div id="nav-container">
         <div id="title-container">
-            <a id="link-home" href="{% url 'homepage' %}">
+            <a id="link-home" href="{% url 'homepage' %}" class="d-md-flex align-items-md-center justify-content-center">
                 <i class="fa-solid fa-wrench" id="title-spanner"></i>
                 <h1>AutoMate</h1>
             </a>
         </div>
-        <nav id="desktop-nav" class="d-none d-md-flex">
-            <ul>
-                {% if user.is_authenticated %}
-                  <li id="welcome-message"
-                      data-date-joined="{{ user.date_joined|date:'Y-m-d H:i:s' }}"
-                      data-last-login="{{ user.last_login|date:'Y-m-d H:i:s' }}"
-                      data-username="{{ user.username }}">
-                      Welcome back, {{ user.username }}
-                  </li>
-                {% endif %}
-                {% if user.is_authenticated %}
-                    <li><a href="{% url 'vehicles' %}">My Vehicles</a></li>
-                    <li><a href="{% url 'bookings' %}">My Bookings</a></li>
-                    <li><a href="{% url 'profile' %}">My Profile</a></li>
-                    <li><a href="{% url 'logout' %}">Log Out</a></li>
-                {% else %}
-                    <li><a href="{% url 'login' %}">Login</a></li>
-                    <li><a href="{% url 'account_signup' %}">Sign Up</a></li>
-                {% endif %}
-            </ul>
-        </nav>
+        <div  class="d-md-flex align-items-md-center justify-content-center">
+          <nav id="desktop-nav">
+              <ul>
+                  {% if user.is_authenticated %}
+                    <li id="welcome-message"
+                        data-date-joined="{{ user.date_joined|date:'Y-m-d H:i:s' }}"
+                        data-last-login="{{ user.last_login|date:'Y-m-d H:i:s' }}"
+                        data-username="{{ user.username }}">
+                        Welcome back, {{ user.username }}
+                    </li>
+                  {% endif %}
+                  {% if user.is_authenticated %}
+                      <li><a href="{% url 'vehicles' %}">My Vehicles</a></li>
+                      <li><a href="{% url 'bookings' %}">My Bookings</a></li>
+                      <li><a href="{% url 'profile' %}">My Profile</a></li>
+                      <li><a href="{% url 'logout' %}">Log Out</a></li>
+                  {% else %}
+                      <li><a href="{% url 'login' %}">Login</a></li>
+                      <li><a href="{% url 'account_signup' %}">Sign Up</a></li>
+                  {% endif %}
+              </ul>
+          </nav>
+        </div>
         <!-- Bootstrap sidepanel -->
         <button id="hamburger-button" class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">☰</button>
 
