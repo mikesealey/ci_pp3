@@ -20,13 +20,16 @@
                 <li>Reminders & Updates – Stay informed with appointment reminders and real-time updates.</li>
 
             </ul>
-            {% if user.is_authenticated %}
-                <p><a href="{% url 'vehicles' %}">My Vehicles</a></p>
-                <p><a href="{% url 'bookings' %}">My Bookings</a></p>
-            {% else %}
-                <li><a href="{% url 'login' %}">Login</a></li>
-                <li><a href="{% url 'account_signup' %}">Sign Up</a></li>
-            {% endif %}
+            <h2>Where next?</h2>
+            <div class="d-flex w-100">
+                {% if user.is_authenticated %}
+                    <a href="{% url 'vehicles' %}" class="btn btn-primary flex-fill me-2"><i class="fa-solid fa-car mx-3"></i>My Vehicles</a>
+                    <a href="{% url 'bookings' %}" class="btn btn-primary flex-fill ms-2"><i class="fa-solid fa-calendar-days mx-3"></i>My Bookings</a>
+                {% else %}
+                    <a href="{% url 'login' %}" class="btn btn-primary flex-fill me-2">Login</a>
+                    <a href="{% url 'account_signup' %}" class="btn btn-primary flex-fill ms-2">Sign Up</a>
+                {% endif %}
+            </div>
         </div>
     </div>
     
