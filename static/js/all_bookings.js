@@ -1,7 +1,6 @@
 $(document).ready(function (){
     // User clicks on Booking in Bookings list
     $("#all-booking-list").on("click", ".all-booking-list-item", function (){
-        console.log("HERE")
         // Gather booking data
         const $booking = $(this)
         
@@ -18,20 +17,14 @@ $(document).ready(function (){
             bookingId: $booking.data("booking-id"),
         }
         
-        console.log("Booking dateTime at click" + bookingObject.dateTime)
         // pass it to function
         displayCustomerBooking(bookingObject)
     })
 })
 
     function displayCustomerBooking(bookingData){
-        console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Display Booking invoked")
-        console.log("bookingdata" + JSON.stringify(bookingData))
         // Display booking details
-        console.log("Emptying out customerBooking")
         $("#left-block-inner").text("") // Empty out the placeholder anything already populated there
-        console.log($("#left-block-inner"))
-        console.log()
         $("#left-block-inner").append($("<div>", { class: "label", text: "Vehicle" }))
         $("#left-block-inner").append($("<div>", { id: "vrn-view", class: "vrn vrn-med", text: bookingData.vehicle }))
         $("#left-block-inner").append($("<div>", { class: "label", text: "Booking Date & Time" }))
@@ -70,8 +63,6 @@ $(document).ready(function (){
 
 
 function approveBooking(bookingData){
-    console.log("approve booking!")
-    console.log("bookingData" + JSON.stringify(bookingData))
     // Make the AJAX call to approve the booking
     $.ajax({
         url: `/bookings/api/approve_booking/${bookingData.bookingId}/`,
@@ -80,7 +71,6 @@ function approveBooking(bookingData){
             "X-CSRFToken": getCSRFToken(),
         },
         success: function(response) {
-            console.log("Booking approved successfully:", response);
             refreshAllBookingList(); 
             // Success Toast
             const message = `Booking approved for ${bookingData.bookingType === "Other" ? "Other Service" : bookingData.bookingType} of ${bookingData.vehicle} on ${bookingData.dateTime}`
@@ -115,8 +105,6 @@ function completeBooking(bookingData){
 }
 
 function buildServiceForm(bookingData){
-    console.log("Building the service form!")
-    console.log(bookingData)
     // If service is being abandonned, inputs and buttons will exist- remove them
     if ($("#multi-purpose-modal").is(":visible")) {
         $("#carry-out-service").focus(); // Sets the button as the focus elsewhere before removing the modal
@@ -141,7 +129,6 @@ function buildServiceForm(bookingData){
         text: "Cancel"
     }).insertAfter("#mechanics-notes-input");
     $("#save-mechanics-notes").off("click").on("click", function () {
-        console.log("Saving notes and completing service");
         // Show modal to ask mechanic to confirm their notes
         const modalObject = {
             confirmationButtonFunction: saveMechanicsNotes,
@@ -155,7 +142,6 @@ function buildServiceForm(bookingData){
         showMultiPurposeModal(modalObject)
     });
     $("#cancel-mechanics-notes").off("click").on("click", function () {
-        console.log("Cancelling notes");
         // Show modal to ask mechanic to confirm their notes
         const modalObject = {
             confirmationButtonFunction: buildServiceForm,
@@ -182,22 +168,18 @@ function buildServiceForm(bookingData){
 }
 
 function refreshAllBookingList(){
-    console.log("Refreshing All-Bookings List!")
     $.get("/bookings/api/all_bookings/", function(html) {
         $("#all-booking-list").html(html)
     })
 }
 
 function getCSRFToken() {
-    console.log("getting CSRF tocken")
     return document.querySelector('[name=csrfmiddlewaretoken]').value;
 }
 
 function saveMechanicsNotes(bookingData) {
-    console.log("Saving mechanic's Notes!" + bookingData)
     // Get the notes from the form
     const mechanicsNotes = $("#mechanics-notes-input").val()
-    console.log(mechanicsNotes)
 
     // Make the AJAX call
     $.ajax({
@@ -211,7 +193,6 @@ function saveMechanicsNotes(bookingData) {
             mechanicsNotes: mechanicsNotes
         }),
         success: function(response) {
-            console.log("Booking marked complete:", response);
             refreshAllBookingList();
             showToastNotification("Success", "Mechanic's notes saved and booking marked complete.");
             $("#multi-purpose-modal").modal("hide");

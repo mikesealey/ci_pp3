@@ -14,8 +14,6 @@ $(document).ready(function () {
             colour: $vehicle.data("colour"),
             owner: $vehicle.data("owner"),
         };
-        // Check vehicle data
-        console.log(vehicleData);
         // Display vehicle data
         $("#left-block-inner").text("") // Empyt out the placeholder anything already populated there
         $("#left-block-inner").append($("<div>", { class: "label", text: "Vehicle" }))
@@ -102,14 +100,12 @@ $(document).ready(function () {
         
         // User clicks "Delete Vehicle" - Confirmation modal opens, populates with vehicle data
         $("#left-block-inner").on("click", "#delete-vehicle", function () {
-          console.log("Opening Modal")
           $("#multi-purpose-modal-title").text("Are you sure?")
           $("#multi-purpose-modal-body").text(`You're about to delete your records for ${vehicleData.vrn}. Are you sure? This action cannot be undone`)
           $("#multi-purpose-modal-positive").html("I'm sure I want to delete it")
           $("#multi-purpose-modal-negative").html("No, take me back to safety...")
           $("#multi-purpose-modal").modal("show");
           $("#multi-purpose-modal-positive").on("click", function () {
-            console.log("Deleting Vehicle!")
             deleteVehicle(vehicleData.vrn)
           })
         });
@@ -119,7 +115,6 @@ $(document).ready(function () {
 
   // User clicks "Add new vehicle"
   $("#vehicle-list").on("click", "#add-new-vehicle", function() {
-      console.log("Adding new vehicle!")
       // Remove displayed vehicle data
       $("#left-block-inner").empty()
       $("#left-block-inner").append($("<form>", { id: "new-vehicle-form", class: "w-100" }));
@@ -132,7 +127,6 @@ $(document).ready(function () {
               clearForm();
               $("#error-status").empty();
               const vrn = $("#vrn").val();
-              console.log("Sending VRN to Django backend:", vrn);
 
               $.ajax({
                 url: "/vehicles/api/query-vehicle/",
@@ -140,7 +134,6 @@ $(document).ready(function () {
                 contentType: "application/json",
                 data: JSON.stringify({ registrationNumber: vrn }),
                 success: function (data) {
-                  console.log("Vehicle data from DVLA:", data);
                   data.colour && $("#colour").val(data.colour);
                   data.engineCapacity && $("#engine_capacity").val(data.engineCapacity);
                   data.fuelType && $("#fuel_type").val(data.fuelType);
@@ -188,15 +181,11 @@ $(document).ready(function () {
         );
       // Removes placeholder text as soon as user clicks inside VRN field
       $("#vrn").on("click", function(){
-        console.log("VRN FIELD CLICKED")
         const existingVRN = $("#vrn").val()
-        console.log(existingVRN)
         if (existingVRN === "MY00REG") {
           $("#vrn").val("")
-          console.log($("#vrn").val)
         }
       })
-      // console.log($("#new-vehicle-form").children())
       
       // Handle form submission
 $("#new-vehicle-form").on("submit", function(e) {
@@ -219,14 +208,12 @@ $("#new-vehicle-form").on("submit", function(e) {
     contentType: "application/json",
     data: JSON.stringify(formData),
     success: function(response) {
-        console.log(response);
         refreshVehicleList()
         showToastNotification(formData.vrn, "Vehicle Saved")
         // And then reset the form to the vehicle that was just created by mimicing a click on that new vehicle-item-list
         $(`.vehicle-list-item[data-vrn="${formData.vrn}"]`).click();
     },
     error: function(xhr, status, error) {
-        console.log("Error: ", error);
         showToastNotification(formData.vrn, "Something went wrong when saving this vehicle")
     }
 });
@@ -243,13 +230,11 @@ function deleteVehicle(vrn){
     contentType: "application/json",
     data: JSON.stringify({ vrn: vrn }),
     success: function(response) {
-      console.log("Success:", response);
       refreshVehicleList()
       
     },
     error: function(xhr) {
       alert("Error: " + xhr.responseText);
-      console.log("Error:", xhr);
       showToastNotification(vrn, "vehicle deleted")
     }
   });
@@ -270,8 +255,6 @@ function deleteVehicle(vrn){
 
 // Switches display to form
 function saveVehicleChanges(vehicleData){
-  console.log("Saving changes!")
-  console.log(vehicleData)
   // Make the AJAX call to update the vehicle (but never allow VRN to be changed.)
   $.ajax({
     url: "/vehicles/api/update_vehicle/",
@@ -279,7 +262,6 @@ function saveVehicleChanges(vehicleData){
     contentType: "application/json",
     data: JSON.stringify(vehicleData),  // stringified payload!
     success: function(response) {
-      console.log("Success:", response);
       refreshVehicleList()
       showToastNotification(vehicleData.vrn, "Changes saved!")
       // And then reset the form to the vehicle that was just created by mimicing a click on that new vehicle-item-list
@@ -295,7 +277,6 @@ function saveVehicleChanges(vehicleData){
 
 // Clear Form Function
 function clearForm(){
-  console.log("Clearing Form")
   $("#make").val()
   $("#model").val()
   $("#engine_capacity").val("")
@@ -305,14 +286,12 @@ function clearForm(){
 }
 
 function refreshVehicleList() {
-  console.log("Refreshing vehicle list!")
   $.get("/vehicles/api/vehicle-list/", function(html) {
     $("#vehicle-list").html(html);
   });
 }
 
 function showToastNotification(vrn, message){
-  console.log("Show Toast!!" + vrn + message)
   $('.toast .toast-header strong').text(vrn);
   $('.toast .toast-body').text(message);
 

@@ -1,7 +1,6 @@
 $(document).ready(function (){
     // User clicks on Booking in Bookings list
     $("#booking-list").on("click", ".booking-list-item", function (){
-        console.log("HERE")
         // Gather booking data
         const $booking = $(this)
         
@@ -18,7 +17,6 @@ $(document).ready(function (){
             bookingId: $booking.data("booking-id"),
         }
         
-        console.log("Booking dateTime at click" + bookingObject.dateTime)
         // pass it to function
         displayBooking(bookingObject)
     })
@@ -32,7 +30,6 @@ $(document).ready(function (){
 
 // User clicks on Booking in Bookings list
 function displayBooking(bookingData){
-    console.log("bookingdata" + JSON.stringify(bookingData))
     // Display booking details
     $("#left-block-inner").text("") // Empty out the placeholder anything already populated there
     $("#left-block-inner").append($("<div>", { class: "label", text: "Vehicle" }))
@@ -67,8 +64,6 @@ function displayBooking(bookingData){
 }
 
 function buildNewBookingForm(){
-    console.log("building bookings form")
-
     // Fetch vehicles associated with current user first
     $.get("/vehicles/api/vehicle-listJSON/", function(response) {
         const vehicles = response.vehicles;
@@ -139,13 +134,11 @@ function buildNewBookingForm(){
                 contentType: "application/json",
                 data: JSON.stringify(formData),
                 success: function(response) {
-                    console.log(response);
                     refreshBookingList()
                     $("#left-block-inner").empty()
                     showToastNotification(`${formData.bookingType} Booking`, `Your booking has been submitted for ${formData.dateTime}.`)
                 },
                 error: function (xhr, status, error) {
-                    console.log("Error: ", error);
                     showToastNotification(formData.bookingType, "Something went wrong when saving this booking")
                 }
             })
@@ -155,7 +148,6 @@ function buildNewBookingForm(){
 
 
 function buildEditBookingForm(formData){
-    console.log("135" + formData)
     $("#left-block-inner").empty()
     $("#left-block-inner").append($("<form>", { id: "new-booking-form" }))
     $("#new-booking-form").append(
@@ -207,14 +199,12 @@ function buildEditBookingForm(formData){
                 bookingId: formData.bookingId
             }
             // Pass data into AJAX query
-            console.log("bookingID" + collectedFormData.bookingId)
             $.ajax({
                 url: `/bookings/api/update-booking/${collectedFormData.bookingId}/`,
                 type: "PUT",
                 contentType: "application/json",
                 data: JSON.stringify(collectedFormData),
                 success: function(response) {
-                    console.log(response);
                     refreshBookingList();
                     $("#left-block-inner").empty();
                     showToastNotification(
@@ -223,7 +213,6 @@ function buildEditBookingForm(formData){
                     );
                 },
                 error: function (xhr, status, error) {
-                    console.log("Error: ", error);
                     showToastNotification(collectedFormData.bookingType, "Something went wrong when updating this booking");
                 }
             });
@@ -232,27 +221,22 @@ function buildEditBookingForm(formData){
 }
 
 function showDeleteModal(bookingData){
-        console.log("Opening Modal")
         $("#multi-purpose-modal-title").text("Are you sure?")
         $("#multi-purpose-modal-body").text(`You're about to cancel your booking for ${bookingData.bookingType} on ${bookingData.vehicle} on ${bookingData.dateTime}. Are you sure? This action cannot be undone`)
         $("#multi-purpose-modal-positive").html("I'm sure I want to delete it")
         $("#multi-purpose-modal-negative").html("No, take me back to safety...")
         $("#multi-purpose-modal").modal("show");
         $("#multi-purpose-modal-positive").on("click", function () {
-          console.log("Deleting booking!")
             deleteBooking(bookingData)
         })
 }
 
 function deleteBooking(booking) {
-    console.log(booking + "BOOKING")
-
     $.ajax({
         url: `/bookings/delete-booking/${booking.bookingId}/`,
         type: "POST",
         success: function (response) {
             if (response.status === "ok") {
-                console.log("Booking deleted:", response.deleted_booking_id)
                 refreshBookingList()
                 // Reset left-block-inner
                 
@@ -261,13 +245,11 @@ function deleteBooking(booking) {
                 showToastNotification(title, `Your booking for ${booking.vehicle} on ${booking.dateTime} has been cancelled.`)
                 $("#left-block-inner").empty()
             } else {
-                console.log("Something went wrong: " + response.error)
                 showToastNotification("Something went wrong", response.error)
 
             }
         },
         error: function (xhr, status, error) {
-            console.log("AJAX error: " + error)
             showToastNotification("Something went wrong", error)
         }
     });
@@ -275,7 +257,6 @@ function deleteBooking(booking) {
 }
 
 function refreshBookingList(){
-    console.log("Refreshing Booking List!")
     $.get("/bookings/api/bookings_list/", function(html) {
         $("#booking-list").html(html)
     })

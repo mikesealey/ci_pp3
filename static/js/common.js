@@ -41,8 +41,6 @@ function showToastNotification(title, message) {
  * @param {ModalObject} modalObject - The configuration for the modal.
  */
 function showMultiPurposeModal(modalObject){
-  console.log("Opening MultiPurposeModal");
-
   const modalEl = document.getElementById("multi-purpose-modal");
   const modalTitle = modalEl.querySelector("#multi-purpose-modal-title");
   const modalBody = modalEl.querySelector("#multi-purpose-modal-body");
@@ -71,11 +69,11 @@ document.addEventListener("DOMContentLoaded", function () {
   const bsOffcanvas = new bootstrap.Offcanvas(offcanvasElement);
 
   offcanvasElement.addEventListener("shown.bs.offcanvas", function () {
-    console.log("Offcanvas opened");
+
   });
 
   offcanvasElement.addEventListener("hidden.bs.offcanvas", function () {
-    console.log("Offcanvas closed");
+
   });
 });
 

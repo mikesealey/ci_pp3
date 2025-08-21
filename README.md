@@ -1,5 +1,23 @@
 # ci_pp3
 
+## Lighthouse Reports and Validation
+### Performance
+
+### Accessibility
+
+### Code Validation
+
+#### Python Validation
+I've used a VSCode extension called Flake8 (v2025.2.0) in order to validate my Python code. There are a couple of occasions where lines exceed the reccomended 80 characters, such as the API endpoint for checking vehicle registration numbers (VRNs) but outside of that, everything else passes.
+
+![Python Validation Commits](./readme_images/python_validation_commits.png)
+
+#### JavaSccript Validation
+
+
+### Code Documentation
+
+
 ## Useful resources
 coolors.co - colour pallette picker
 
