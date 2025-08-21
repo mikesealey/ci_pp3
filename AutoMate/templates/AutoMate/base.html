@@ -46,6 +46,9 @@
                         Welcome back, {{ user.username }}
                     </li>
                   {% endif %}
+                  {% if user.is_staff %}
+                    <li><a href="{% url 'all_bookings_page' %}">Customer Bookings</a></li>
+                  {% endif %}
                   {% if user.is_authenticated %}
                       <li><a href="{% url 'vehicles' %}">My Vehicles</a></li>
                       <li><a href="{% url 'bookings' %}">My Bookings</a></li>
