@@ -12,7 +12,28 @@ I've used a VSCode extension called Flake8 (v2025.2.0) in order to validate my P
 
 ![Python Validation Commits](./readme_images/python_validation_commits.png)
 
-#### JavaSccript Validation
+#### JavaScript Validation
+I've used jshint.com to validate my JS. It doesn't return any errors, though it does warn me about the following things
+* `const` an `let` being specific to ES6
+* Template literal being specific to ES6
+* Missing colons, though they are entirely useless
+* Arrow notation in functions being specific to ES6
+
+It's also totally unsure of how to handle jQuery and throws many warnings about anything `$`related. There are also a couple of things surrounding the Bootstrap sidepanel that get warned as "declared but never read" but on closer inspection these variables are "declared but never read _in this particular file_".
+
+##### all_bookings.js
+![Validating all_bookings](./readme_images/js_validation_all_bookings.png)
+
+##### bookings.js
+![Validating bookings](./readme_images/js_validation_bookings.png)
+
+#### common.js
+![Validating common](./readme_images/js_validation_common.png)
+
+#### vehicles.js
+![Validating vehicles](./readme_images/js_validation_vehicles.png)
+
+
 
 
 ### Code Documentation
