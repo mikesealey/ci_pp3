@@ -12,4 +12,5 @@ urlpatterns = [
     path("api/all_bookings/", views.all_bookings_list, name="all_bookings_list"),
     path("<int:booking_id>/complete/", views.booking_completed, name="booking_completed"),
     path("api/approve_booking/<int:booking_id>/", views.approve_booking, name="approve_booking"),
+    path("fragment/", views.bookings_list_fragment, name="bookings_list_fragment"),
 ]

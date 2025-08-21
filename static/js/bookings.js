@@ -142,9 +142,10 @@ function buildNewBookingForm(){
                 contentType: "application/json",
                 data: JSON.stringify(formData),
                 success: function(response) {
-                    refreshBookingList()
+                    console.log(response)
                     $("#left-block-inner").empty()
                     showToastNotification(`${formData.bookingType} Booking`, `Your booking has been submitted for ${formData.dateTime}.`)
+                    refreshBookingList()
                 },
                 error: function (xhr, status, error) {
                     showToastNotification(formData.bookingType, "Something went wrong when saving this booking")
@@ -268,11 +269,17 @@ function deleteBooking(booking) {
     });
     $("#multi-purpose-modal").modal("hide");
 }
-
-function refreshBookingList(){
-    $.get("/bookings/api/bookings_list/", function(html) {
-        $("#booking-list").html(html)
-    })
+function refreshBookingList() {
+    $.ajax({
+        url: "/bookings/fragment/",
+        type: "GET",
+        success: function(html) {
+            $("#booking-list").html(html)
+        },
+        error: function(xhr, status, error) {
+            console.error("Refresh failed", {xhr, status, error})
+        }
+    });
 }
 
 

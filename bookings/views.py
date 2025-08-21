@@ -239,3 +239,10 @@ def send_test_email():
     )
     email.send(fail_silently=False)
 
+
+
+def bookings_list_fragment(request):
+    from .models import Booking
+    # only bookings for the current logged-in user
+    bookings = Booking.objects.filter(user=request.user)
+    return render(request, "bookings/bookings_list.html", {"bookings": bookings})
