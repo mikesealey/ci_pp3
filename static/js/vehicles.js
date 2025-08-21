@@ -67,7 +67,7 @@ $(document).ready(function () {
             $("<label>", { for: "year", text: "Year:", class: "form-label pt-2" }),
             $("<input>", { type: "text", id: "year", name: "year", required: true, value: vehicleData.year, class: "form-control" }),
             $("<label>", { for: "colour", text: "Colour:", class: "form-label pt-2" }),
-            $("<input>", { type: "text", id: "colour", name: "colour", required: true, value: vehicleData.colour, class: "form-control mb-3" }),
+            $("<input>", { type: "text", id: "colour", name: "colour", required: true, value: vehicleData.colour, class: "form-control mb-3" })
           )
           const saveChangesButton = $("<button>", {
               id: "save-changes",

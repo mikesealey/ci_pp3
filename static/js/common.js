@@ -4,7 +4,6 @@ function showToastNotification(title, message) {
   const toastHeader = toastElement.querySelector(".toast-header strong");
   const toastBody = toastElement.querySelector(".toast-body");
 
-
   toastHeader.textContent = title;
   toastBody.textContent = message;
 
@@ -12,20 +11,6 @@ function showToastNotification(title, message) {
   const toast = new bootstrap.Toast(toastEl, { delay: 15000 });
   toast.show();
 }
-
-// Should move Multi-Purpose Modal function here, too.
-/**
- * Expects an object with the following properties
- * {
- *  confirmationButtonFunction
- *  confirmationButtonFunctionArugment
- *  title
- *  body
- *  confirmButtonText
- *  cancelButtonText
- *
- * }
- */
 
 /**
  * @typedef {Object} ModalObject

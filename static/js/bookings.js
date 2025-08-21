@@ -94,7 +94,7 @@ function buildNewBookingForm(){
                 $("<option>", { value: "Other", text: "Other" })
             ),
             $("<label>", { for: "vehicle", text: "Vehicle:", class: "form-label mt-2" }),
-            $("<select>", { id: "vehicle", name: "vehicle", required: true, class: "form-control" }),
+            $("<select>", { id: "vehicle", name: "vehicle", required: true, class: "form-control" })
         )
 
         // Add vehicles as options
@@ -262,7 +262,4 @@ function refreshBookingList(){
     })
 }
 
-function saveBooking(){
-
-}
 
