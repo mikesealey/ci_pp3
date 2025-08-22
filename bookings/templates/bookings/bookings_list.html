@@ -19,7 +19,11 @@
 >
     <div class="d-flex justify-content-between align-items-center gap-3 p-3 w-100">
         <div>
-            <p class="m-0">{{ booking.booking_type }}</p>
+            {% if booking.booking_type == "Other" %}
+                <p class="m-0">General</p>
+            {% else %}
+                <p class="m-0">{{ booking.booking_type }}</p>
+            {% endif %}
             {% if booking.booking_type == "MOT" %}
                 <img src="{% static 'images/mot_logo.png' %}" alt="UK MOT logo" class="booking-type-logo">
             {% elif booking.booking_type == "Service" %}
@@ -31,7 +35,7 @@
             {% endif %}
         </div>
         <p class="m-0">{{ booking.date_time }}</p>
-        <div class="vrn m-0">{{ booking.vehicle.vrn }}</div>
+        <div class="vrn vrn-list m-0">{{ booking.vehicle.vrn }}</div>
     </div>
 </div>
 {% endfor %}

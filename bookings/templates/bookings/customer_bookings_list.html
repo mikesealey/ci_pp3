@@ -1,7 +1,55 @@
+{% load static %}
 {% csrf_token %}
+<p>Click on a customer booking in order to see more details, approve the booking, and carry out the service.</p>
+<div class="d-flex flex-column">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div class="d-flex align-items-center">
+            <i title="Booked, pending approval" class="fa-regular fa-calendar fa-2xl fa-fw"></i>
+            <p class="mb-0 px-2">Booked, pending approval</p>
+        </div>
+        <div class="d-flex align-items-center">
+            <p class="mb-0 px-2">MOT</p>
+            <img src="{% static 'images/mot_logo.png' %}" alt="UK MOT logo" class="booking-type-logo">
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div class="d-flex align-items-center">
+            <i title="Approved booking" class="fa-solid fa-calendar-check fa-2xl fa-fw"></i>
+            <p class="mb-0 px-2">Approved booking</p>
+        </div>
+        <div class="d-flex align-items-center">
+            <p class="mb-0 px-2">Service</p>
+            <i class="fa-solid fa-clipboard-check fa-2x fa-fw"></i>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div class="d-flex align-items-center">
+            <i title="Awaiting service" class="fa-regular fa-hourglass-half fa-2xl fa-fw"></i>
+            <p class="mb-0 px-2">Awaiting service</p>
+        </div>
+        <div class="d-flex align-items-center">
+            <p class="mb-0 px-2">Repair</p>
+            <i class="fa-solid fa-screwdriver-wrench fa-2x fa-fw"></i>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div class="d-flex align-items-center">
+            <i title="Completed service" class="fa-solid fa-clipboard-check fa-2xl fa-fw"></i>
+            <p class="mb-0 px-2">Completed service</p>
+        </div>
+        <div class="d-flex align-items-center">
+            <p class="mb-0 px-2">General/Other booking</p>
+            <i class="fa-solid fa-wrench fa-2x fa-fw"></i>
+        </div>
+    </div>
+</div>
+
 {% for booking in bookings %}
     <div
-        class="all-booking-list-item"
+        class="all-booking-list-item py-4 px-2"
         data-date_time="{{ booking.date_time|date:'Y-m-d\\TH:i' }}"
         data-approved="{{ booking.approved }}"
         data-booking_type="{{ booking.booking_type }}"
@@ -13,18 +61,30 @@
         data-vehicle-id="{{ booking.vehicle.id }}"
         data-booking-id="{{ booking.id }}"
     >
-        <p>Type: {{ booking.booking_type }}</p>
+        {% if booking.booking_type == "MOT" %}
+            <img src="{% static 'images/mot_logo.png' %}" alt="UK MOT logo" class="booking-type-logo" title="MOT">
+        {% elif booking.booking_type == "Service" %}
+            <i class="fa-solid fa-clipboard-check fa-2x fa-fw" title="Service"></i>
+        {% elif booking.booking_type == "Repair" %}
+            <i class="fa-solid fa-screwdriver-wrench fa-2x fa-fw" title="Repair"></i>
+        {% else %}
+            <i class="fa-solid fa-wrench fa-2x fa-fw" title="General/Other booking"></i>
+        {% endif %}
+
+
         {% if booking.approved %}
-            <p>Approval: Approved</p>
+            <i title="Approved booking" class="fa-solid fa-calendar-check fa-2xl fa-fw"></i>
         {% else %}
-            <p>Approval: Pending</p>
+            <i title="Booked, pending approval" class="fa-regular fa-calendar fa-2xl fa-fw"></i>
         {% endif %}
-        <p>{{ booking.date_time }}</p>
+        <div class="date-wrapper">
+            <p>{{ booking.date_time }}</p>
+        </div>
         {% if booking.completed_service %}
-            <p>Status: Completed</p>
+            <i title="Completed service" class="fa-solid fa-clipboard-check fa-2xl fa-fw"></i>
         {% else %}
-            <p>Status: Awaiting Service</p>
+            <i title="Awaiting service" class="fa-regular fa-hourglass-half fa-2xl fa-fw"></i>
         {% endif %}
-        <div class="vrn">{{ booking.vehicle.vrn }}</div>
+        <div class="vrn vrn-list">{{ booking.vehicle.vrn }}</div>
     </div>
 {% endfor %}

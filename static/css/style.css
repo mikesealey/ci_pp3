@@ -192,7 +192,17 @@ input, select, textarea {
     flex-direction: column;
 }
 
+/* Makes dates in lists a unifoirm width for better alignment */
+.date-wrapper {
+    min-width: 200px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
 
+.date-wrapper p {
+    margin: 0;
+}
 
 .vrn {
     background-color: #ffd800;
@@ -209,17 +219,16 @@ input, select, textarea {
 
     /* Size/Aspect/Dimensions */
     aspect-ratio: 520 / 111;
-
-    padding: 5px
+    padding: 5px 5px 0 5px
 }
 
 .vrn-list {
-    padding: 5px 12px;
-    letter-spacing: 1px;
-    font-size: 32px;
-    font-size: 2rem;
-    letter-spacing: 2px;
+    padding: 5px 12px 0 12px;
     font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
 }
 
 .electric-list {
@@ -285,9 +294,9 @@ input {
 }
 
 .booking-type-logo {
-    max-width: 36px;
-    max-height: 36px;
-    aspect-ratio: 1:1;
+    max-width: 40px;
+    max-height: 40px;
+    aspect-ratio: 1/1;
 }
 
 

@@ -41,7 +41,7 @@ $(document).ready(function (){
         $("#left-block-inner").append($("<div>", { id: "approved-view", text: bookingData.approved === "True"? "Approved" : "Pending" }))
         $("#left-block-inner").append($("<div>", { class: "label", text: "Booking Status" }))
         $("#left-block-inner").append($("<div>", { id: "completed-service-view", text: bookingData.completed_service === "True"? "Completed" : "Awaiting Service" }))
-    
+
     
         let buttonDisabled = false
         const bookingDate = new Date(bookingData.dateTime)
@@ -49,19 +49,24 @@ $(document).ready(function (){
         if (bookingData.completed_service === "True" || bookingDate.getTime() < now.getTime()) { // Need to check against string of "True" because it's a response from Python/Django
             buttonDisabled = true
         }
-        $("#left-block-inner").append($("<button>", { id: "approve-booking", text: "Approve booking", disabled: bookingData.approved === "True" || buttonDisabled })).on("click", "#approve-booking", function(){
+    
+        const approveServiceButton = $("<button>", { id: "approve-booking", class: "btn btn-primary w-50", disabled: bookingData.approved === "True" })
+        approveServiceButton.append($("<i>", { class: "fa-solid fa-square-check mx-2" }))
+        approveServiceButton.append("Approve Booking")
+        $("#left-block-inner").off("click", "#approve-booking").on("click", "#approve-booking", function (){ // stops multiple event listeners being added - fixes bug in forms
             approveBooking(bookingData)
-        });
-        $("#left-block-inner").append($("<button>", { id: "carry-out-service", text: "Carry out service", disabled: buttonDisabled })); // replace with pen icon for edit
-        $("#left-block-inner").off("click", "#carry-out-service").on("click", "#carry-out-service", function (){ // stops multiple event listeners being added - fixes bug in forms
-          buildServiceForm(bookingData)
         })
+        $("#left-block-inner").append(approveServiceButton)
+
+        const completeServiceButton = $("<button>", { id: "carry-out-service", class: "btn btn-success w-50", disabled: bookingData.completed_service === "True" })
+        completeServiceButton.append($("<i>", { class: "fa-solid fa-clipboard-list mx-2" }))
+        completeServiceButton.append("Carry out service")
+        $("#left-block-inner").off("click", "#carry-out-service").on("click", "#carry-out-service", function (){ // stops multiple event listeners being added - fixes bug in forms
+            buildServiceForm(bookingData)
+        })
+        $("#left-block-inner").append(completeServiceButton)
     }
     
-
-
-
-
 function approveBooking(bookingData){
     // Make the AJAX call to approve the booking
     $.ajax({
@@ -95,13 +100,7 @@ function approveBooking(bookingData){
 }
 
 function completeBooking(bookingData){
-    
-    // Gather data from the form
-    // Make the AJAX call
-    // Notifiy the customer
-    // Refresh the bookings list
     refreshAllBookingList()
-    // Show toast notification
 }
 
 function buildServiceForm(bookingData){
@@ -117,16 +116,19 @@ function buildServiceForm(bookingData){
             id: "mechanics-notes-input",
             placeholder: "Enter mechanics notes...",
             rows: 5,
-            cols: 40
+            cols: 40,
+            class: "form-control"
         })
     );
     $("<button>", {
-        id: "save-mechanics-notes",
-        text: "Save"
+        id: "cancel-mechanics-notes",
+        text: "Cancel",
+        class: "btn btn-warning w-50"
     }).insertAfter("#mechanics-notes-input");
     $("<button>", {
-        id: "cancel-mechanics-notes",
-        text: "Cancel"
+        id: "save-mechanics-notes",
+        text: "Save",
+        class: "btn btn-primary w-50"
     }).insertAfter("#mechanics-notes-input");
     $("#save-mechanics-notes").off("click").on("click", function () {
         // Show modal to ask mechanic to confirm their notes
@@ -153,17 +155,7 @@ function buildServiceForm(bookingData){
             booking: bookingData
         }
         showMultiPurposeModal(modalObject)
-        
-
-        
-        
     });
-
-    // Work on a way to save form
-    // Work on a way to put the form back to the original view
-    // refresh list
-    // Make sure to send the email
-    // Probably want some "Are you sure you want to continue?" modals
 }
 }
 
@@ -203,8 +195,6 @@ function saveMechanicsNotes(bookingData) {
             $("#cancel-mechanics-notes").remove()
             $("#carry-out-service").prop("disabled", true)
             // Email customer!
-
-
         },
         error: function(xhr, status, error) {
             console.error("Failed to save mechanic's notes:", error);
@@ -212,5 +202,4 @@ function saveMechanicsNotes(bookingData) {
             // Sad Toast
         }
     });
-    
 }
