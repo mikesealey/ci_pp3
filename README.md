@@ -168,17 +168,6 @@ _NB: In order to test, you may wish to visit AutoTrader.co.uk for a good resourc
 ### Result
 - pass - boookings list is refreshed and updated.
 
-----
-### As a user...
-* I 
-### Steps to test
-- From an account that contains at least one vehicle, visit My Bookings
-- Click "Add new booking"
-- Select a booking type, a vehicle, a date, provide customer notes and vehicle mileage at service 
-- click _Save Booking_
-### Result
-- pass - boookings list is refreshed and updated.
-
 -----
 ### Multiple User/Staff stories in one test
 - As a user...I can recieve updates about my booking via email
