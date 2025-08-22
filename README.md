@@ -11,15 +11,46 @@ A feature of the "My Vehicles form is the Vehicle Registration Number API which 
 
 ![VRN Search demonstration](./readme_images/vrn_check_demo.gif)
 
-
+AutoMate also features a back-office section, specifically for staff-members, who can accept bookings from customers, and carry out services. When a booking has been completed, details of the booking are automatically emailed to the customer, so that they know the specifics of the service, and that their car is ready for collection.$
 
 
 
 
 ## Lighthouse Reports and Validation
 ### Performance
+For Performance tests, I've run each page through Chrome's Lighthouse tests.
+![Lightouse Tests Login](readme_images/lighthouse_login.png)
+
+![Lighthouse Tests Homepage](readme_images/lighthouse_homepage.png)
+
+![Lighthouse Tests Profile](readme_images/lighthouse_profile.png)
+
+![Lighthouse Tests Vehicles](readme_images/lighthouse_vehicles.png)
+
+![Lighthouse Tests Bookings](readme_images/lighthouse_bookings.png)
+
+![Lighthouse Tests All Bookings](readme_images/lighthouse_all_bookings.png)
 
 ### Accessibility
+I've used the [Web Accessability Evaluation tool (WAVE)](https://wave.webaim.org/) to check the accessibility of my project.
+
+There are a couple of things that it throws an error over - one of which is a "Skipped Heading Level" issue. This is for people using Screen Readers, where Headings h1-h6 denote importance. I'm not completely sure why this error is thrown, as the page contains an h1 for the title in the nav bar, followed by an h1 and h2 accordingly in the main body of the page.
+![alt text](readme_images/wave_skipped_heading.png)
+
+I also had an error for an Empty Heading - this was because I was _always_ rendering the heading, and only conditionally rendering text inside it. [This commit](https://github.com/mikesealey/ci_pp3/commit/eec949f7b88ba0ff4a1cd9153d01cac1e4583761) handles it by moving the entire heading inside the if-statement, rather than having the if-statement inside the heading.
+![WAVE Empty Heading warning](readme_images/wave_empty_heading.png)
+
+![WAVE homepage](readme_images/wave_homepage.png)
+
+![WAVE Login](readme_images/wave_login.png)
+
+![WAVE Profile](readme_images/wave_profile.png)
+
+![WAVE All Bookings](readme_images/wave_all_bookings.png)
+
+![WAVE My Vehicles](readme_images/wave_my_vehicles.png)
+
+
 
 ### Code Validation
 
