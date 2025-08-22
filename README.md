@@ -33,6 +33,21 @@ It's also totally unsure of how to handle jQuery and throws many warnings about 
 #### vehicles.js
 ![Validating vehicles](./readme_images/js_validation_vehicles.png)
 
+### HTML Validation
+I have validated my HTML using https://validator.w3.org/nu/ - some pages were validated based on their web-address (ie feeding the live version of the site into the validator) though for logged-in pages this isn't possible, so other pages were fed into the validator in plain-html instead.
+
+#### Homepage
+There are a couple of reccuring issues that it flags - There's an h5 that contains a greeting to the logged in user, though the user is not always logged in, so there are occasions when the h5 tag is empty.
+
+![Homepage Validation](readme_images/html_validation_homepage.png)
+
+#### Log In
+![Log In Validation](readme_images/html_validation_login.png)
+
+#### Signup
+The Signup form uses Django's baked-in form, which brings with it a handful of things that this HTML checker isn't happy about, though this isn't actually code I've written.
+![Signup validation](readme_images/html_validation_signup.png)
+
 
 
 
