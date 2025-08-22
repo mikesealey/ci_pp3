@@ -1,4 +1,20 @@
-# ci_pp3
+# AutoMate
+
+This project is an booking site for automotive service, inspection, and repair, as part of my Level 5 Diploma in Web Application Development.
+
+This project is for educational purposes only. No services will be rendered.
+
+## About AutoMate
+With Automate, users can create an account and log in. From there, users can add vehicles to their profile and use those vehicles to create bookings for [MOT Tests](https://en.wikipedia.org/wiki/MOT_test), services, repair work, or other general bookings.
+
+A feature of the "My Vehicles form is the Vehicle Registration Number API which ties into the official UK Driver and Vehicle Licencing Agency (DLVA) API key to get details of this vehicle. This ensures mechanics know specifically the type of vehicle to expect in the booking, as well as helping the user to provide valid information.
+
+![VRN Search demonstration](./readme_images/vrn_check_demo.gif)
+
+
+
+
+
 
 ## Lighthouse Reports and Validation
 ### Performance
