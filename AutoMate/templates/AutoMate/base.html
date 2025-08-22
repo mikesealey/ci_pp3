@@ -28,16 +28,16 @@
     <script src="{% static 'js/all_bookings.js' %}"></script>
 </head>
 <body>
-    <div id="nav-container">
+    <div id="nav-container" class="d-flex align-items-center justify-content-between p-2">
         <div id="title-container">
-            <a id="link-home" href="{% url 'homepage' %}" class="d-md-flex align-items-md-center justify-content-center">
-                <i class="fa-solid fa-wrench" id="title-spanner"></i>
-                <h1>AutoMate</h1>
+            <a id="link-home" href="{% url 'homepage' %}" class="d-flex align-items-center text-decoration-none">
+                <i class="fa-solid fa-wrench me-2" id="title-spanner"></i>
+                <h1 class="mb-0">AutoMate</h1>
             </a>
         </div>
-        <div  class="d-md-flex align-items-md-center justify-content-center">
+        <div class="d-none d-md-flex align-items-center justify-content-center">
           <nav id="desktop-nav">
-              <ul>
+              <ul class="d-flex list-unstyled mb-0 gap-3">
                   {% if user.is_authenticated %}
                     <li id="welcome-message"
                         data-date-joined="{{ user.date_joined|date:'Y-m-d H:i:s' }}"
@@ -61,9 +61,7 @@
               </ul>
           </nav>
         </div>
-        <!-- Bootstrap sidepanel -->
-        <button id="hamburger-button" class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">☰</button>
-
+        <button id="hamburger-button" class="btn btn-primary d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"><i class="fa-solid fa-bars fa-2xl"></i></button>
         <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
           <div class="offcanvas-header">
             {% if user.is_authenticated %}
@@ -75,7 +73,7 @@
           </div>
           <div class="offcanvas-body">
             <nav>
-              <ul id="mobile-nav">
+              <ul id="mobile-nav" class="list-unstyled">
                   {% if user.is_staff %}
                     <li><a href="{% url 'all_bookings_page' %}">Customer Bookings</a></li>
                   {% endif %}
@@ -92,7 +90,6 @@
           </nav>
           </div>
         </div>
-        <!-- End of bootstrap sidepanle -->
     </div>
     <div id="block-content">
     {% block content %}
