@@ -73,6 +73,7 @@ There are a couple of things that it throws an error over - one of which is a "S
 ![alt text](readme_images/wave_skipped_heading.png)
 
 I also had an error for an Empty Heading - this was because I was _always_ rendering the heading, and only conditionally rendering text inside it. [This commit](https://github.com/mikesealey/ci_pp3/commit/eec949f7b88ba0ff4a1cd9153d01cac1e4583761) handles it by moving the entire heading inside the if-statement, rather than having the if-statement inside the heading.
+
 ![WAVE Empty Heading warning](readme_images/wave_empty_heading.png)
 
 ![WAVE homepage](readme_images/wave_homepage.png)
