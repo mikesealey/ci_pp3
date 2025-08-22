@@ -241,35 +241,8 @@ https://assets.publishing.service.gov.uk/media/6694e379fc8e12ac3edafc60/inf104-v
 - https://stackoverflow.com/questions/209029/best-way-to-remove-an-event-handler-in-jquery
 Useful for removing an on(click) handler
 - Some writing on Optimistic vs Pessimistic rendering: https://medium.com/@whosale/optimistic-and-pessimistic-ui-rendering-approaches-bc49d1298cc0 and https://blog.devgenius.io/a-quick-look-at-optimistic-vs-pessimistic-rendering-4df00a5af0ff
+- Useful for validating VRN formats: https://www.belinus.co.uk/plates-format-history.php - I initialy considered using Regex to force users into only submitting a valid VRN, however this article doesn't pin down exactly what can or cannot be used as a "Private" or "Vanity" plate, so this could exclude users. Instead I opted to let them handle it themselves with the VRN search and manually inputting missing fields.
 
-
-
-Some example VRNs for testing
-MM71UOS - Peugeot Electric
-
-Useful for validating VRN formats: https://www.belinus.co.uk/plates-format-history.php
-
-
-Database structure forces rethink - 
-When a user deletes a vehicle (for example, if they no longer own the vehicle) We don't actually delete the vehicle from the database, we simply update it to have no user-relationship.
-
-The downside of doing it this way is that should another user buy that vehicle and try to register it, they're trying to create a new row in the database where vrn (vehicle registration number) is the ID, which must be unique.
-
-Some frontend-validation is required to check if the car already exists in the database, and if it has no user associated with it. There are cases where someone may sell the vehicle but fail to update their account, and a different user buys that vehicle they won't be able to save the vehicle to themselves. In such cases it may worth building some sort of back-office admin panel for staff.
-
-Update: This could be solved with a many-to-many relationship between vehicles and users - providing booking details were filtered to current user, it would maintain the data integrity but allow someone to register their newly-purchased second hand vehicle even if it's previous owner has still got it registered with their account.
-
-CREDITS:
-Boostrap
-Toast notification from docs https://getbootstrap.com/docs/4.5/components/toasts/
-
-Interesting bugs:
-Because much of the dom is being manipulated, I had to change teh way they're applied 
-Swapping $("#thing").on("click", function(){}) for $("#parent-thing").on("click", "#thing", function(){}) where the parent "thing" should always be present.
-
-
-
-icons for service types
 
 
 
