@@ -245,6 +245,10 @@ input, select, textarea {
     justify-content: center;
 }
 
+.vrn-xl {
+    font-size: 128px;
+}
+
 .electric-med {
     border-left: 15px solid green;
     padding-left: 0;
