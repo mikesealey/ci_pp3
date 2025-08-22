@@ -15,6 +15,8 @@ AutoMate also features a back-office section, specifically for staff-members, wh
 
 ## User Stories
 
+More details on User Stories can be found in the project board https://github.com/users/mikesealey/projects/2/views/1 
+
 ### As a user...
 * I can log in so that I can manage my bookings, vehicles, and details
 * I can save a vehicle to My Vehicles
