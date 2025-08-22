@@ -66,11 +66,11 @@
 
         <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
           <div class="offcanvas-header">
-            <h5 id="offcanvasRightLabel">
-              {% if user.is_authenticated %}
+            {% if user.is_authenticated %}
+              <h5 id="offcanvasRightLabel">
                 Welcome back, {{ user.username }}
-              {% endif %}
-            </h5>
+              </h5>
+            {% endif %}
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
           </div>
           <div class="offcanvas-body">
